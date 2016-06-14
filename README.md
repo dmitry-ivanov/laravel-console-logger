@@ -1,6 +1,6 @@
 # Laravel console logger
 
-StyleCI
+[![StyleCI](https://styleci.io/repos/61117768/shield)](https://styleci.io/repos/61117768)
 SensioLabsInsight
 
 Provides logging and email notifications for Laravel console commands.

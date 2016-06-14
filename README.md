@@ -15,3 +15,5 @@ Provides logging and email notifications for Laravel console commands.
     ```shell
     composer require illuminated/console-logger
     ```
+
+2. To be continued...

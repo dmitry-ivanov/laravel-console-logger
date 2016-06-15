@@ -33,9 +33,9 @@ Provides logging and email notifications for Laravel console commands.
 
 3. Now your command is... To be continued... 
 
-## Logger is not initialized?
+## Logger not initialized?
 
-Please note, that `Loggable` trait is overriding `initialize` method:
+Note, that `Loggable` trait is overriding `initialize` method:
 ```php
 trait Loggable
 {

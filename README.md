@@ -33,7 +33,7 @@ Provides logging and email notifications for Laravel console commands.
 
 3. Now your command is... To be continued... 
 
-## Logger not initialized?
+## Troubleshooting
 
 Note, that `Loggable` trait is overriding `initialize` method:
 ```php

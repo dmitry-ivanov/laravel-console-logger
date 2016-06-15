@@ -12,6 +12,8 @@ trait Loggable
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->initializeLogging();
+
+        return parent::initialize($input, $output);
     }
 
     protected function initializeLogging()

@@ -32,3 +32,36 @@ Provides logging and email notifications for Laravel console commands.
     ```
 
 3. Now your command is... To be continued... 
+
+## Logger is not initialized?
+
+Please note, that `Loggable` trait is overriding `initialize` method:
+```php
+trait Loggable
+{
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $this->initializeLogging();
+    }
+
+    // ...
+}
+```
+
+If your command is overriding `initialize` method too, then you should initialize logger manually:
+```php
+class Foo extends Command
+{
+    use Loggable;
+
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $this->bar = $this->argument('bar');
+        $this->baz = $this->argument('baz');
+
+        $this->initializeLogging();
+    }
+
+    // ...
+}
+```

@@ -48,7 +48,7 @@ trait Loggable
 }
 ```
 
-If your command is overriding `initialize` method too, then you should initialize logger manually:
+If your command is overriding `initialize` method too, then you should call `initializeLogging` method by yourself:
 ```php
 class Foo extends Command
 {

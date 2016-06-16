@@ -56,10 +56,10 @@ class Foo extends Command
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
+        $this->initializeLogging();
+
         $this->bar = $this->argument('bar');
         $this->baz = $this->argument('baz');
-
-        $this->initializeLogging();
     }
 
     // ...

@@ -10,4 +10,10 @@ class Formatter extends LineFormatter
     {
         parent::__construct("[%datetime%]: [%level_name%]: %message%\n%context% %extra%\n", null, true, true);
     }
+
+    public function format(array $record)
+    {
+        $output = parent::format($record);
+        return rtrim($output) . "\n";
+    }
 }

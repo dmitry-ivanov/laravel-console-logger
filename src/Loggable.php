@@ -2,6 +2,7 @@
 
 namespace Illuminated\Console;
 
+use Illuminated\Console\Log\Formatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,14 +19,19 @@ trait Loggable
 
     protected function initializeLogging()
     {
+        $log = new Logger('ICL', $this->getLogHandlers());
+        $log->info('Hello World!');
+    }
+
+    private function getLogHandlers()
+    {
         $type = $this->type();
-        $environment = app()->environment();
         $path = storage_path("logs/cloud/{$type}/{$this->entity}/date.log");
 
-        $handler = new RotatingFileHandler($path, 30);
-        $handler->setFilenameFormat('{date}', 'Y-m-d');
-        $log = new Logger($environment, [$handler]);
+        $rotatingFileHandler = new RotatingFileHandler($path, 30);
+        $rotatingFileHandler->setFilenameFormat('{date}', 'Y-m-d');
+        $rotatingFileHandler->setFormatter(new Formatter());
 
-        $log->info('Hello World!');
+        return [$rotatingFileHandler];
     }
 }

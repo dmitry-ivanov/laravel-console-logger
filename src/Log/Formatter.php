@@ -19,15 +19,10 @@ class Formatter extends LineFormatter
 
     protected function convertToString($data)
     {
-        $decoded = is_json($data, true);
-        if ($decoded) {
-            $data = $decoded;
+        if (is_array($data)) {
+            return var_export($data, true);
         }
 
-        if (is_string($data)) {
-            return $data;
-        }
-
-        return var_export($data, true);
+        return parent::convertToString($data);
     }
 }

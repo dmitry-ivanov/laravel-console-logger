@@ -12,7 +12,6 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/console": "^5.2",
-        "illuminated/helper-functions": "^0.1.1",
         "monolog/monolog": "^1.19"
     },
     "autoload": {

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e8a201545e447b003060e5cf1cecd98f",
-    "content-hash": "367c2d6822a2101c4b68c0e806a4967a",
+    "hash": "7d3a20e64b1e656e291883d6dc3d62ee",
+    "content-hash": "d84720dce3a911097123893a777580ea",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -222,47 +222,6 @@
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
             "time": "2016-05-30 02:40:53"
-        },
-        {
-            "name": "illuminated/helper-functions",
-            "version": "0.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
-                "reference": "5d3e6599313be65f840ebce9499fe7f4ef19bf1d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/5d3e6599313be65f840ebce9499fe7f4ef19bf1d",
-                "reference": "5d3e6599313be65f840ebce9499fe7f4ef19bf1d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/autoload.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dmitry Ivanov",
-                    "email": "dmitry.g.ivanov@gmail.com"
-                }
-            ],
-            "description": "Provides Laravel-specific and pure PHP helper functions.",
-            "keywords": [
-                "function",
-                "helper",
-                "laravel"
-            ],
-            "time": "2016-06-17 16:48:05"
         },
         {
             "name": "monolog/monolog",

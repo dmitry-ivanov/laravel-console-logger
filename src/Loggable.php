@@ -40,6 +40,7 @@ trait Loggable
                 ],
             ],
         ]);
+        $log->error('Error Test!');
     }
 
     private function getLogHandlers()

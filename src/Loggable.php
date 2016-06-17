@@ -26,7 +26,8 @@ trait Loggable
     private function getLogHandlers()
     {
         $type = $this->type();
-        $path = storage_path("logs/cloud/{$type}/{$this->entity}/date.log");
+        $entity = $this->argument('entity');
+        $path = storage_path("logs/cloud/{$type}/{$entity}/date.log");
 
         $rotatingFileHandler = new RotatingFileHandler($path, 30);
         $rotatingFileHandler->setFilenameFormat('{date}', 'Y-m-d');

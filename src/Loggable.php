@@ -20,7 +20,8 @@ trait Loggable
     protected function initializeLogging()
     {
         $log = new Logger('ICL', $this->getLogHandlers());
-        $log->info('Hello World!', [
+        $log->info('Hello World!');
+        $log->info('Message with context!', [
             'isOkay' => true,
             'count' => 3000,
             'type' => 'cool',

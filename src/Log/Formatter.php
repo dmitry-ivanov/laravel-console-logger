@@ -8,7 +8,7 @@ class Formatter extends LineFormatter
 {
     public function __construct()
     {
-        parent::__construct("[%datetime%]: [%level_name%]: %message%\n%context% %extra%\n", null, true, true);
+        parent::__construct("[%datetime%]: [%level_name%]: %message%\n%context%\n", null, true, true);
     }
 
     public function format(array $record)

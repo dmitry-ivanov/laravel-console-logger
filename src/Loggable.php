@@ -20,7 +20,25 @@ trait Loggable
     protected function initializeLogging()
     {
         $log = new Logger('ICL', $this->getLogHandlers());
-        $log->info('Hello World!');
+        $log->info('Hello World!', [
+            'isOkay' => true,
+            'count' => 3000,
+            'type' => 'cool',
+            'objects' => [
+                [
+                    'name' => 'First',
+                    'date' => '2016-06-17 14:15:58',
+                ],
+                [
+                    'name' => 'Second',
+                    'date' => '2016-06-17 15:15:58',
+                ],
+                [
+                    'name' => 'Third',
+                    'date' => '2016-06-17 16:15:58',
+                ]
+            ],
+        ]);
     }
 
     private function getLogHandlers()

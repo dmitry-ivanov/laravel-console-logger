@@ -36,7 +36,7 @@ trait Loggable
                 [
                     'name' => 'Third',
                     'date' => '2016-06-17 16:15:58',
-                ]
+                ],
             ],
         ]);
     }

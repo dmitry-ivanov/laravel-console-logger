@@ -2,6 +2,7 @@
 
 namespace Illuminated\Console;
 
+use Illuminate\Support\Str;
 use Illuminated\Console\Log\Formatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
@@ -45,14 +46,16 @@ trait Loggable
 
     private function getLogHandlers()
     {
-        $type = $this->type();
-        $entity = $this->argument('entity');
-        $path = storage_path("logs/cloud/{$type}/{$entity}/date.log");
-
-        $rotatingFileHandler = new RotatingFileHandler($path, 30);
+        $rotatingFileHandler = new RotatingFileHandler($this->getLogPath(), 30);
         $rotatingFileHandler->setFilenameFormat('{date}', 'Y-m-d');
         $rotatingFileHandler->setFormatter(new Formatter());
 
         return [$rotatingFileHandler];
+    }
+
+    protected function getLogPath()
+    {
+        $name = Str::replaceFirst(':', '/', $this->getName());
+        return storage_path("logs/{$name}/date.log");
     }
 }

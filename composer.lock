@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d3a20e64b1e656e291883d6dc3d62ee",
-    "content-hash": "d84720dce3a911097123893a777580ea",
+    "hash": "e72383c072b50a1a30b236a48994a3c6",
+    "content-hash": "cae147b6a9b86e088efb48aa1b9b0abf",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -222,6 +222,48 @@
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
             "time": "2016-05-30 02:40:53"
+        },
+        {
+            "name": "illuminated/helper-functions",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
+                "reference": "b1a65a5185047bcfc4f1524802fe00d8feef77e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/b1a65a5185047bcfc4f1524802fe00d8feef77e8",
+                "reference": "b1a65a5185047bcfc4f1524802fe00d8feef77e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "symfony/var-dumper": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Ivanov",
+                    "email": "dmitry.g.ivanov@gmail.com"
+                }
+            ],
+            "description": "Provides Laravel-specific and pure PHP helper functions.",
+            "keywords": [
+                "function",
+                "helper",
+                "laravel"
+            ],
+            "time": "2016-06-18 11:59:12"
         },
         {
             "name": "monolog/monolog",
@@ -616,6 +658,69 @@
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
             "time": "2016-06-14 11:18:07"
+        },
+        {
+            "name": "symfony/var-dumper",
+            "version": "v3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "436195b421e8c0493ca3e390c1fbecd8ee08c546"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/436195b421e8c0493ca3e390c1fbecd8ee08c546",
+                "reference": "436195b421e8c0493ca3e390c1fbecd8ee08c546",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "require-dev": {
+                "twig/twig": "~1.20|~2.0"
+            },
+            "suggest": {
+                "ext-symfony_debug": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "Resources/functions/dump.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Component\\VarDumper\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony mechanism for exploring and dumping PHP variables",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "debug",
+                "dump"
+            ],
+            "time": "2016-05-24 10:06:56"
         }
     ],
     "packages-dev": [],

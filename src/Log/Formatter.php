@@ -20,7 +20,7 @@ class Formatter extends LineFormatter
     protected function convertToString($data)
     {
         if (is_array($data)) {
-            return var_export($data, true);
+            return get_dump($data);
         }
 
         return parent::convertToString($data);

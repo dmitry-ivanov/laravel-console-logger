@@ -4,6 +4,7 @@ namespace Illuminated\Console;
 
 use Illuminate\Support\Str;
 use Illuminated\Console\Log\Formatter;
+use Monolog\ErrorHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,6 +22,8 @@ trait Loggable
     protected function initializeLogging()
     {
         $log = new Logger('ICL', $this->getLogHandlers());
+        ErrorHandler::register($log);
+
         $log->info('Hello World!');
         $log->info('Message with context!', [
             'isOkay' => true,

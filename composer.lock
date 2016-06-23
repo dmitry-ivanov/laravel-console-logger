@@ -225,21 +225,22 @@
         },
         {
             "name": "illuminated/helper-functions",
-            "version": "0.1.5",
+            "version": "0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
-                "reference": "b1a65a5185047bcfc4f1524802fe00d8feef77e8"
+                "reference": "edc219e61a59c011ea30b6340ed587cfd698dbe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/b1a65a5185047bcfc4f1524802fe00d8feef77e8",
-                "reference": "b1a65a5185047bcfc4f1524802fe00d8feef77e8",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/edc219e61a59c011ea30b6340ed587cfd698dbe7",
+                "reference": "edc219e61a59c011ea30b6340ed587cfd698dbe7",
                 "shasum": ""
             },
             "require": {
+                "illuminate/support": "^5.2",
                 "php": ">=5.4.0",
-                "symfony/var-dumper": "^3.1"
+                "symfony/var-dumper": "^3.0"
             },
             "type": "library",
             "autoload": {
@@ -263,7 +264,7 @@
                 "helper",
                 "laravel"
             ],
-            "time": "2016-06-18 11:59:12"
+            "time": "2016-06-23 12:40:51"
         },
         {
             "name": "monolog/monolog",

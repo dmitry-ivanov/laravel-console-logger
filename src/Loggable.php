@@ -24,27 +24,20 @@ trait Loggable
         $log = new Logger('ICL', $this->getLogHandlers());
         ErrorHandler::register($log);
 
-        $log->info('Hello World!');
-        $log->info('Message with context!', [
-            'isOkay' => true,
-            'count' => 3000,
-            'type' => 'cool',
-            'objects' => [
-                [
-                    'name' => 'First',
-                    'date' => '2016-06-17 14:15:58',
-                ],
-                [
-                    'name' => 'Second',
-                    'date' => '2016-06-17 15:15:58',
-                ],
-                [
-                    'name' => 'Third',
-                    'date' => '2016-06-17 16:15:58',
-                ],
-            ],
-        ]);
-        $log->error('Error Test!');
+        $class = get_class($this);
+        $host = gethostname();
+        $ip = gethostbyname($host);
+        $log->info("Command `{$class}` initialized.");
+        $log->info("Host: `{$host}` (`{$ip}`).");
+
+        if (laravel_db_is_mysql()) {
+            $dbIp   = (string) laravel_db_mysql_variable('wsrep_node_address');
+            $dbHost = (string) laravel_db_mysql_variable('hostname');
+            $dbPort = (string) laravel_db_mysql_variable('port');
+            $now = laravel_db_mysql_now();
+            $log->info("Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.");
+            $log->info("Database date: `{$now}`.");
+        }
     }
 
     private function getLogHandlers()

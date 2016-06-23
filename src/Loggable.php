@@ -31,7 +31,7 @@ trait Loggable
         $log->info("Host: `{$host}` (`{$ip}`).");
 
         if (laravel_db_is_mysql()) {
-            $dbIp   = (string) laravel_db_mysql_variable('wsrep_node_address');
+            $dbIp = (string) laravel_db_mysql_variable('wsrep_node_address');
             $dbHost = (string) laravel_db_mysql_variable('hostname');
             $dbPort = (string) laravel_db_mysql_variable('port');
             $now = laravel_db_mysql_now();

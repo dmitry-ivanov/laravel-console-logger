@@ -9,7 +9,6 @@ class ErrorHandler extends MonologErrorHandler
     public static function registerIcl()
     {
         $handler = new static(app('log.icl'));
-        $handler->registerErrorHandler();
         $handler->registerFatalHandler();
 
         return $handler;

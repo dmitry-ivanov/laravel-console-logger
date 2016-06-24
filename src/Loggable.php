@@ -2,9 +2,9 @@
 
 namespace Illuminated\Console;
 
+use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Support\Str;
 use Illuminated\Console\Log\Formatter;
-use Monolog\ErrorHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,6 +12,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait Loggable
 {
+    private $icl;
+
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->initializeLogging();
@@ -21,23 +23,32 @@ trait Loggable
 
     protected function initializeLogging()
     {
-        $log = new Logger('ICL', $this->getLogHandlers());
-        ErrorHandler::register($log);
+        $this->initializeLoggingBindings();
 
         $class = get_class($this);
         $host = gethostname();
         $ip = gethostbyname($host);
-        $log->info("Command `{$class}` initialized.");
-        $log->info("Host: `{$host}` (`{$ip}`).");
+        $this->logInfo("Command `{$class}` initialized.");
+        $this->logInfo("Host: `{$host}` (`{$ip}`).");
 
         if (laravel_db_is_mysql()) {
             $dbIp = (string) laravel_db_mysql_variable('wsrep_node_address');
             $dbHost = (string) laravel_db_mysql_variable('hostname');
             $dbPort = (string) laravel_db_mysql_variable('port');
             $now = laravel_db_mysql_now();
-            $log->info("Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.");
-            $log->info("Database date: `{$now}`.");
+            $this->logInfo("Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.");
+            $this->logInfo("Database date: `{$now}`.");
         }
+    }
+
+    private function initializeLoggingBindings()
+    {
+        app()->singleton('log.icl', function () {
+            return new Logger('ICL', $this->getLogHandlers());
+        });
+        $this->icl = app('log.icl');
+
+        app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
     }
 
     private function getLogHandlers()
@@ -53,5 +64,45 @@ trait Loggable
     {
         $name = Str::replaceFirst(':', '/', $this->getName());
         return storage_path("logs/{$name}/date.log");
+    }
+
+    protected function logDebug($message, array $context = [])
+    {
+        return $this->icl->debug($message, $context);
+    }
+
+    protected function logInfo($message, array $context = [])
+    {
+        return $this->icl->info($message, $context);
+    }
+
+    protected function logNotice($message, array $context = [])
+    {
+        return $this->icl->notice($message, $context);
+    }
+
+    protected function logWarning($message, array $context = [])
+    {
+        return $this->icl->warning($message, $context);
+    }
+
+    protected function logError($message, array $context = [])
+    {
+        return $this->icl->error($message, $context);
+    }
+
+    protected function logCritical($message, array $context = [])
+    {
+        return $this->icl->critical($message, $context);
+    }
+
+    protected function logAlert($message, array $context = [])
+    {
+        return $this->icl->alert($message, $context);
+    }
+
+    protected function logEmergency($message, array $context = [])
+    {
+        return $this->icl->emergency($message, $context);
     }
 }

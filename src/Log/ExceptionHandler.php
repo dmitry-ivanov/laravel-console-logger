@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminated\Console;
+namespace Illuminated\Console\Log;
 
 use App\Exceptions\Handler;
 use Exception;

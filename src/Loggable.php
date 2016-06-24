@@ -4,9 +4,9 @@ namespace Illuminated\Console;
 
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Support\Str;
+use Illuminated\Console\Log\ErrorHandler;
 use Illuminated\Console\Log\ExceptionHandler;
 use Illuminated\Console\Log\Formatter;
-use Monolog\ErrorHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
@@ -50,7 +50,7 @@ trait Loggable
         });
         $this->icl = app('log.icl');
 
-        ErrorHandler::register($this->icl);
+        ErrorHandler::registerIcl();
 
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
     }

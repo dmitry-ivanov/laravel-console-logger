@@ -4,16 +4,12 @@ namespace Illuminated\Console\Log;
 
 use App\Exceptions\Handler;
 use Exception;
-use Monolog\ErrorHandler;
 
 class ExceptionHandler extends Handler
 {
     public function __construct()
     {
-        $log = app('log.icl');
-        ErrorHandler::register($log);
-
-        parent::__construct($log);
+        parent::__construct(app('log.icl'));
     }
 
     public function report(Exception $e)

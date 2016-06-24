@@ -6,6 +6,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Support\Str;
 use Illuminated\Console\Log\ExceptionHandler;
 use Illuminated\Console\Log\Formatter;
+use Monolog\ErrorHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,7 +25,7 @@ trait Loggable
 
     protected function initializeLogging()
     {
-        $this->initializeLoggingBindings();
+        $this->initializeErrorHandling();
 
         $class = get_class($this);
         $host = gethostname();
@@ -42,12 +43,14 @@ trait Loggable
         }
     }
 
-    private function initializeLoggingBindings()
+    private function initializeErrorHandling()
     {
         app()->singleton('log.icl', function () {
             return new Logger('ICL', $this->getLogHandlers());
         });
         $this->icl = app('log.icl');
+
+        ErrorHandler::register($this->icl);
 
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
     }

@@ -50,6 +50,7 @@ trait Loggable
         $this->icl = app('log.icl');
 
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
+        app(ExceptionHandlerContract::class);
     }
 
     private function getLogHandlers()

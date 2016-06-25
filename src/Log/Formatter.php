@@ -13,6 +13,10 @@ class Formatter extends LineFormatter
 
     public function format(array $record)
     {
+        if ($record['message'] == '%separator%') {
+            return str_repeat("\n", 11);
+        }
+
         $output = parent::format($record);
         return rtrim($output) . "\n";
     }

@@ -40,8 +40,8 @@ class ExceptionHandler extends Handler
             $executionTime = round($this->timeFinished - $this->timeStarted, 3);
             $this->log->info("Execution time: {$executionTime} sec.");
 
-            $memoryPeak = round(memory_get_peak_usage(true) / (1024 * 1024));
-            $this->log->info("Memory peak usage: {$memoryPeak}M.");
+            $memoryPeak = format_bytes(memory_get_peak_usage(true));
+            $this->log->info("Memory peak usage: {$memoryPeak}.");
 
             $this->log->info('%separator%');
 

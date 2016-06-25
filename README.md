@@ -35,6 +35,8 @@ Provides logging and email notifications for Laravel console commands.
 
 ## Troubleshooting
 
+#### Trait included, but nothing happens?
+
 Note, that `Loggable` trait is overriding `initialize` method:
 ```php
 trait Loggable
@@ -60,6 +62,40 @@ class Foo extends Command
 
         $this->bar = $this->argument('bar');
         $this->baz = $this->argument('baz');
+    }
+
+    // ...
+}
+```
+
+#### Several traits conflict?
+
+If you're using some other cool `illuminated/console-%` packages, well, then you can find yourself getting "traits conflict".
+For example, if you're trying to build loggable command, which is [protected against overlapping](https://packagist.org/packages/illuminated/console-mutex):
+```php
+class Foo extends Command
+{
+    use Loggable;
+    use WithoutOverlapping;
+
+    // ...
+}
+```
+
+You'll get fatal error, the "traits conflict", because both of these traits are overriding `initialize` method:
+>If two traits insert a method with the same name, a fatal error is produced, if the conflict is not explicitly resolved.
+
+But don't worry, solution is very simple. Just override `initialize` method by yourself, and initialize traits in required order:
+```php
+class Foo extends Command
+{
+    use Loggable;
+    use WithoutOverlapping;
+
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $this->initializeMutex();
+        $this->initializeLogging();
     }
 
     // ...

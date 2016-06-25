@@ -6,7 +6,7 @@
 Provides logging and email notifications for Laravel console commands.
 
 ## Dependencies
-- `PHP >=5.4.0`
+- `PHP >=5.5.9`
 - `Laravel >=5.2`
 
 ## Usage

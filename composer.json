@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.9",
         "illuminate/console": "^5.2",
         "illuminated/helper-functions": "^0.1.5",
         "monolog/monolog": "^1.19"

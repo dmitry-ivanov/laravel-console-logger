@@ -4,7 +4,6 @@ namespace Illuminated\Console;
 
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Support\Str;
-use Illuminated\Console\Log\ErrorHandler;
 use Illuminated\Console\Log\ExceptionHandler;
 use Illuminated\Console\Log\Formatter;
 use Monolog\Handler\RotatingFileHandler;
@@ -49,8 +48,6 @@ trait Loggable
             return new Logger('ICL', $this->getLogHandlers());
         });
         $this->icl = app('log.icl');
-
-        ErrorHandler::registerIcl();
 
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
     }

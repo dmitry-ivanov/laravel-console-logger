@@ -7,8 +7,12 @@ use Exception;
 
 class ExceptionHandler extends Handler
 {
+    private $reservedMemory;
+
     public function __construct()
     {
+        $this->registerShutdownFunction();
+
         parent::__construct(app('log.icl'));
     }
 
@@ -20,5 +24,22 @@ class ExceptionHandler extends Handler
             'file' => $e->getFile(),
             'line' => $e->getLine(),
         ]);
+    }
+
+    private function registerShutdownFunction()
+    {
+        $this->reservedMemory = str_repeat(' ', 20 * 1024);
+
+        register_shutdown_function(function () {
+            $this->reservedMemory = null;
+
+            $this->log->info('Execution time: trash.');
+            $this->log->info('Memory peak usage: trash.');
+
+            $handlers = $this->log->getHandlers();
+            foreach ($handlers as $handler) {
+                $handler->close();
+            }
+        });
     }
 }

@@ -7,7 +7,7 @@ use Exception;
 
 class ExceptionHandler extends Handler
 {
-    private $reservedMemory;
+    protected $reservedMemory;
 
     public function __construct()
     {

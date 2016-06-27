@@ -45,13 +45,13 @@ Provides logging and email notifications for Laravel console commands.
 
     By default your log file would be something like this:
     ```
-    [2016-05-11 11:12:13]: [INFO]: Command `Foo\Bar\Console\Commands\BazCommand` initialized.
-    [2016-05-11 11:12:13]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
-    [2016-05-11 11:12:13]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
-    [2016-05-11 11:12:13]: [INFO]: Database date: `2016-05-11 11:12:13`.
-    [2016-05-11 11:12:13]: [INFO]: Hello World!
-    [2016-05-11 11:12:13]: [INFO]: Execution time: 0.009 sec.
-    [2016-05-11 11:12:13]: [INFO]: Memory peak usage: 8 MB.
+    [2016-05-11 17:19:21]: [INFO]: Command `Foo\Bar\Console\Commands\BazCommand` initialized.
+    [2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
+    [2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
+    [2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.
+    [2016-05-11 17:19:21]: [INFO]: Hello World!
+    [2016-05-11 17:19:21]: [INFO]: Execution time: 0.009 sec.
+    [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
     ```
 
 ## Troubleshooting

@@ -116,10 +116,24 @@ In progress...
 
 ## Advanced
 
-- Message context
-- Formatter reserved keywords
-- Exceptions handler
-- Monolog handlers (including DB Storage)
+Sometimes it's needed to change location of the log files, for example, you want it to be dependent on some command's argument.
+If that is your case, just override `getLogPath` method:
+
+```php
+class Foo extends Command
+{
+    use Loggable;
+
+    protected function getLogPath()
+    {
+        $name = Str::replaceFirst(':', '/', $this->getName());
+        $baz = $this->argument('baz');
+        return storage_path("logs/{$name}/{$baz}/date.log");
+    }
+
+    // ...
+}
+```
 
 ## Troubleshooting
 

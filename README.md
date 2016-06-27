@@ -76,6 +76,40 @@ Each command has a separate folder for it's logs. Path is generated according to
 For example, command `php artisan foo` would have it's logs on `./storage/logs/foo/` folder, and command `php artisan foo:bar` on `./storage/logs/foo/bar/`.
 Log file names are corresponding to dates, and only latest thirty files are stored.
 
+## Error Handler
+
+Each exception, error and even PHP warning or notice are handled for you. It would be automatically logged, and you'll get email notification. You'll know immediately if something went wrong while execution. Very useful.
+
+```php
+class Foo extends Command
+{
+    use Loggable;
+
+    public function handle()
+    {
+        fatal();
+    }
+
+    // ...
+}
+```
+
+```
+[2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\Foo` initialized.
+[2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
+[2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
+[2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.
+[2016-05-11 17:19:21]: [ERROR]: Call to undefined function App\Console\Commands\fatal()
+array:4 [
+    "code" => 0
+    "message" => "Call to undefined function App\Console\Commands\fatal()"
+    "file" => "/Applications/MAMP/htdocs/illuminated-console-logger-test/app/Console/Commands/Foo.php"
+    "line" => 15
+]
+[2016-05-11 17:19:21]: [INFO]: Execution time: 0.009 sec.
+[2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
+```
+
 ## Advanced
 
 - Message context

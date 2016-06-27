@@ -76,7 +76,7 @@ Each command has a separate folder for it's logs. Path is generated according to
 For example, command `php artisan foo` would have it's logs on `./storage/logs/foo/` folder, and command `php artisan foo:bar` on `./storage/logs/foo/bar/`.
 Log file names are corresponding to dates, and only latest thirty files are stored.
 
-## Error Handler
+## Error handler
 
 Each exception, error and even PHP warning or notice are handled for you. It would be automatically logged, and you'll get email notification. You'll know immediately if something went wrong while execution. Very useful.
 

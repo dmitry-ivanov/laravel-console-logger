@@ -57,8 +57,7 @@ Provides logging and email notifications for Laravel console commands.
 ## Location
 
 Each command has a separate folder with logs. Path is generated according to the command's name.
-For example, command `foo` would have it's logs on `./storage/logs/foo/` folder.
-And command `foo:bar` would have it's logs on `./storage/logs/foo/bar/` folder.
+For example, command `foo` would have it's logs on `./storage/logs/foo/` folder, and command `foo:bar` on `./storage/logs/foo/bar/` folder.
 
 ## Advanced
 

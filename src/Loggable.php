@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait Loggable
 {
-    private $icl;
+    private $icLogger;
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
@@ -47,7 +47,7 @@ trait Loggable
         app()->singleton('log.icl', function () {
             return new Logger('ICL', $this->getLogHandlers());
         });
-        $this->icl = app('log.icl');
+        $this->icLogger = app('log.icl');
 
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
         app(ExceptionHandlerContract::class);
@@ -70,41 +70,41 @@ trait Loggable
 
     protected function logDebug($message, array $context = [])
     {
-        return $this->icl->debug($message, $context);
+        return $this->icLogger->debug($message, $context);
     }
 
     protected function logInfo($message, array $context = [])
     {
-        return $this->icl->info($message, $context);
+        return $this->icLogger->info($message, $context);
     }
 
     protected function logNotice($message, array $context = [])
     {
-        return $this->icl->notice($message, $context);
+        return $this->icLogger->notice($message, $context);
     }
 
     protected function logWarning($message, array $context = [])
     {
-        return $this->icl->warning($message, $context);
+        return $this->icLogger->warning($message, $context);
     }
 
     protected function logError($message, array $context = [])
     {
-        return $this->icl->error($message, $context);
+        return $this->icLogger->error($message, $context);
     }
 
     protected function logCritical($message, array $context = [])
     {
-        return $this->icl->critical($message, $context);
+        return $this->icLogger->critical($message, $context);
     }
 
     protected function logAlert($message, array $context = [])
     {
-        return $this->icl->alert($message, $context);
+        return $this->icLogger->alert($message, $context);
     }
 
     protected function logEmergency($message, array $context = [])
     {
-        return $this->icl->emergency($message, $context);
+        return $this->icLogger->emergency($message, $context);
     }
 }

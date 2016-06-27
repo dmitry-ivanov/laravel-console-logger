@@ -117,7 +117,7 @@ In progress...
 ## Advanced
 
 Sometimes it's needed to change location of the log files, for example, you want it to be dependent on some command's argument.
-If that is your case, just override `getLogPath` method:
+If that is your case, just override `getLogPath` method in your command class:
 
 ```php
 class Foo extends Command

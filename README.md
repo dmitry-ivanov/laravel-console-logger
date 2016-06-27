@@ -110,6 +110,10 @@ array:4 [
 [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
 ```
 
+## Auto saving to DB
+
+In progress...
+
 ## Advanced
 
 - Message context

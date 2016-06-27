@@ -44,10 +44,10 @@ trait Loggable
 
     private function initializeErrorHandling()
     {
-        app()->singleton('log.icl', function () {
-            return new Logger('ICL', $this->getLogHandlers());
+        app()->singleton('log.iclogger', function () {
+            return new Logger('ICLogger', $this->getLogHandlers());
         });
-        $this->icLogger = app('log.icl');
+        $this->icLogger = app('log.iclogger');
 
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
         app(ExceptionHandlerContract::class);

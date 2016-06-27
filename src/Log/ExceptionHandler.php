@@ -15,7 +15,7 @@ class ExceptionHandler extends Handler
     {
         $this->registerShutdownFunction();
 
-        parent::__construct(app('log.icl'));
+        parent::__construct(app('log.iclogger'));
     }
 
     public function report(Exception $e)

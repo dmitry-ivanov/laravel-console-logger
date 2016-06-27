@@ -32,6 +32,7 @@ Provides logging and email notifications for Laravel console commands.
     ```
 
 3. Now your command is loggable!
+    
     You have auto-rotation, email notifications for errors, auto saving to DB, set of useful info added to each iteration and even more cool features right out of the box!  
 
     These PSR-3 methods are available for you:

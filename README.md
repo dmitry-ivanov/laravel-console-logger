@@ -47,7 +47,7 @@ Provides logging and email notifications for Laravel console commands.
 
     Here is the basic example of usage:
     ```php
-    class BazCommand extends Command
+    class Foo extends Command
     {
         use Loggable;
 
@@ -61,7 +61,7 @@ Provides logging and email notifications for Laravel console commands.
     ```
 
     ```
-    [2016-05-11 17:19:21]: [INFO]: Command `Foo\Bar\Console\Commands\BazCommand` initialized.
+    [2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\Foo` initialized.
     [2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
     [2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
     [2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.

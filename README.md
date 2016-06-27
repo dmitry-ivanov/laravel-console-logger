@@ -54,6 +54,13 @@ Provides logging and email notifications for Laravel console commands.
     [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
     ```
 
+## Advanced
+
+- Logs path
+- Formatter reserved keywords
+- Exceptions handler
+- Monolog handlers (including DB Storage)
+
 ## Troubleshooting
 
 #### Trait included, but nothing happens?

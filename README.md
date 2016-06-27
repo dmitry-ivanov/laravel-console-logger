@@ -34,14 +34,14 @@ Provides logging and email notifications for Laravel console commands.
 3. Now your command is loggable!
 
 These PSR-3 methods are available for you:
-- logDebug
-- logInfo
-- logNotice
-- logWarning
-- logError
-- logCritical
-- logAlert
-- logEmergency
+- `logDebug`
+- `logInfo`
+- `logNotice`
+- `logWarning`
+- `logError`
+- `logCritical`
+- `logAlert`
+- `logEmergency`
 
 By default your log file would be something like this:
 ```

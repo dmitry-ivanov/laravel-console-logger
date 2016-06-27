@@ -45,7 +45,21 @@ Provides logging and email notifications for Laravel console commands.
     - `logAlert`
     - `logEmergency`
 
-    By default your log file would be something like this:
+    Here is the basic example of usage:
+    ```php
+    class BazCommand extends Command
+    {
+        use Loggable;
+
+        public function handle()
+        {
+            $this->logInfo('Hello World!');
+        }
+
+        // ...
+    }
+    ```
+
     ```
     [2016-05-11 17:19:21]: [INFO]: Command `Foo\Bar\Console\Commands\BazCommand` initialized.
     [2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).

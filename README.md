@@ -54,9 +54,15 @@ Provides logging and email notifications for Laravel console commands.
     [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
     ```
 
+## Location
+
+Each command has a separate folder with logs. Path is generated according to command name.
+For example, command `foo` would have it's logs on `storage/logs/foo/` folder.
+And command `foo:bar` would have it's logs on `storage/logs/foo/bar/` folder.
+
 ## Advanced
 
-- Logs path
+- Message context
 - Formatter reserved keywords
 - Exceptions handler
 - Monolog handlers (including DB Storage)

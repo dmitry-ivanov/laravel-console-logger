@@ -110,6 +110,8 @@ array:4 [
 [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
 ```
 
+## Custom exceptions
+
 If you want to pass additional context to your custom exception, use `Illuminated\Console\RuntimeException` class:
 
 ```php

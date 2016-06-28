@@ -78,7 +78,7 @@ Log file names are corresponding to dates, and only latest thirty files are stor
 
 ## Error handler
 
-Each exception, error and even PHP warning or notice are handled for you. It would be automatically logged, and you'll get email notification. You'll know immediately if something went wrong while execution. Very useful.
+Each exception, error and even PHP warning or notice are handled for you. It would be automatically logged, and you'll get email notification. You'll know immediately if something went wrong while execution. Very useful for scheduled commands.
 
 ```php
 class Foo extends Command

@@ -121,8 +121,7 @@ In progress...
 This package is using [Monolog](https://packagist.org/packages/monolog/monolog) logging library with all of it's power.
 If needed, you may access the underlying Monolog instance in a two ways:
 
-    - Using `icLogger` command's method:
-
+- Using `icLogger` command's method:
     ```php
     class Foo extends Command
     {
@@ -137,8 +136,7 @@ If needed, you may access the underlying Monolog instance in a two ways:
     }
     ```
 
-    - Through Laravel service container:
-
+- Through Laravel service container:
     ```php
     $log = $app('log.iclogger');
     ```

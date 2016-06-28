@@ -110,6 +110,47 @@ array:4 [
 [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
 ```
 
+If you want to pass additional context to your custom exception, use `Illuminated\Console\RuntimeException`:
+
+```php
+class Foo extends Command
+{
+    use Loggable;
+
+    public function handle()
+    {
+        throw new RuntimeException('Oooups! Houston, we have a problem!', [
+            'some' => 123,
+            'extra' => true,
+            'context' => null,
+        ]);
+    }
+
+    // ...
+}
+```
+
+```
+[2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\Foo` initialized.
+[2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
+[2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
+[2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.
+[2016-05-11 17:19:21]: [ERROR]: Oooups! Houston, we have a problem!
+array:5 [
+    "code" => 0
+    "message" => "Oooups! Houston, we have a problem!"
+    "file" => "/Applications/MAMP/htdocs/illuminated-console-logger-test/app/Console/Commands/Foo.php"
+    "line" => 22
+    "context" => array:3 [
+        "some" => 123
+        "extra" => true
+        "context" => null
+    ]
+]
+[2016-05-11 17:19:21]: [INFO]: Execution time: 0.017 sec.
+[2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
+```
+
 ## Auto saving to DB
 
 In progress...

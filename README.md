@@ -116,31 +116,6 @@ In progress...
 
 ## Advanced
 
-#### Accessing Monolog instance
-
-This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power.
-If needed, you may access the underlying Monolog instance in a two ways:
-
-- Using `icLogger` command's method:
-    ```php
-    class Foo extends Command
-    {
-        use Loggable;
-    
-        public function handle()
-        {
-            $log = $this->icLogger();
-        }
-    
-        // ...
-    }
-    ```
-
-- Through Laravel service container:
-    ```php
-    $log = $app('log.iclogger');
-    ```
-
 #### Custom location
 
 Sometimes it's needed to change location of the log files, for example, you want it to be dependent on some command's argument.
@@ -161,6 +136,31 @@ class Foo extends Command
     // ...
 }
 ```
+
+#### Accessing Monolog instance
+
+This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power.
+If needed, you may access the underlying Monolog instance in a two ways:
+
+- Using `icLogger` command's method:
+    ```php
+    class Foo extends Command
+    {
+        use Loggable;
+
+        public function handle()
+        {
+            $log = $this->icLogger();
+        }
+
+        // ...
+    }
+    ```
+
+- Through Laravel service container:
+    ```php
+    $log = $app('log.iclogger');
+    ```
 
 ## Troubleshooting
 

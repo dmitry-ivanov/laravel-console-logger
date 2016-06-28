@@ -110,6 +110,6 @@ trait Loggable
 
     public function icLogger()
     {
-        return $this->icLogger();
+        return $this->icLogger;
     }
 }

@@ -112,7 +112,8 @@ array:4 [
 
 ## Custom exceptions
 
-If you want to pass additional context to your custom exception, use `Illuminated\Console\RuntimeException` class:
+You can throw exception of any type from your code, and it would be properly handled by logger.
+However, if you want to pass an additional context to your exception, use `Illuminated\Console\RuntimeException` class:
 
 ```php
 use Illuminated\Console\RuntimeException;

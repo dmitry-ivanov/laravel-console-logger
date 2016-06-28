@@ -107,4 +107,9 @@ trait Loggable
     {
         return $this->icLogger->emergency($message, $context);
     }
+
+    public function icLogger()
+    {
+        return $this->icLogger();
+    }
 }

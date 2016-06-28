@@ -20,12 +20,21 @@ class ExceptionHandler extends Handler
 
     public function report(Exception $e)
     {
-        $this->log->error($e->getMessage(), [
+        $context = [
             'code' => $e->getCode(),
             'message' => $e->getMessage(),
             'file' => $e->getFile(),
             'line' => $e->getLine(),
-        ]);
+        ];
+
+        if ($e instanceof RuntimeException) {
+            $eContext = $e->getContext();
+            if (!empty($eContext)) {
+                $context['context'] = $eContext;
+            }
+        }
+
+        $this->log->error($e->getMessage(), $context);
     }
 
     private function registerShutdownFunction()

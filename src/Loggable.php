@@ -4,7 +4,6 @@ namespace Illuminated\Console;
 
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Support\Str;
-use Illuminated\Console\Log\ExceptionHandler;
 use Illuminated\Console\Log\Formatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;

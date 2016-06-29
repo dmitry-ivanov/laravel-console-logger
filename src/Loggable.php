@@ -79,8 +79,9 @@ trait Loggable
         }
 
         $subject = $this->getNotificationSubject();
+        $from = $this->getNotificationFrom();
 
-        $mailerHandler = new NativeMailerHandler($recipients, $subject, 'no-reply-iclogger@example.com', Logger::NOTICE);
+        $mailerHandler = new NativeMailerHandler($recipients, $subject, $from, Logger::NOTICE);
         $mailerHandler->setContentType('text/html');
         $mailerHandler->setFormatter(new HtmlFormatter());
 
@@ -144,6 +145,11 @@ trait Loggable
     protected function getNotificationSubject()
     {
         return '[%level_name%] ICLogger notification';
+    }
+
+    protected function getNotificationFrom()
+    {
+        return 'ICLogger Notification <no-reply@example.com>';
     }
 
     protected function icLogger()

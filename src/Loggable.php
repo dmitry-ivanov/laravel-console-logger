@@ -67,7 +67,9 @@ trait Loggable
 
     protected function getMailerHandler()
     {
-        $mailerHandler = new NativeMailerHandler(['dmitry.g.ivanov@gmail.com'], '[%level_name%] ICLogger notification', 'no-reply-iclogger@example.com', Logger::NOTICE);
+        $recipients = $this->getNotificationRecipients();
+
+        $mailerHandler = new NativeMailerHandler($recipients, '[%level_name%] ICLogger notification', 'no-reply-iclogger@example.com', Logger::NOTICE);
         $mailerHandler->setContentType('text/html');
         $mailerHandler->setFormatter(new HtmlFormatter());
 
@@ -118,6 +120,15 @@ trait Loggable
     {
         $name = Str::replaceFirst(':', '/', $this->getName());
         return storage_path("logs/{$name}/date.log");
+    }
+
+    protected function getNotificationRecipients()
+    {
+        return [
+            // 'foo@example.com',
+            // 'bar@example.com',
+            // 'baz@example.com',
+        ];
     }
 
     protected function icLogger()

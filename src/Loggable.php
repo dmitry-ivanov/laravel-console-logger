@@ -126,8 +126,7 @@ trait Loggable
     {
         return [
             // 'foo@example.com',
-            // 'bar@example.com',
-            // 'baz@example.com',
+            // 'John Doe <john.doe@example.com>',
         ];
     }
 

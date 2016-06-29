@@ -5,6 +5,8 @@ namespace Illuminated\Console;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminate\Support\Str;
 use Illuminated\Console\Log\Formatter;
+use Illuminated\Console\Log\HtmlFormatter;
+use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
@@ -58,13 +60,11 @@ trait Loggable
         $rotatingFileHandler->setFilenameFormat('{date}', 'Y-m-d');
         $rotatingFileHandler->setFormatter(new Formatter());
 
-        return [$rotatingFileHandler];
-    }
+        $mailerHandler = new NativeMailerHandler(['dmitry.g.ivanov@gmail.com'], '[%level_name%] ICLogger notification', 'no-reply-iclogger@example.com', Logger::NOTICE);
+        $mailerHandler->setContentType('text/html');
+        $mailerHandler->setFormatter(new HtmlFormatter());
 
-    protected function getLogPath()
-    {
-        $name = Str::replaceFirst(':', '/', $this->getName());
-        return storage_path("logs/{$name}/date.log");
+        return [$rotatingFileHandler, $mailerHandler];
     }
 
     protected function logDebug($message, array $context = [])
@@ -107,7 +107,13 @@ trait Loggable
         return $this->icLogger->emergency($message, $context);
     }
 
-    public function icLogger()
+    protected function getLogPath()
+    {
+        $name = Str::replaceFirst(':', '/', $this->getName());
+        return storage_path("logs/{$name}/date.log");
+    }
+
+    protected function icLogger()
     {
         return $this->icLogger;
     }

@@ -33,11 +33,11 @@ trait Loggable
         $this->logInfo("Command `{$class}` initialized.");
         $this->logInfo("Host: `{$host}` (`{$ip}`).");
 
-        if (laravel_db_is_mysql()) {
-            $dbIp = (string) laravel_db_mysql_variable('wsrep_node_address');
-            $dbHost = (string) laravel_db_mysql_variable('hostname');
-            $dbPort = (string) laravel_db_mysql_variable('port');
-            $now = laravel_db_mysql_now();
+        if (db_is_mysql()) {
+            $dbIp = (string) db_mysql_variable('wsrep_node_address');
+            $dbHost = (string) db_mysql_variable('hostname');
+            $dbPort = (string) db_mysql_variable('port');
+            $now = db_mysql_now();
             $this->logInfo("Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.");
             $this->logInfo("Database date: `{$now}`.");
         }

@@ -174,7 +174,7 @@ class Foo extends Command
 
     protected function getLogPath()
     {
-        return storage_path("logs/anything/you/want/date.log");
+        return storage_path('logs/anything/you/want/date.log');
     }
 
     // ...

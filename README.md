@@ -16,7 +16,7 @@ Provides logging and email notifications for Laravel console commands.
     composer require illuminated/console-logger
     ```
 
-2. Use `Illuminated\Console\Loggable` trait in your console command class:
+2. Use `Illuminated\Console\Loggable` trait in your console command class, and specify notification recipients:
     ```php
     namespace App\Console\Commands;
 
@@ -26,6 +26,15 @@ Provides logging and email notifications for Laravel console commands.
     class Foo extends Command
     {
         use Loggable;
+
+        protected function getNotificationRecipients()
+        {
+            return [
+                'foo@example.com',
+                'bar@example.com',
+                'baz@example.com',
+            ];
+        }
 
         // ...
     }

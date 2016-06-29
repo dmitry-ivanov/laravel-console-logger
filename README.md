@@ -85,7 +85,7 @@ Each command has a separate folder for it's logs. Path is generated according to
 For example, command `php artisan foo` would have it's logs on `./storage/logs/foo/` folder, and command `php artisan foo:bar` on `./storage/logs/foo/bar/`.
 Log file names are corresponding to dates, and only latest thirty files are stored.
 
-## Email notifications
+## Notifications
 
 After notification recipients were set, they would get email notifications according to execution process and log events.
 By default, you'll get notifications of each level, which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).

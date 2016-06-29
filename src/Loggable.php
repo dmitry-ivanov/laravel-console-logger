@@ -137,15 +137,14 @@ trait Loggable
 
     protected function getNotificationRecipients()
     {
-        return [
-            // 'foo@example.com',
-            // 'John Doe <john.doe@example.com>',
-        ];
+        return [];
     }
 
     protected function getNotificationSubject()
     {
-        return '[%level_name%] ICLogger notification';
+        $env = Str::upper(app()->environment());
+        $name = $this->getName();
+        return "[{$env}] %level_name% in `{$name}` command";
     }
 
     protected function getNotificationFrom()

@@ -85,6 +85,39 @@ Each command has a separate folder for it's logs. Path is generated according to
 For example, command `php artisan foo` would have it's logs on `./storage/logs/foo/` folder, and command `php artisan foo:bar` on `./storage/logs/foo/bar/`.
 Log file names are corresponding to dates, and only latest thirty files are stored.
 
+## Email notifications
+
+After notification recipients were set, they would get email notifications according to execution process and log events.
+By default, you'll get notifications of each level, which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).
+This means, that you'll get notification about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY occurred while execution.
+
+You can change this behaviour and customize other aspects of notifications such as subject, "from address" and maybe some others, by overriding proper methods:
+```php
+use Monolog\Logger;
+
+class Foo extends Command
+{
+    use Loggable;
+
+    protected function getNotificationSubject()
+    {
+        return "Oups! %level_name% while execution!";
+    }
+
+    protected function getNotificationFrom()
+    {
+        return 'My Awesome Notification <no-reply@awesome.com>';
+    }
+
+    protected function getNotificationLevel()
+    {
+        return Logger::ERROR;
+    }
+
+    // ...
+}
+```
+
 ## Error handler
 
 Each exception, error and even PHP warning or notice are handled for you. It would be automatically logged, and you'll get email notification. You'll know immediately if something went wrong while execution. Very useful for scheduled commands.

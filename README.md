@@ -164,7 +164,7 @@ In progress...
 
 #### Custom location
 
-Sometimes it's needed to change location of the log files, for example, you want it to be dependent on some command's argument.
+Sometimes it's needed to change location of the log files. For example, you want it to be dependent on some command's argument.
 If that is your case, just override `getLogPath` method in your command class:
 
 ```php
@@ -174,9 +174,7 @@ class Foo extends Command
 
     protected function getLogPath()
     {
-        $name = Str::replaceFirst(':', '/', $this->getName());
-        $baz = $this->argument('baz');
-        return storage_path("logs/{$name}/{$baz}/date.log");
+        return storage_path("logs/anything/you/want/date.log");
     }
 
     // ...

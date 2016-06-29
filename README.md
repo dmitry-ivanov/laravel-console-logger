@@ -91,7 +91,7 @@ Notification recipients were set, so they would get email notifications accordin
 By default, you'll get notification of each level which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).
 This means, that you'll get notification about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY, occurred while execution.
 
-You can change this behaviour and customize other aspects of notifications. Subject, "from address" and maybe some others, could be customized by overriding proper methods:
+You can change this behaviour and customize other aspects of notifications too. Subject, "from address" and maybe some others, could be customized by overriding proper methods:
 
 ```php
 use Monolog\Logger;

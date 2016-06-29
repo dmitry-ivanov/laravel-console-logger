@@ -87,7 +87,7 @@ Log file names are corresponding to dates, and only latest thirty files are stor
 
 ## Notifications
 
-After notification recipients were set, they would get email notifications according to execution process and log events.
+Notification recipients were set, so they would get email notifications according to execution process and log events.
 By default, you'll get notifications of each level, which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).
 This means, that you'll get notification about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY occurred while execution.
 

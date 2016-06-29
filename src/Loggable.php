@@ -56,18 +56,27 @@ trait Loggable
 
     private function getLogHandlers()
     {
+        $handlers = [];
+
         $rotatingFileHandler = new RotatingFileHandler($this->getLogPath(), 30);
         $rotatingFileHandler->setFilenameFormat('{date}', 'Y-m-d');
         $rotatingFileHandler->setFormatter(new Formatter());
+        $handlers[] = $rotatingFileHandler;
 
         $mailerHandler = $this->getMailerHandler();
+        if (!empty($mailerHandler)) {
+            $handlers[] = $mailerHandler;
+        }
 
-        return [$rotatingFileHandler, $mailerHandler];
+        return $handlers;
     }
 
     protected function getMailerHandler()
     {
         $recipients = $this->getNotificationRecipients();
+        if (empty($recipients)) {
+            return false;
+        }
 
         $mailerHandler = new NativeMailerHandler($recipients, '[%level_name%] ICLogger notification', 'no-reply-iclogger@example.com', Logger::NOTICE);
         $mailerHandler->setContentType('text/html');

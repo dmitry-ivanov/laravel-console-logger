@@ -183,7 +183,7 @@ class Foo extends Command
 
 #### Accessing Monolog instance
 
-This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power.
+This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power and benefits.
 If needed, you may access the underlying Monolog instance in a two ways:
 
 - Using `icLogger` command's method:

@@ -78,7 +78,9 @@ trait Loggable
             return false;
         }
 
-        $mailerHandler = new NativeMailerHandler($recipients, '[%level_name%] ICLogger notification', 'no-reply-iclogger@example.com', Logger::NOTICE);
+        $subject = $this->getNotificationSubject();
+
+        $mailerHandler = new NativeMailerHandler($recipients, $subject, 'no-reply-iclogger@example.com', Logger::NOTICE);
         $mailerHandler->setContentType('text/html');
         $mailerHandler->setFormatter(new HtmlFormatter());
 
@@ -137,6 +139,11 @@ trait Loggable
             // 'foo@example.com',
             // 'John Doe <john.doe@example.com>',
         ];
+    }
+
+    protected function getNotificationSubject()
+    {
+        return '[%level_name%] ICLogger notification';
     }
 
     protected function icLogger()

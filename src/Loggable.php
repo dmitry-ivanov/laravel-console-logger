@@ -3,7 +3,6 @@
 namespace Illuminated\Console;
 
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
-use Illuminate\Support\Str;
 use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;
 use Monolog\Handler\NativeMailerHandler;
@@ -131,7 +130,7 @@ trait Loggable
 
     protected function getLogPath()
     {
-        $name = Str::replaceFirst(':', '/', $this->getName());
+        $name = str_replace_first(':', '/', $this->getName());
         return storage_path("logs/{$name}/date.log");
     }
 
@@ -142,7 +141,7 @@ trait Loggable
 
     protected function getNotificationSubject()
     {
-        $env = Str::upper(app()->environment());
+        $env = str_upper(app()->environment());
         $name = $this->getName();
         return "[{$env}] %level_name% in `{$name}` command";
     }

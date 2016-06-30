@@ -29,6 +29,11 @@ class HtmlFormatter extends MonologHtmlFormatter
                     .details-row {
                         text-align: left;
                     }
+                    .details-row-header {
+                        background: #cccccc;
+                        width: 150px;
+                        padding: 10px;
+                    }
                 </style>";
     }
 
@@ -81,7 +86,7 @@ class HtmlFormatter extends MonologHtmlFormatter
         }
 
         return "<tr class='details-row'>
-                    <th style='background:#cccccc' width='150px'>{$th}:</th>
+                    <th class='details-row-header'>{$th}:</th>
                     <td style='padding:4px; spacing:0; text-align:left; background:#eeeeee'>{$td}</td>
                 </tr>";
     }

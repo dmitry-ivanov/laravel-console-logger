@@ -84,8 +84,7 @@ class HtmlFormatter extends MonologHtmlFormatter
         $details .= $this->composeRow('Message', (string) $record['message']);
         if (!empty($record['context'])) {
             $context = $this->convertToString($record['context']);
-            $context = e($context);
-            $details .= $this->composeRow('Context', "<pre>{$context}</pre>", false);
+            $details .= $this->composeRow('Context', $context);
         }
         $details .= $this->composeRow('Time', $record['datetime']->format($this->dateFormat));
         $details .= $this->composeRow('Environment', app()->environment());
@@ -95,11 +94,13 @@ class HtmlFormatter extends MonologHtmlFormatter
         return $details;
     }
 
-    protected function composeRow($header, $body = ' ', $escapeBody = true)
+    protected function composeRow($header, $body = ' ')
     {
         $header = e($header);
-        if ($escapeBody) {
-            $body = e($body);
+        $body = e($body);
+
+        if ($header == 'Context') {
+            $body = "<pre>{$body}</pre>";
         }
 
         return "<tr class='details-row'>

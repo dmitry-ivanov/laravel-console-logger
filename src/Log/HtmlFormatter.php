@@ -42,7 +42,7 @@ class HtmlFormatter extends MonologHtmlFormatter
                         margin: 0px;
                         background: {$this->logLevels[$level]};
                         color: #ffffff;
-                        padding: 11px;
+                        padding: 15px;
                     }
                 </style>";
     }

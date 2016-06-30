@@ -58,14 +58,7 @@ class HtmlFormatter extends MonologHtmlFormatter
     protected function composeSubtitle($subtitle)
     {
         $subtitle = e($subtitle);
-        return "<style>
-                    .title {
-                        padding-bottom: 0px !important;
-                    }
-                    .subtitle {
-                        padding-top: 0px !important;
-                    }
-                </style>
+        return "<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>
                 <h3 class='subtitle'>{$subtitle}</h3>";
     }
 

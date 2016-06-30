@@ -76,7 +76,7 @@ class HtmlFormatter extends MonologHtmlFormatter
 
         return "<tr style='padding:4px; spacing:0; text-align:left;'>\n
                     <th style='background:#cccccc' width='100px'>{$th}:</th>\n
-                    <td style='padding:4px; spacing:0; text-align:left; background:#eeeeee'>" . $td . "</td>\n
+                    <td style='padding:4px; spacing:0; text-align:left; background:#eeeeee'>{$td}</td>\n
                 </tr>";
     }
 }

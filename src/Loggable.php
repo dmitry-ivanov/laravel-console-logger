@@ -130,7 +130,7 @@ trait Loggable
 
     protected function getLogPath()
     {
-        $name = str_replace_first(':', '/', $this->getName());
+        $name = str_replace(':', '/', $this->getName());
         return storage_path("logs/{$name}/date.log");
     }
 

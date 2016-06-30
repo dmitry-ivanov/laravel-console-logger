@@ -8,9 +8,11 @@ class HtmlFormatter extends MonologHtmlFormatter
 {
     public function format(array $record)
     {
-        $output = '<html>';
+        $output = '<!DOCTYPE html>';
+        $output .= '<html>';
 
         $output .= '<head>';
+        $output .= '<meta charset="utf-8">';
         $output .= $this->composeStyle($record);
         $output .= '</head>';
 

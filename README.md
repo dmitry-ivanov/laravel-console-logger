@@ -121,7 +121,7 @@ class Foo extends Command
 
 ## Error handler
 
-Each exception, error and even PHP warning or notice are handled for you. It would be automatically logged, and you'll get email notification. You'll know immediately if something went wrong while execution. Very useful for scheduled commands.
+Each exception, error and even PHP notice or warning are handled for you. It would be automatically logged, and you'll get email notification. You'll know immediately if something went wrong while execution. Very useful for scheduled commands.
 
 ```php
 class Foo extends Command

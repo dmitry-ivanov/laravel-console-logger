@@ -99,7 +99,8 @@ class HtmlFormatter extends MonologHtmlFormatter
         $body = e($body);
 
         if ($header == 'Context') {
-            $body = "<pre>{$body}</pre>";
+            $body = str_replace(' ', '&nbsp;', $body);
+            $body = nl2br($body);
         }
 
         return "<tr class='details-row'>

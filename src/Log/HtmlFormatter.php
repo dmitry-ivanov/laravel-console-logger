@@ -16,25 +16,9 @@ class HtmlFormatter extends MonologHtmlFormatter
             $output .= $this->composeSubtitle("This notification was sent from `{$environment}` environment!");
         }
 
-        $output .= '<table cellspacing="1" width="100%" class="monolog-output">';
-        $output .= $this->composeRow('Message', (string) $record['message']);
+        $output .= $this->composeDetails($record);
 
-        if (!empty($record['context'])) {
-            $embeddedTable = '<table cellspacing="1" width="100%">';
-            foreach ($record['context'] as $key => $value) {
-                $embeddedTable .= $this->composeRow($key, $this->convertToString($value));
-            }
-            $embeddedTable .= '</table>';
-            $output .= $this->composeRow('Context', $embeddedTable, false);
-        }
-
-        $datetime = $record['datetime'];
-        $time = $datetime->format($this->dateFormat);
-        $timezone = $datetime->getTimezone()->getName();
-        $output .= $this->composeRow('Time', "{$time} ({$timezone})");
-        $output .= $this->composeRow('Environment', $environment);
-
-        return $output.'</table>';
+        return $output;
     }
 
     protected function composeStyle($level)
@@ -60,6 +44,31 @@ class HtmlFormatter extends MonologHtmlFormatter
         $subtitle = e($subtitle);
         return "<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>
                 <h3 class='subtitle'>{$subtitle}</h3>";
+    }
+
+    protected function composeDetails(array $record)
+    {
+        $details = '<table cellspacing="1" width="100%">';
+
+        $details .= $this->composeRow('Message', (string) $record['message']);
+
+        if (!empty($record['context'])) {
+            $embeddedTable = '<table cellspacing="1" width="100%">';
+            foreach ($record['context'] as $key => $value) {
+                $embeddedTable .= $this->composeRow($key, $this->convertToString($value));
+            }
+            $embeddedTable .= '</table>';
+            $details .= $this->composeRow('Context', $embeddedTable, false);
+        }
+
+        $datetime = $record['datetime'];
+        $time = $datetime->format($this->dateFormat);
+        $timezone = $datetime->getTimezone()->getName();
+        $details .= $this->composeRow('Time', "{$time} ({$timezone})");
+        $details .= $this->composeRow('Environment', app()->environment());
+        $details .= '</table>';
+
+        return $details;
     }
 
     protected function composeRow($th, $td = ' ', $escapeTd = true)

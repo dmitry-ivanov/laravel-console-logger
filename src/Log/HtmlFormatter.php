@@ -83,12 +83,12 @@ class HtmlFormatter extends MonologHtmlFormatter
         $details .= $this->composeRow('Message', (string) $record['message']);
 
         if (!empty($record['context'])) {
-            $embeddedTable = '<table cellspacing="1" width="100%">';
+            $contextTable = '<table cellspacing="1" width="100%">';
             foreach ($record['context'] as $key => $value) {
-                $embeddedTable .= $this->composeRow($key, $this->convertToString($value));
+                $contextTable .= $this->composeRow($key, $this->convertToString($value));
             }
-            $embeddedTable .= '</table>';
-            $details .= $this->composeRow('Context', $embeddedTable, false);
+            $contextTable .= '</table>';
+            $details .= $this->composeRow('Context', $contextTable, false);
         }
 
         $details .= $this->composeRow('Time', $record['datetime']->format($this->dateFormat));

@@ -137,6 +137,8 @@ class Foo extends Command
 }
 ```
 
+Fatal error is handled and logged:
+
 ```
 [2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\Foo` initialized.
 [2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
@@ -152,6 +154,8 @@ array:4 [
 [2016-05-11 17:19:21]: [INFO]: Execution time: 0.009 sec.
 [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
 ```
+
+And here is an email notification:
 
 ![Notification example](doc/img/notification-example.png)
 

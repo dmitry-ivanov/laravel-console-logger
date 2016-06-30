@@ -10,12 +10,6 @@ class HtmlFormatter extends MonologHtmlFormatter
     {
         $output = $this->composeStyle($record['level']);
         $output .= $this->composeTitle($record['level_name']);
-
-        $environment = app()->environment();
-        if ($environment != 'production') {
-            $output .= $this->composeSubtitle("This notification was sent from `{$environment}` environment!");
-        }
-
         $output .= $this->composeDetails($record);
 
         return $output;
@@ -33,23 +27,24 @@ class HtmlFormatter extends MonologHtmlFormatter
                 </style>";
     }
 
-    protected function composeTitle($title)
+    protected function composeTitle($value)
     {
-        $title = e($title);
-        return "<h2 class='title'>{$title}</h2>";
-    }
+        $title = "<h2 class='title'>{e($value)}</h2>";
 
-    protected function composeSubtitle($subtitle)
-    {
-        $subtitle = e($subtitle);
-        return "<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>
-                <h3 class='subtitle'>{$subtitle}</h3>";
+        $environment = app()->environment();
+        if ($environment == 'production') {
+            return $title;
+        }
+
+        $title .= '<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>';
+        $title .= "<h3 class='subtitle'>This notification was sent from `{e($environment)}` environment!</h3>";
+
+        return $title;
     }
 
     protected function composeDetails(array $record)
     {
         $details = '<table cellspacing="1" width="100%">';
-
         $details .= $this->composeRow('Message', (string) $record['message']);
 
         if (!empty($record['context'])) {

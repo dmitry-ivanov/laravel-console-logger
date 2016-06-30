@@ -40,7 +40,7 @@ class HtmlFormatter extends MonologHtmlFormatter
     protected function composeStyle($level)
     {
         return "<style>
-                    h2.monolog-output, h3.monolog-output {
+                    .title, .subtitle {
                         background: {$this->logLevels[$level]};
                         color: #ffffff;
                         margin: 0px;
@@ -52,21 +52,21 @@ class HtmlFormatter extends MonologHtmlFormatter
     protected function composeTitle($title)
     {
         $title = e($title);
-        return "<h2 class='monolog-output'>{$title}</h2>";
+        return "<h2 class='title'>{$title}</h2>";
     }
 
     protected function composeSubtitle($subtitle)
     {
         $subtitle = e($subtitle);
         return "<style>
-                    h2.monolog-output {
+                    .title {
                         padding-bottom: 0px !important;
                     }
-                    h3.monolog-output {
+                    .subtitle {
                         padding-top: 0px !important;
                     }
                 </style>
-                <h3 class='monolog-output'>{$subtitle}</h3>";
+                <h3 class='subtitle'>{$subtitle}</h3>";
     }
 
     protected function composeRow($th, $td = ' ', $escapeTd = true)

@@ -82,16 +82,16 @@ class HtmlFormatter extends MonologHtmlFormatter
         return $details;
     }
 
-    protected function composeRow($th, $td = ' ', $escapeTd = true)
+    protected function composeRow($header, $body = ' ', $escapeBody = true)
     {
-        $th = e($th);
-        if ($escapeTd) {
-            $td = '<pre>' . e($td) . '</pre>';
+        $header = e($header);
+        if ($escapeBody) {
+            $body = e($body);
         }
 
         return "<tr class='details-row'>
-                    <th class='details-row-header'>{$th}:</th>
-                    <td class='details-row-body'>{$td}</td>
+                    <th class='details-row-header'>{$header}:</th>
+                    <td class='details-row-body'>{$body}</td>
                 </tr>";
     }
 }

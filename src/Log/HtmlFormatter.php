@@ -8,9 +8,18 @@ class HtmlFormatter extends MonologHtmlFormatter
 {
     public function format(array $record)
     {
-        $output = $this->composeStyle($record);
+        $output = '<html>';
+
+        $output .= '<head>';
+        $output .= $this->composeStyle($record);
+        $output .= '</head>';
+
+        $output .= '<body>';
         $output .= $this->composeTitle($record);
         $output .= $this->composeDetails($record);
+        $output .= '</body>';
+
+        $output .= '</html>';
 
         return $output;
     }
@@ -19,7 +28,12 @@ class HtmlFormatter extends MonologHtmlFormatter
     {
         $level = $record['level'];
 
-        return "<style>
+        return "<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+                <style>
+                    body {
+                        font-family: 'Lato', sans-serif;
+                        font-size: 16px;
+                    }
                     .title, .subtitle {
                         background: {$this->logLevels[$level]};
                         color: #ffffff;
@@ -28,6 +42,7 @@ class HtmlFormatter extends MonologHtmlFormatter
                     }
                     .details-row {
                         text-align: left;
+                        font-size: 16px;
                     }
                     .details-row-header {
                         background: #cccccc;
@@ -36,6 +51,8 @@ class HtmlFormatter extends MonologHtmlFormatter
                     }
                     .details-row-body {
                         background: #eeeeee;
+                        white-space: nowrap;
+                        width: 100%;
                         padding: 10px;
                     }
                 </style>";
@@ -72,10 +89,7 @@ class HtmlFormatter extends MonologHtmlFormatter
             $details .= $this->composeRow('Context', $embeddedTable, false);
         }
 
-        $datetime = $record['datetime'];
-        $time = $datetime->format($this->dateFormat);
-        $timezone = $datetime->getTimezone()->getName();
-        $details .= $this->composeRow('Time', "{$time} ({$timezone})");
+        $details .= $this->composeRow('Time', $record['datetime']->format($this->dateFormat));
         $details .= $this->composeRow('Environment', app()->environment());
         $details .= '</table>';
 
@@ -87,6 +101,7 @@ class HtmlFormatter extends MonologHtmlFormatter
         $header = e($header);
         if ($escapeBody) {
             $body = e($body);
+            $body = "<div>{$body}</div>";
         }
 
         return "<tr class='details-row'>

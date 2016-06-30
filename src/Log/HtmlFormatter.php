@@ -26,6 +26,9 @@ class HtmlFormatter extends MonologHtmlFormatter
                         margin: 0px;
                         padding: 15px;
                     }
+                    .details-row {
+                        text-align: left;
+                    }
                 </style>";
     }
 
@@ -77,9 +80,9 @@ class HtmlFormatter extends MonologHtmlFormatter
             $td = '<pre>' . e($td) . '</pre>';
         }
 
-        return "<tr style='padding:4px; spacing:0; text-align:left;'>\n
-                    <th style='background:#cccccc' width='100px'>{$th}:</th>\n
-                    <td style='padding:4px; spacing:0; text-align:left; background:#eeeeee'>{$td}</td>\n
+        return "<tr class='details-row'>
+                    <th style='background:#cccccc' width='150px'>{$th}:</th>
+                    <td style='padding:4px; spacing:0; text-align:left; background:#eeeeee'>{$td}</td>
                 </tr>";
     }
 }

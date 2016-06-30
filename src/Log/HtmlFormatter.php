@@ -39,9 +39,9 @@ class HtmlFormatter extends MonologHtmlFormatter
     {
         return "<style>
                     h2.monolog-output, h3.monolog-output {
-                        margin: 0px;
                         background: {$this->logLevels[$level]};
                         color: #ffffff;
+                        margin: 0px;
                         padding: 15px;
                     }
                 </style>";

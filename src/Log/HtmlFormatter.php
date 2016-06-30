@@ -80,19 +80,16 @@ class HtmlFormatter extends MonologHtmlFormatter
     protected function composeDetails(array $record)
     {
         $details = '<table cellspacing="1" width="100%">';
+
         $details .= $this->composeRow('Message', (string) $record['message']);
-
         if (!empty($record['context'])) {
-            $contextTable = '<table cellspacing="1" width="100%">';
-            foreach ($record['context'] as $key => $value) {
-                $contextTable .= $this->composeRow($key, $this->convertToString($value));
-            }
-            $contextTable .= '</table>';
-            $details .= $this->composeRow('Context', $contextTable, false);
+            $context = $this->convertToString($record['context']);
+            $context = e($context);
+            $details .= $this->composeRow('Context', "<pre>{$context}</pre>", false);
         }
-
         $details .= $this->composeRow('Time', $record['datetime']->format($this->dateFormat));
         $details .= $this->composeRow('Environment', app()->environment());
+
         $details .= '</table>';
 
         return $details;
@@ -103,12 +100,20 @@ class HtmlFormatter extends MonologHtmlFormatter
         $header = e($header);
         if ($escapeBody) {
             $body = e($body);
-            $body = "<div>{$body}</div>";
         }
 
         return "<tr class='details-row'>
                     <th class='details-row-header'>{$header}:</th>
                     <td class='details-row-body'>{$body}</td>
                 </tr>";
+    }
+
+    protected function convertToString($data)
+    {
+        if (is_array($data)) {
+            return get_dump($data);
+        }
+
+        return parent::convertToString($data);
     }
 }

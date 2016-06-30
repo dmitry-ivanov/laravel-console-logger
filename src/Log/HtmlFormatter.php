@@ -9,21 +9,17 @@ class HtmlFormatter extends MonologHtmlFormatter
     public function format(array $record)
     {
         $output = $this->composeStyle($record['level']);
-
-        $title = $record['level_name'];
-        $output .= $this->composeTitle($title);
+        $output .= $this->composeTitle($record['level_name']);
 
         $environment = app()->environment();
         if ($environment != 'production') {
-            $subtitle = "This notification was sent from `{$environment}` environment!";
-            $output .= $this->composeSubtitle($subtitle);
+            $output .= $this->composeSubtitle("This notification was sent from `{$environment}` environment!");
         }
 
         $output .= '<table cellspacing="1" width="100%" class="monolog-output">';
         $output .= $this->composeRow('Message', (string) $record['message']);
-        $output .= $this->composeRow('Time', $record['datetime']->format($this->dateFormat));
-        $output .= $this->composeRow('Environment', $environment);
-        if ($record['context']) {
+
+        if (!empty($record['context'])) {
             $embeddedTable = '<table cellspacing="1" width="100%">';
             foreach ($record['context'] as $key => $value) {
                 $embeddedTable .= $this->composeRow($key, $this->convertToString($value));
@@ -31,6 +27,12 @@ class HtmlFormatter extends MonologHtmlFormatter
             $embeddedTable .= '</table>';
             $output .= $this->composeRow('Context', $embeddedTable, false);
         }
+
+        $datetime = $record['datetime'];
+        $time = $datetime->format($this->dateFormat);
+        $timezone = $datetime->getTimezone()->getName();
+        $output .= $this->composeRow('Time', "{$time} ({$timezone})");
+        $output .= $this->composeRow('Environment', $environment);
 
         return $output.'</table>';
     }

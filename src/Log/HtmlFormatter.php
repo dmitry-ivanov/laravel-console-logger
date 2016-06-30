@@ -49,13 +49,13 @@ class HtmlFormatter extends MonologHtmlFormatter
 
     protected function composeTitle($title)
     {
-        $title = htmlspecialchars($title, ENT_NOQUOTES, 'UTF-8');
+        $title = e($title);
         return "<h1 class='monolog-output'>{$title}</h1>";
     }
 
     protected function composeSubtitle($subtitle)
     {
-        $subtitle = htmlspecialchars($subtitle, ENT_NOQUOTES, 'UTF-8');
+        $subtitle = e($subtitle);
         return "<style>
                     h1.monolog-output {
                         padding-bottom: 0px !important;
@@ -69,9 +69,9 @@ class HtmlFormatter extends MonologHtmlFormatter
 
     protected function composeRow($th, $td = ' ', $escapeTd = true)
     {
-        $th = htmlspecialchars($th, ENT_NOQUOTES, 'UTF-8');
+        $th = e($th);
         if ($escapeTd) {
-            $td = '<pre>' . htmlspecialchars($td, ENT_NOQUOTES, 'UTF-8') . '</pre>';
+            $td = '<pre>' . e($td) . '</pre>';
         }
 
         return "<tr style='padding:4px; spacing:0; text-align:left;'>\n

@@ -70,7 +70,7 @@ class HtmlFormatter extends MonologHtmlFormatter
             return $title;
         }
 
-        $environment = e($environment);
+        $environment = e(str_upper($environment));
         $title .= '<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>';
         $title .= "<h3 class='subtitle'>This notification was sent from `{$environment}` environment!</h3>";
 
@@ -87,7 +87,6 @@ class HtmlFormatter extends MonologHtmlFormatter
             $details .= $this->composeRow('Context', $context);
         }
         $details .= $this->composeRow('Time', $record['datetime']->format($this->dateFormat));
-        $details .= $this->composeRow('Environment', app()->environment());
 
         $details .= '</table>';
 

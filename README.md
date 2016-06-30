@@ -153,6 +153,8 @@ array:4 [
 [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
 ```
 
+![Notification example](doc/img/notification-example.png)
+
 ## Custom exceptions
 
 You can throw exception of any type from your code, and it would be properly handled by logger.

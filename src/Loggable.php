@@ -94,7 +94,7 @@ trait Loggable
 
         $recipients = $this->getNotificationRecipients();
         foreach ($recipients as $recipient) {
-            if (!empty($recipient['address']) && filter_var($recipient['address'], FILTER_VALIDATE_EMAIL)) {
+            if (!empty($recipient['address']) && is_email($recipient['address'])) {
                 $result[] = $recipient;
             }
         }

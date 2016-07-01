@@ -140,10 +140,6 @@ class Foo extends Command
 Fatal error is handled and logged:
 
 ```
-[2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\Foo` initialized.
-[2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
-[2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
-[2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.
 [2016-05-11 17:19:21]: [ERROR]: Call to undefined function App\Console\Commands\fatal()
 array:4 [
     "code" => 0
@@ -151,11 +147,9 @@ array:4 [
     "file" => "/Applications/MAMP/htdocs/illuminated-console-logger-test/app/Console/Commands/Foo.php"
     "line" => 15
 ]
-[2016-05-11 17:19:21]: [INFO]: Execution time: 0.009 sec.
-[2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
 ```
 
-And here is an email notification:
+And email notification would be sent:
 
 ![Notification example](doc/img/notification-example.png)
 

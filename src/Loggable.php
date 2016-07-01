@@ -81,7 +81,11 @@ trait Loggable
         $from = $this->getNotificationFrom();
         $level = $this->getNotificationLevel();
 
-        $mailerHandler = new NativeMailerHandler($recipients, $subject, $from, $level);
+
+        $to = to_rfc2822_email($recipients);
+        $from = to_rfc2822_email($from);
+
+        $mailerHandler = new NativeMailerHandler($to, $subject, $from, $level);
         $mailerHandler->setContentType('text/html');
         $mailerHandler->setFormatter(new HtmlFormatter());
 

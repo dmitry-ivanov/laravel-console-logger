@@ -148,7 +148,7 @@ trait Loggable
 
     protected function getNotificationFrom()
     {
-        return ['no-reply@example.com' => 'ICLogger Notification'];
+        return ['address' => 'no-reply@example.com', 'name' => 'ICLogger Notification'];
     }
 
     protected function getNotificationLevel()

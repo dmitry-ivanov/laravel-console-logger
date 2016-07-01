@@ -106,7 +106,7 @@ class Foo extends Command
 
     protected function getNotificationFrom()
     {
-        return ['no-reply@awesome.com' => 'My Awesome Notification'];
+        return ['address' => 'no-reply@awesome.com', 'name' => 'My Awesome Notification'];
     }
 
     protected function getNotificationLevel()

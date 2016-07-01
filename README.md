@@ -149,7 +149,7 @@ array:4 [
 ]
 ```
 
-And email notification would be sent:
+And email notification is sent:
 
 ![Notification example](doc/img/notification-example.png)
 

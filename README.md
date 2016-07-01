@@ -179,10 +179,6 @@ class Foo extends Command
 ```
 
 ```
-[2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\Foo` initialized.
-[2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
-[2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
-[2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.
 [2016-05-11 17:19:21]: [ERROR]: Oooups! Houston, we have a problem!
 array:5 [
     "code" => 0
@@ -195,8 +191,6 @@ array:5 [
         "context" => null
     ]
 ]
-[2016-05-11 17:19:21]: [INFO]: Execution time: 0.017 sec.
-[2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
 ```
 
 ## Auto saving to DB

@@ -155,7 +155,7 @@ And email notification is sent:
 
 ## Custom exceptions
 
-You can throw exception of any type from your code, and it would be properly handled by logger.
+You can throw an exception of any type from your code, and it would be properly handled by logger.
 However, if you want to pass an additional context to your exception, use `Illuminated\Console\RuntimeException` class:
 
 ```php

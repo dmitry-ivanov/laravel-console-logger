@@ -72,7 +72,7 @@ trait Loggable
 
     protected function getMailerHandler()
     {
-        $recipients = $this->getNotificationRecipients();
+        $recipients = $this->getFilteredNotificationRecipients();
         if (empty($recipients)) {
             return false;
         }
@@ -86,6 +86,20 @@ trait Loggable
         $mailerHandler->setFormatter(new HtmlFormatter());
 
         return $mailerHandler;
+    }
+
+    private function getFilteredNotificationRecipients()
+    {
+        $result = [];
+
+        $recipients = $this->getNotificationRecipients();
+        foreach ($recipients as $recipient) {
+            if (!empty($recipient['address']) && filter_var($recipient['address'], FILTER_VALIDATE_EMAIL)) {
+                $result[] = $recipient;
+            }
+        }
+
+        return $result;
     }
 
     protected function logDebug($message, array $context = [])

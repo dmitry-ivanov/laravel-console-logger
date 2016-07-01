@@ -30,8 +30,8 @@ Provides logging and email notifications for Laravel console commands.
         protected function getNotificationRecipients()
         {
             return [
-                'john.doe@example.com' => 'John Doe',
-                'jane.smith@example.com' => 'Jane Smith',
+                ['address' => 'john.doe@example.com', 'name' => 'John Doe'],
+                ['address' => 'jane.smith@example.com', 'name' => 'Jane Smith'],
             ];
         }
 

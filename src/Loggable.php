@@ -136,7 +136,9 @@ trait Loggable
 
     protected function getNotificationRecipients()
     {
-        return [];
+        return [
+            ['address' => null, 'name' => null],
+        ];
     }
 
     protected function getNotificationSubject()

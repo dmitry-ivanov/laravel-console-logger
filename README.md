@@ -217,6 +217,39 @@ class Foo extends Command
 }
 ```
 
+#### Notifications mail driver
+
+In order to send an email notifications, package would check `mail` configuration of your Laravel project.
+If you're using one of supported mail drivers, it would be used for email notifications automatically. Supported drivers are: `mail`, `smtp`, `sendmail`, `mandrill`.
+If you're using something else, for example, `ses` or `sparkpost` - native PHP `mail()` function would be used as a driver.
+
+Unfortunately, we're currently not supporting all of Laravel's mail drivers, because [Monolog email handlers](https://github.com/Seldaek/monolog/blob/master/doc/02-handlers-formatters-processors.md#send-alerts-and-emails) don't.
+Maybe in future other drivers would be supported too.
+
+However, you can totally change this behaviour, by overriding `getMailerHandler` method:
+```php
+class Foo extends Command
+{
+    use Loggable;
+
+    protected function getMailerHandler()
+    {
+        $mailer = app('my-swift-mailer');
+
+        $message = $mailer->createMessage();
+        $message->setSubject('Hey! Something went wrong!');
+        $message->setFrom(['no-reply@example.com' => 'My Notification System']);
+        $message->setTo(['john.doe@example.com' => 'John Doe']);
+        $message->setContentType('text/html');
+        $message->setCharset('utf-8');
+
+        return new SwiftMailerHandler($mailer, $message);
+    }
+
+    // ...
+}
+```
+
 #### Accessing Monolog instance
 
 This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power and benefits.

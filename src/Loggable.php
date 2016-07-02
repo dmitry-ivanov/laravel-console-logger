@@ -7,6 +7,7 @@ use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\RotatingFileHandler;
+use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -81,12 +82,33 @@ trait Loggable
         $from = $this->getNotificationFrom();
         $level = $this->getNotificationLevel();
 
+        $driver = config('mail.driver');
+        switch ($driver) {
+            case 'mail':
+            case 'smtp':
+            case 'sendmail':
+                $mailer = app('swift.mailer');
+                $message = $mailer->createMessage();
+                $message->setSubject($subject);
+                $message->setFrom(to_swiftmailer_emails($from));
+                $message->setTo(to_swiftmailer_emails($recipients));
+                $message->setContentType('text/html');
+                $message->setCharset('utf-8');
 
-        $to = to_rfc2822_email($recipients);
-        $from = to_rfc2822_email($from);
+                $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
+                break;
 
-        $mailerHandler = new NativeMailerHandler($to, $subject, $from, $level);
-        $mailerHandler->setContentType('text/html');
+            case 'mandrill':
+                // MandrillHandler
+                break;
+
+            default:
+                $to = to_rfc2822_email($recipients);
+                $from = to_rfc2822_email($from);
+                $mailerHandler = new NativeMailerHandler($to, $subject, $from, $level);
+                $mailerHandler->setContentType('text/html');
+                break;
+        }
         $mailerHandler->setFormatter(new HtmlFormatter());
 
         return $mailerHandler;

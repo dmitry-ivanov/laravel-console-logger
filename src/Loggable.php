@@ -5,6 +5,7 @@ namespace Illuminated\Console;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;
+use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\SwiftMailerHandler;
@@ -87,6 +88,7 @@ trait Loggable
             case 'mail':
             case 'smtp':
             case 'sendmail':
+            case 'mandrill':
                 $mailer = app('swift.mailer');
                 $message = $mailer->createMessage();
                 $message->setSubject($subject);
@@ -95,11 +97,11 @@ trait Loggable
                 $message->setContentType('text/html');
                 $message->setCharset('utf-8');
 
-                $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
-                break;
-
-            case 'mandrill':
-                // MandrillHandler
+                if ($driver == 'mandrill') {
+                    $mailerHandler = new MandrillHandler(config('services.mandrill.secret'), $message, $level);
+                } else {
+                    $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
+                }
                 break;
 
             default:

@@ -257,6 +257,7 @@ Or, another example, probably you're using database server. If it goes down - ag
 And this can be a problem, if you have a huge number of commands. You'll get hundreds of emails for a few hours.
 
 The good news is that you can deduplicate notifications very easy. You can enable deduplication by overriding `getNotificationDeduplication` method.
+
 Also, you can adjust deduplication time, by overridding `getNotificationDeduplicationTime` method:
 
 ```php

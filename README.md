@@ -250,6 +250,34 @@ class Foo extends Command
 }
 ```
 
+#### Notifications deduplication
+
+Often different console commands can produce similar errors. For example, maybe all of your commands are using some common external service. And if that service goes down, you'll get an error notification from each of your command.
+Or, another example, probably you're using database server. If it goes down - again, you'll get an error notification from each of your command.
+And this can be a problem, if you have a huge number of commands. You'll get hundreds of emails for a few hours.
+
+The good news is that you can deduplicate notifications very easy. You can enable deduplication by overriding `getNotificationDeduplication` method.
+Also, you can adjust deduplication time, by overridding `getNotificationDeduplicationTime` method:
+
+```php
+class Foo extends Command
+{
+    use Loggable;
+
+    protected function getNotificationDeduplication()
+    {
+        return true;
+    }
+
+    protected function getNotificationDeduplicationTime()
+    {
+        return 90;
+    }
+
+    // ...
+}
+```
+
 #### Accessing Monolog instance
 
 This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power and benefits.

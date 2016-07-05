@@ -29,6 +29,7 @@ class HtmlFormatter extends MonologHtmlFormatter
     protected function composeStyle(array $record)
     {
         $level = $record['level'];
+        $level_name = $record['level_name'];
 
         return "<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
                 <style>
@@ -37,10 +38,12 @@ class HtmlFormatter extends MonologHtmlFormatter
                         font-size: 16px;
                     }
                     .title, .subtitle {
-                        background: {$this->logLevels[$level]};
                         color: #ffffff;
                         margin: 0px;
                         padding: 15px;
+                    }
+                    .title.{$level_name}, .subtitle.{$level_name} {
+                        background: {$this->logLevels[$level]};
                     }
                     .details-row {
                         text-align: left;
@@ -63,7 +66,7 @@ class HtmlFormatter extends MonologHtmlFormatter
     protected function composeTitle(array $record)
     {
         $levelName = e($record['level_name']);
-        $title = "<h2 class='title'>{$levelName}</h2>";
+        $title = "<h2 class='title {$levelName}'>{$levelName}</h2>";
 
         $environment = app()->environment();
         if ($environment == 'production') {
@@ -72,7 +75,7 @@ class HtmlFormatter extends MonologHtmlFormatter
 
         $environment = e(str_upper($environment));
         $title .= '<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>';
-        $title .= "<h3 class='subtitle'>This notification was sent from `{$environment}` environment!</h3>";
+        $title .= "<h3 class='subtitle {$levelName}'>This notification was sent from `{$environment}` environment!</h3>";
 
         return $title;
     }

@@ -252,8 +252,8 @@ class Foo extends Command
 
 #### Notifications deduplication
 
-Often different console commands can produce similar errors. For example, maybe all of your commands are using some common external service. And if that service goes down, you'll get an error notification from each of your command.
-Or, another example, probably you're using database server. If it goes down - again, you'll get an error notification from each of your command.
+Often different console commands can produce similar errors. For example, maybe all of your commands are using some common external service. And if that service goes down, you'll get an error notification from each of your commands.
+Or, another example, probably you're using database server. If it goes down - again, you'll get an error notification from each of your commands.
 And this can be a problem, if you have a huge number of commands. You'll get hundreds of emails for a few hours.
 
 The good news is that you can deduplicate notifications very easy. You can enable deduplication by overriding `getNotificationDeduplication` method.

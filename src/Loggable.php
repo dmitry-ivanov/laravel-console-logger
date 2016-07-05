@@ -5,6 +5,7 @@ namespace Illuminated\Console;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;
+use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\RotatingFileHandler;
@@ -66,6 +67,9 @@ trait Loggable
 
         $mailerHandler = $this->getMailerHandler();
         if (!empty($mailerHandler)) {
+            if ($this->getNotificationDeduplication()) {
+                $mailerHandler = new DeduplicationHandler($mailerHandler, null, $this->getNotificationLevel());
+            }
             $handlers[] = $mailerHandler;
         }
 
@@ -198,6 +202,11 @@ trait Loggable
     protected function getNotificationLevel()
     {
         return Logger::NOTICE;
+    }
+
+    protected function getNotificationDeduplication()
+    {
+        return false;
     }
 
     protected function icLogger()

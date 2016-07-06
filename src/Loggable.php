@@ -5,6 +5,7 @@ namespace Illuminated\Console;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;
+use Illuminated\Console\Log\MysqlHandler;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
@@ -140,7 +141,7 @@ trait Loggable
             return false;
         }
 
-        dd('db handler');
+        return (new MysqlHandler('iclogger_notifications', $this->getNotificationLevel()));
     }
 
     private function getFilteredNotificationRecipients()

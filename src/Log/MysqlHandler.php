@@ -40,7 +40,7 @@ class MysqlHandler extends AbstractProcessingHandler
             $record['level'],
             $record['level_name'],
             $record['message'],
-            get_dump($record['context'])
+            get_dump($record['context']),
         ]);
     }
 }

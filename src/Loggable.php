@@ -60,10 +60,8 @@ trait Loggable
     {
         $handlers = [];
 
-        $rotatingFileHandler = new RotatingFileHandler($this->getLogPath(), 30);
-        $rotatingFileHandler->setFilenameFormat('{date}', 'Y-m-d');
-        $rotatingFileHandler->setFormatter(new Formatter());
-        $handlers[] = $rotatingFileHandler;
+        $fileHandler = $this->getFileHandler();
+        $handlers[] = $fileHandler;
 
         $mailerHandler = $this->getMailerHandler();
         if (!empty($mailerHandler)) {
@@ -75,7 +73,21 @@ trait Loggable
             $handlers[] = $mailerHandler;
         }
 
+        $dbHandler = $this->getDbHandler();
+        if (!empty($dbHandler)) {
+            $handlers[] = $dbHandler;
+        }
+
         return $handlers;
+    }
+
+    protected function getFileHandler()
+    {
+        $fileHandler = new RotatingFileHandler($this->getLogPath(), 30);
+        $fileHandler->setFilenameFormat('{date}', 'Y-m-d');
+        $fileHandler->setFormatter(new Formatter());
+
+        return $fileHandler;
     }
 
     protected function getMailerHandler()
@@ -120,6 +132,15 @@ trait Loggable
         $mailerHandler->setFormatter(new HtmlFormatter());
 
         return $mailerHandler;
+    }
+
+    protected function getDbHandler()
+    {
+        if (!db_is_mysql()) {
+            return false;
+        }
+
+        dd('db handler');
     }
 
     private function getFilteredNotificationRecipients()

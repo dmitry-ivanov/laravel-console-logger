@@ -66,7 +66,7 @@ trait Loggable
 
         $mailerHandler = $this->getMailerHandler();
         if (!empty($mailerHandler)) {
-            if ($this->getNotificationDeduplication()) {
+            if ($this->enableNotificationDeduplication()) {
                 $level = $this->getNotificationLevel();
                 $time = $this->getNotificationDeduplicationTime();
                 $mailerHandler = new DeduplicationHandler($mailerHandler, null, $level, $time);
@@ -228,7 +228,7 @@ trait Loggable
         return Logger::NOTICE;
     }
 
-    protected function getNotificationDeduplication()
+    protected function enableNotificationDeduplication()
     {
         return false;
     }

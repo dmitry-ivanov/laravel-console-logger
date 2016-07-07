@@ -223,7 +223,7 @@ Often different console commands can produce similar errors. For example, maybe 
 Or, another example, probably you're using database server. If it goes down - again, you'll get an error notification from each of your commands.
 And this can be a problem, if you have a huge number of commands. You'll get hundreds of emails for a few hours.
 
-The good news is that you can deduplicate notifications very easy. You can enable deduplication by overriding `getNotificationDeduplication` method.
+The good news is that you can deduplicate notifications very easy. You can enable deduplication by overriding `enableNotificationDeduplication` method.
 
 Also, you can adjust deduplication time, by overridding `getNotificationDeduplicationTime` method:
 
@@ -232,7 +232,7 @@ class Foo extends Command
 {
     use Loggable;
 
-    protected function getNotificationDeduplication()
+    protected function enableNotificationDeduplication()
     {
         return true;
     }

@@ -218,7 +218,7 @@ class Foo extends Command
     protected function getNotificationDbCallback()
     {
         return function (array $record) {
-            MyNotification::create([
+            MyCustomNotification::create([
                 'entity' => 'some-additional-data',
                 'level' => $record['level'],
                 'level_name' => $record['level_name'],

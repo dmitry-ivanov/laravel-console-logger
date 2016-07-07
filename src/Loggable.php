@@ -137,7 +137,7 @@ trait Loggable
 
     protected function getDbHandler()
     {
-        if (!db_is_mysql()) {
+        if (!db_is_mysql() || !$this->enableNotificationDbStoring()) {
             return false;
         }
 
@@ -236,6 +236,11 @@ trait Loggable
     protected function getNotificationDeduplicationTime()
     {
         return 60;
+    }
+
+    protected function enableNotificationDbStoring()
+    {
+        return false;
     }
 
     protected function icLogger()

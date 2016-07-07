@@ -194,7 +194,7 @@ array:5 [
 
 ## Auto saving to database
 
-Another cool feature available for you is automatic notifications saving to database. Disabled by default, and available only if you are using `mysql` database connection.
+Another cool feature available for you is auto saving notifications to database. Disabled by default, and available only if you are using `mysql` database connection.
 
 To enable it just override `enableNotificationDbStoring` method. By default, you'll get `iclogger_notifications` table with all required notifications information, which if fine for the most cases.
 

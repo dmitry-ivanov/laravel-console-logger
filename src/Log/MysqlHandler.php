@@ -9,10 +9,12 @@ use Monolog\Logger;
 class MysqlHandler extends AbstractProcessingHandler
 {
     private $table;
+    private $callback;
 
-    public function __construct($table = 'iclogger_notifications', $level = Logger::DEBUG, $bubble = true)
+    public function __construct($table = 'iclogger_notifications', callable $callback = null, $level = Logger::DEBUG, $bubble = true)
     {
         $this->table = $table;
+        $this->callback = $callback;
         $this->initialize();
 
         parent::__construct($level, $bubble);
@@ -35,6 +37,10 @@ class MysqlHandler extends AbstractProcessingHandler
 
     protected function write(array $record)
     {
+        if (!empty($this->callback)) {
+            return call_user_func($this->callback, $record);
+        }
+
         $fields = '(`level`, `level_name`, `message`, `context`, `created_at`)';
         DB::insert("insert into `{$this->table}` {$fields} values (?, ?, ?, ?, now())", [
             $record['level'],

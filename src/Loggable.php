@@ -141,7 +141,11 @@ trait Loggable
             return false;
         }
 
-        return (new MysqlHandler('iclogger_notifications', $this->getNotificationLevel()));
+        $table = 'iclogger_notifications';
+        $callback = $this->getNotificationDbCallback();
+        $level = $this->getNotificationLevel();
+
+        return (new MysqlHandler($table, $callback, $level));
     }
 
     private function getFilteredNotificationRecipients()
@@ -241,6 +245,11 @@ trait Loggable
     protected function enableNotificationDbStoring()
     {
         return false;
+    }
+
+    protected function getNotificationDbCallback()
+    {
+        return null;
     }
 
     protected function icLogger()

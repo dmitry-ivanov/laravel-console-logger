@@ -194,7 +194,43 @@ array:5 [
 
 ## Auto saving to database
 
-In progress...
+Another cool feature available for you is notifications database storing. It is disabled by default, and available only if you're using `mysql` database connection.
+To enable storing notifications to database - just override `enableNotificationDbStoring` method. By default, you'll get `iclogger_notifications` table with all required notifications information.
+And this would be fine for most cases.
+
+However, you can customize database table name and even storing logic if needed:
+
+```php
+class Foo extends Command
+{
+    use Loggable;
+
+    protected function enableNotificationDbStoring()
+    {
+        return true;
+    }
+
+    protected function getNotificationDbTable()
+    {
+        return 'my_custom_notifications';
+    }
+
+    protected function getNotificationDbCallback()
+    {
+        return function (array $record) {
+            MyNotification::create([
+                'entity' => 'some-additional-data',
+                'level' => $record['level'],
+                'level_name' => $record['level_name'],
+                'message' => $record['message'],
+                'context' => get_dump($record['context']),
+            ]);
+        };
+    }
+
+    // ...
+}
+```
 
 ## Advanced
 

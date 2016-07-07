@@ -141,7 +141,7 @@ trait Loggable
             return false;
         }
 
-        $table = 'iclogger_notifications';
+        $table = $this->getNotificationDbTable();
         $callback = $this->getNotificationDbCallback();
         $level = $this->getNotificationLevel();
 
@@ -245,6 +245,11 @@ trait Loggable
     protected function enableNotificationDbStoring()
     {
         return false;
+    }
+
+    protected function getNotificationDbTable()
+    {
+        return 'iclogger_notifications';
     }
 
     protected function getNotificationDbCallback()

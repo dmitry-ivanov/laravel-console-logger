@@ -192,7 +192,7 @@ array:5 [
 ]
 ```
 
-## Auto saving to DB
+## Auto saving to database
 
 In progress...
 

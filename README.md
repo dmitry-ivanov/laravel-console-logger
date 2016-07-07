@@ -219,11 +219,12 @@ class Foo extends Command
     {
         return function (array $record) {
             MyCustomNotification::create([
-                'entity' => 'some-additional-data',
                 'level' => $record['level'],
                 'level_name' => $record['level_name'],
                 'message' => $record['message'],
                 'context' => get_dump($record['context']),
+                'bar' => 'some-additional-data',
+                'baz' => 'more-additional-data',
             ]);
         };
     }

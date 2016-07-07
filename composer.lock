@@ -225,21 +225,22 @@
         },
         {
             "name": "illuminated/helper-functions",
-            "version": "0.1.17",
+            "version": "0.1.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
-                "reference": "9a699c571e87b7ab017bf1684a85187fa975a1f5"
+                "reference": "a7c9bc71c50c0d120630c0acf43d62a814139597"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/9a699c571e87b7ab017bf1684a85187fa975a1f5",
-                "reference": "9a699c571e87b7ab017bf1684a85187fa975a1f5",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/a7c9bc71c50c0d120630c0acf43d62a814139597",
+                "reference": "a7c9bc71c50c0d120630c0acf43d62a814139597",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^5.2",
                 "php": ">=5.5.9",
+                "symfony/finder": "^3.0",
                 "symfony/var-dumper": "^3.0"
             },
             "type": "library",
@@ -264,7 +265,7 @@
                 "helper",
                 "laravel"
             ],
-            "time": "2016-07-07 14:04:25"
+            "time": "2016-07-07 19:24:46"
         },
         {
             "name": "monolog/monolog",
@@ -536,6 +537,55 @@
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
             "time": "2016-06-29 07:02:21"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "v3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "8201978de88a9fa0923e18601bb17f1df9c721e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/8201978de88a9fa0923e18601bb17f1df9c721e7",
+                "reference": "8201978de88a9fa0923e18601bb17f1df9c721e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Finder\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-06-29 05:41:56"
         },
         {
             "name": "symfony/polyfill-mbstring",

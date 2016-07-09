@@ -318,7 +318,7 @@ class Foo extends Command
 
 #### Guzzle 6 integration
 
-If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll want to have logs of your interactions.
+If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll want to have logs of your http interactions.
 
 There is a helper function `iclogger_guzzle_middleware`, which makes it very easy:
 

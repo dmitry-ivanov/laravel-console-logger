@@ -1,12 +1,13 @@
 <?php
 
 use Illuminated\Console\RuntimeException;
+use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 
 function iclogger_guzzle_middleware(LoggerInterface $log, $type = 'raw')
 {
     return function (callable $handler) use ($log, $type) {
-        return function ($request, array $options) use ($handler, $log, $type) {
+        return function (RequestInterface $request, array $options) use ($handler, $log, $type) {
             $method = (string) $request->getMethod();
             $uri = (string) $request->getUri();
             $body = (string) $request->getBody();

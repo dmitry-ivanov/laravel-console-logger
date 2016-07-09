@@ -58,7 +58,7 @@ function iclogger_guzzle_middleware(LoggerInterface $log, $type = 'raw')
 
                     return $response;
                 },
-                function ($reason) use ($log) {
+                function ($reason) {
                     return \GuzzleHttp\Promise\rejection_for($reason);
                 }
             );

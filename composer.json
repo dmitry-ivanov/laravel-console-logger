@@ -13,9 +13,11 @@
         "php": ">=5.5.9",
         "illuminate/console": "^5.2",
         "illuminated/helper-functions": "^0.1.5",
-        "monolog/monolog": "^1.19"
+        "monolog/monolog": "^1.19",
+        "symfony/finder": "^3.0"
     },
     "autoload": {
+        "files": ["integrations/autoload.php"],
         "psr-4": {
             "Illuminated\\Console\\": "src/"
         }

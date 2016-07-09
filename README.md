@@ -316,6 +316,28 @@ class Foo extends Command
 }
 ```
 
+#### Guzzle 6 integration
+
+If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll want to log your requests and responses.
+There is a helper function `iclogger_guzzle_middleware`, which makes it very easy:
+
+```php
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\HandlerStack;
+
+$handler = HandlerStack::create();
+$middleware = iclogger_guzzle_middleware($log);
+$handler->push($middleware);
+
+$guzzle = new GuzzleClient([
+    'handler' => $handler,
+    'base_uri' => 'http://example.com',
+]);
+```
+
+Now, your guzzle interactions are fully loggable. Each request, response and even errors would be logged for you.
+Note, that you can also set `type` as a second argument. Set it to `json` to get auto json decoding for request params and response body.
+
 #### Accessing Monolog instance
 
 This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power and benefits.

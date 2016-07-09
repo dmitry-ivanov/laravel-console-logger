@@ -337,7 +337,7 @@ $client = new Client([
 ```
 
 Now, your guzzle interactions are fully loggable. Each request, response and even errors would be logged for you.
-Note, that you can also set type, as a second argument. Set it to `json` to get auto json decoding for request params and response body.
+You can also set type, as a second argument. Set it to `json` to get auto json decoding for request params and response body.
 
 #### Accessing Monolog instance
 

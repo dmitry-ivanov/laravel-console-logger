@@ -3,6 +3,7 @@
 namespace Illuminated\Console\Log;
 
 use Monolog\Formatter\LineFormatter;
+use Traversable;
 
 class Formatter extends LineFormatter
 {
@@ -28,5 +29,18 @@ class Formatter extends LineFormatter
         }
 
         return parent::convertToString($data);
+    }
+
+    protected function normalize($data)
+    {
+        if (is_array($data) || ($data instanceof Traversable)) {
+            $normalized = [];
+            foreach ($data as $key => $value) {
+                $normalized[$key] = $this->normalize($value);
+            }
+            return $normalized;
+        }
+
+        return parent::normalize($data);
     }
 }

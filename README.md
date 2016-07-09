@@ -323,14 +323,14 @@ If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll w
 There is a helper function `iclogger_guzzle_middleware`, which makes it very easy:
 
 ```php
-use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 
 $handler = HandlerStack::create();
 $middleware = iclogger_guzzle_middleware($log);
 $handler->push($middleware);
 
-$guzzle = new GuzzleClient([
+$client = new Client([
     'handler' => $handler,
     'base_uri' => 'http://example.com',
 ]);

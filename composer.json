@@ -14,6 +14,8 @@
         "illuminate/console": "^5.2",
         "illuminated/helper-functions": "^0.1.5",
         "monolog/monolog": "^1.19",
+        "psr/http-message": "^1.0",
+        "psr/log": "^1.0",
         "symfony/finder": "^3.0"
     },
     "autoload": {

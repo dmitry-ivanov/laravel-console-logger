@@ -22,7 +22,7 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                         case 'json':
                             $context = json_decode($body, true);
                             break;
-    
+
                         case 'raw':
                         default:
                             $message .= "\n{$body}";

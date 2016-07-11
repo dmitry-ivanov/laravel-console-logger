@@ -341,7 +341,7 @@ You can also set type, as a second argument. Set it to `json` to get auto json d
 
 And even more advanced options are the third and the fourth optional arguments, which are callbacks, by which you can minimize your logs if needed.
 Both of them should return bool. `shouldLogRequest` determines if request bodies should be logged or not, and `shouldLogResponse` determines the same for the response bodies.
-You can set here any of your custom logic here. For example, maybe you want to skip logging for just specific urls, or maybe you want to check content length of the response, etc.
+You can set any of your custom logic here. For example, maybe you want to skip logging for just specific urls, or maybe you want to check content length of the response, etc.
 
 ```php
 use Psr\Http\Message\RequestInterface;

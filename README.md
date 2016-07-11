@@ -357,10 +357,10 @@ $middleware = iclogger_guzzle_middleware($log, 'json',
     },
     function (RequestInterface $request, ResponseInterface $response) {
         if (ends_with($request->getUri(), '/bar')) {
-                return false; // skips logging for /bar response bodies
-            }
+            return false; // skips logging for /bar response bodies
+        }
 
-            return true;
+        return true;
     }
 );
 ```

@@ -12,7 +12,7 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                 $method = (string) $request->getMethod();
                 $uri = (string) $request->getUri();
                 $body = (string) $request->getBody();
-    
+
                 if (empty($body)) {
                     $message = "[{$method}] Calling `{$uri}`.";
                     $context = [];
@@ -31,12 +31,12 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                     }
                 }
                 $log->info($message, $context);
-    
+
                 return $handler($request, $options)->then(
                     function ($response) use ($log, $type) {
                         $body = (string) $response->getBody();
                         $code = $response->getStatusCode();
-    
+
                         $message = "[{$code}] Response:";
                         switch ($type) {
                             case 'json':
@@ -45,7 +45,7 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                                     throw new RuntimeException('Bad response, json expected.', ['response' => $body]);
                                 }
                                 break;
-    
+
                             case 'raw':
                             default:
                                 $message .= "\n{$body}";
@@ -55,9 +55,9 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                         if (!empty($context)) {
                             $response->iclParsedBody = $context;
                         }
-    
+
                         $log->info($message, $context);
-    
+
                         return $response;
                     },
                     function ($reason) {

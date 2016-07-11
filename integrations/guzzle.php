@@ -5,10 +5,10 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 
 if (!function_exists('iclogger_guzzle_middleware')) {
-    function iclogger_guzzle_middleware(LoggerInterface $log, $type = 'raw')
+    function iclogger_guzzle_middleware(LoggerInterface $log, $type = 'raw', callable $shouldLogRequest = null, callable $shouldLogResponse = null)
     {
-        return function (callable $handler) use ($log, $type) {
-            return function (RequestInterface $request, array $options) use ($handler, $log, $type) {
+        return function (callable $handler) use ($log, $type, $shouldLogRequest, $shouldLogResponse) {
+            return function (RequestInterface $request, array $options) use ($handler, $log, $type, $shouldLogRequest, $shouldLogResponse) {
                 $method = (string) $request->getMethod();
                 $uri = (string) $request->getUri();
                 $body = (string) $request->getBody();
@@ -30,10 +30,19 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                             break;
                     }
                 }
+
+                if (!empty($shouldLogRequest)) {
+                    $shouldLogRequest = call_user_func($shouldLogRequest, $request);
+                    if (!$shouldLogRequest) {
+                        $message = "[{$method}] Calling `{$uri}`, body is not shown according to minimization mode.";
+                        $context = [];
+                    }
+                }
+
                 $log->info($message, $context);
 
                 return $handler($request, $options)->then(
-                    function ($response) use ($log, $type) {
+                    function ($response) use ($request, $log, $type, $shouldLogResponse) {
                         $body = (string) $response->getBody();
                         $code = $response->getStatusCode();
 
@@ -54,6 +63,14 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                         }
                         if (!empty($context)) {
                             $response->iclParsedBody = $context;
+                        }
+
+                        if (!empty($shouldLogResponse)) {
+                            $shouldLogResponse = call_user_func($shouldLogResponse, $request, $response);
+                            if (!$shouldLogResponse) {
+                                $message = "[{$code}] Response is not shown according to minimization mode.";
+                                $context = [];
+                            }
                         }
 
                         $log->info($message, $context);

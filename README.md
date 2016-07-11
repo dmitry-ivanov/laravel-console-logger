@@ -339,6 +339,32 @@ $client = new Client([
 Now, your guzzle interactions are fully loggable. Each request, response and even errors would be logged for you.
 You can also set type, as a second argument. Set it to `json` to get auto json decoding for request params and response body.
 
+And even more advanced options are the third and the fourth optional arguments, which are callbacks, by which you can minimize your logs if needed.
+Both of them should return bool. `shouldLogRequest` determines if request bodies should be logged or not, and `shouldLogResponse` determines the same for the response bodies.
+You can set here any of your custom logic here. For example, maybe you want to skip logging for just specific urls, or maybe you want to check content length of the response, etc.
+
+```php
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
+$middleware = iclogger_guzzle_middleware($log, 'json',
+    function (RequestInterface $request) {
+        if (ends_with($request->getUri(), '/foo')) {
+            return false; // skips logging for /foo request bodies
+        }
+
+        return true;
+    },
+    function (RequestInterface $request, ResponseInterface $response) {
+        if (ends_with($request->getUri(), '/bar')) {
+                return false; // skips logging for /bar response bodies
+            }
+
+            return true;
+    }
+);
+```
+
 #### Accessing Monolog instance
 
 This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power and benefits.

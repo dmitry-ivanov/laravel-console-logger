@@ -356,8 +356,9 @@ $middleware = iclogger_guzzle_middleware($log, 'json',
         return true;
     },
     function (RequestInterface $request, ResponseInterface $response) {
-        if (ends_with($request->getUri(), '/bar')) {
-            return false; // skips logging for /bar response bodies
+        $contentLength = $response->getHeaderLine('Content-Length');
+        if ($contentLength > (100 * 1024)) {
+            return false; // skips logging for responses greater than 100 KB
         }
 
         return true;

@@ -2,7 +2,7 @@
 
 namespace Illuminated\Console;
 
-use App\Exceptions\Handler;
+use Illuminate\Foundation\Exceptions\Handler;
 use Exception;
 
 class ExceptionHandler extends Handler

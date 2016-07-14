@@ -2,8 +2,8 @@
 
 namespace Illuminated\Console;
 
-use Illuminate\Foundation\Exceptions\Handler;
 use Exception;
+use Illuminate\Foundation\Exceptions\Handler;
 
 class ExceptionHandler extends Handler
 {

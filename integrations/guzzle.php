@@ -34,7 +34,7 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                 if (!empty($shouldLogRequest)) {
                     $shouldLogRequest = call_user_func($shouldLogRequest, $request);
                     if (!$shouldLogRequest) {
-                        $message = "[{$method}] Calling `{$uri}`, body is not shown according to the custom rules.";
+                        $message = "[{$method}] Calling `{$uri}`, body is not shown according to the custom logic.";
                         $context = [];
                     }
                 }
@@ -68,7 +68,7 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                         if (!empty($shouldLogResponse)) {
                             $shouldLogResponse = call_user_func($shouldLogResponse, $request, $response);
                             if (!$shouldLogResponse) {
-                                $message = "[{$code}] Response is not shown according to the custom rules.";
+                                $message = "[{$code}] Response is not shown according to the custom logic.";
                                 $context = [];
                             }
                         }

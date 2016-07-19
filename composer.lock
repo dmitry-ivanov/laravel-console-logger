@@ -225,22 +225,23 @@
         },
         {
             "name": "illuminated/helper-functions",
-            "version": "0.1.18",
+            "version": "0.1.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
-                "reference": "a7c9bc71c50c0d120630c0acf43d62a814139597"
+                "reference": "3eaf5ebc6a8f3dd22b6ce8af74fee6590ec1fc0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/a7c9bc71c50c0d120630c0acf43d62a814139597",
-                "reference": "a7c9bc71c50c0d120630c0acf43d62a814139597",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/3eaf5ebc6a8f3dd22b6ce8af74fee6590ec1fc0c",
+                "reference": "3eaf5ebc6a8f3dd22b6ce8af74fee6590ec1fc0c",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^5.2",
                 "php": ">=5.5.9",
                 "symfony/finder": "^3.0",
+                "symfony/process": "^3.0",
                 "symfony/var-dumper": "^3.0"
             },
             "type": "library",
@@ -265,7 +266,7 @@
                 "helper",
                 "laravel"
             ],
-            "time": "2016-07-07 19:24:46"
+            "time": "2016-07-19 11:48:02"
         },
         {
             "name": "monolog/monolog",
@@ -694,6 +695,55 @@
                 "shim"
             ],
             "time": "2016-05-18 14:26:46"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "5c11a1a4d4016662eeaf0f8757958c7de069f9a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/5c11a1a4d4016662eeaf0f8757958c7de069f9a0",
+                "reference": "5c11a1a4d4016662eeaf0f8757958c7de069f9a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-06-29 05:42:25"
         },
         {
             "name": "symfony/translation",

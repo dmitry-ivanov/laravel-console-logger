@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait Loggable
 {
-    private $icLogger;
+    protected $icLogger;
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {

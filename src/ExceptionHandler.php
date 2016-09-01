@@ -10,7 +10,7 @@ class ExceptionHandler extends Handler
     private $log;
     private $timeStarted;
     private $timeFinished;
-    private $reservedMemory;
+    private static $reservedMemory;
 
     public function __construct()
     {
@@ -40,10 +40,10 @@ class ExceptionHandler extends Handler
     private function registerShutdownFunction()
     {
         $this->timeStarted = microtime(true);
-        $this->reservedMemory = str_repeat(' ', 20 * 1024);
+        self::$reservedMemory = str_repeat(' ', 20 * 1024);
 
         register_shutdown_function(function () {
-            $this->reservedMemory = null;
+            self::$reservedMemory = null;
 
             $this->timeFinished = microtime(true);
             $executionTime = round($this->timeFinished - $this->timeStarted, 3);

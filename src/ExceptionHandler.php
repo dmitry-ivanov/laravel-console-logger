@@ -7,15 +7,15 @@ use Illuminate\Foundation\Exceptions\Handler;
 
 class ExceptionHandler extends Handler
 {
+    private $log;
     private $timeStarted;
     private $timeFinished;
-    protected $reservedMemory;
+    private $reservedMemory;
 
     public function __construct()
     {
+        $this->log = app('log.iclogger');
         $this->registerShutdownFunction();
-
-        parent::__construct(app('log.iclogger'));
     }
 
     public function report(Exception $e)

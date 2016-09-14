@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f8ce9aa01f98dad26d4bbe9cd2115892",
-    "content-hash": "dfebe34ebb704e4c24215228020d83fa",
+    "hash": "80074490dd3e67afece042f00ffc4f03",
+    "content-hash": "516f07bbac8da36a908cb9a025f34557",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -226,16 +226,16 @@
         },
         {
             "name": "illuminated/helper-functions",
-            "version": "0.1.22",
+            "version": "0.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
-                "reference": "22c99d44af8ce0a9cca2938c2dc5d5ffd7cb840b"
+                "reference": "ff33c60795e5ea811a7ca7b465b7624b3ddb26c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/22c99d44af8ce0a9cca2938c2dc5d5ffd7cb840b",
-                "reference": "22c99d44af8ce0a9cca2938c2dc5d5ffd7cb840b",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/ff33c60795e5ea811a7ca7b465b7624b3ddb26c5",
+                "reference": "ff33c60795e5ea811a7ca7b465b7624b3ddb26c5",
                 "shasum": ""
             },
             "require": {
@@ -244,6 +244,9 @@
                 "symfony/finder": "^3.0",
                 "symfony/process": "^3.0",
                 "symfony/var-dumper": "^3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.5"
             },
             "type": "library",
             "autoload": {
@@ -267,7 +270,7 @@
                 "helper",
                 "laravel"
             ],
-            "time": "2016-09-13 12:11:18"
+            "time": "2016-09-14 09:32:26"
         },
         {
             "name": "monolog/monolog",
@@ -882,7 +885,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.9"
+        "php": ">=5.6.4"
     },
     "platform-dev": []
 }

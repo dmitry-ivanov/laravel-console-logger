@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "80074490dd3e67afece042f00ffc4f03",
-    "content-hash": "516f07bbac8da36a908cb9a025f34557",
+    "hash": "a754297b4f4828af00225629ecbff711",
+    "content-hash": "52dfc14112307287f44077784f51a1ca",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -226,33 +226,37 @@
         },
         {
             "name": "illuminated/helper-functions",
-            "version": "0.1.23",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
-                "reference": "ff33c60795e5ea811a7ca7b465b7624b3ddb26c5"
+                "reference": "2f10533d78a467e184d7e9b8df9ed68321432ba0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/ff33c60795e5ea811a7ca7b465b7624b3ddb26c5",
-                "reference": "ff33c60795e5ea811a7ca7b465b7624b3ddb26c5",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/2f10533d78a467e184d7e9b8df9ed68321432ba0",
+                "reference": "2f10533d78a467e184d7e9b8df9ed68321432ba0",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^5.2",
-                "php": ">=5.5.9",
+                "php": ">=5.6.4",
                 "symfony/finder": "^3.0",
                 "symfony/process": "^3.0",
                 "symfony/var-dumper": "^3.0"
             },
             "require-dev": {
+                "mockery/mockery": "^0.9.5",
                 "phpunit/phpunit": "^5.5"
             },
             "type": "library",
             "autoload": {
                 "files": [
                     "src/autoload.php"
-                ]
+                ],
+                "psr-4": {
+                    "Illuminated\\Helpers\\": "src/classes/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -270,7 +274,7 @@
                 "helper",
                 "laravel"
             ],
-            "time": "2016-09-14 09:32:26"
+            "time": "2016-09-17 16:18:59"
         },
         {
             "name": "monolog/monolog",

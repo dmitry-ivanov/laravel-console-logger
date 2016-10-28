@@ -54,7 +54,7 @@ trait Loggable
         $this->icLogger = app('log.iclogger');
 
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
-        app(ExceptionHandlerContract::class);
+        app(ExceptionHandlerContract::class)->initialize($this->icLogger);
     }
 
     private function getLogHandlers()

@@ -4,19 +4,18 @@ namespace Illuminated\Console;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler;
+use Psr\Log\LoggerInterface;
 
 class ExceptionHandler extends Handler
 {
-    private $log;
+    private $logger;
     private $timeStarted;
     private $timeFinished;
     protected $reservedMemory;
 
-    public function __construct()
+    public function initialize(LoggerInterface $logger)
     {
-        parent::__construct(app());
-
-        $this->log = app('log.iclogger');
+        $this->logger = $logger;
         $this->registerShutdownFunction();
     }
 
@@ -36,7 +35,7 @@ class ExceptionHandler extends Handler
             }
         }
 
-        $this->log->error($e->getMessage(), $context);
+        $this->logger->error($e->getMessage(), $context);
     }
 
     private function registerShutdownFunction()
@@ -49,14 +48,14 @@ class ExceptionHandler extends Handler
 
             $this->timeFinished = microtime(true);
             $executionTime = round($this->timeFinished - $this->timeStarted, 3);
-            $this->log->info("Execution time: {$executionTime} sec.");
+            $this->logger->info("Execution time: {$executionTime} sec.");
 
             $memoryPeak = format_bytes(memory_get_peak_usage(true));
-            $this->log->info("Memory peak usage: {$memoryPeak}.");
+            $this->logger->info("Memory peak usage: {$memoryPeak}.");
 
-            $this->log->info('%separator%');
+            $this->logger->info('%separator%');
 
-            $handlers = $this->log->getHandlers();
+            $handlers = $this->logger->getHandlers();
             foreach ($handlers as $handler) {
                 $handler->close();
             }

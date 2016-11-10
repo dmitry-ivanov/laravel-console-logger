@@ -1,7 +1,8 @@
 # Laravel console logger
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/b6404099-b40b-4c59-8e71-5140a390f018/big.png)](https://insight.sensiolabs.com/projects/b6404099-b40b-4c59-8e71-5140a390f018)
+
 [![StyleCI](https://styleci.io/repos/61117768/shield?branch=master&style=flat)](https://styleci.io/repos/61117768)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/b6404099-b40b-4c59-8e71-5140a390f018/mini.png)](https://insight.sensiolabs.com/projects/b6404099-b40b-4c59-8e71-5140a390f018)
 
 [![Latest Stable Version](https://poser.pugx.org/illuminated/console-logger/v/stable)](https://packagist.org/packages/illuminated/console-logger)
 [![Latest Unstable Version](https://poser.pugx.org/illuminated/console-logger/v/unstable)](https://packagist.org/packages/illuminated/console-logger)

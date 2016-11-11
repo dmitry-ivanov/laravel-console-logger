@@ -51,4 +51,23 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         $this->assertFileExists(storage_path("logs/{$path}"));
     }
+
+    public function assertLogFileContains($path, $expected)
+    {
+        $expected = !is_array($expected) ? [$expected] : $expected;
+        $content = File::get(storage_path("logs/{$path}"));
+
+        foreach ($expected as $item) {
+            $pattern = $this->normalizeExpectedFileContent($item);
+            $this->assertRegExp($pattern, $content, "Failed asserting that file contains `{$item}`.");
+        }
+    }
+
+    private function normalizeExpectedFileContent($content)
+    {
+        $content = '/' . preg_quote($content) . '/';
+        $content = str_replace('%datetime%', '\d{4}-\d{2}-\d{2} \d{2}\:\d{2}\:\d{2}', $content);
+
+        return $content;
+    }
 }

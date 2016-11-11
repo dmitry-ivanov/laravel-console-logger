@@ -13,7 +13,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->setUpStorage();
     }
 
-    private function setUpDatabase()
+    protected function setUpDatabase()
     {
         config(['database.default' => 'testing']);
     }

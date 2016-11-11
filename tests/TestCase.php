@@ -5,12 +5,20 @@ use Symfony\Component\Finder\Finder;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
+    protected $date;
+
     protected function setUp()
     {
         parent::setUp();
 
+        $this->setUpDate();
         $this->setUpDatabase();
         $this->setUpStorage();
+    }
+
+    private function setUpDate()
+    {
+        $this->date = date('Y-m-d');
     }
 
     protected function setUpDatabase()

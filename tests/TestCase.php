@@ -46,4 +46,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             }
         }
     }
+
+    public function assertLogFileExists($path)
+    {
+        $this->assertFileExists(storage_path("logs/{$path}"));
+    }
 }

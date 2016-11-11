@@ -63,6 +63,17 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         }
     }
 
+    public function assertLogFileNotContains($path, $expected)
+    {
+        $expected = !is_array($expected) ? [$expected] : $expected;
+        $content = File::get(storage_path("logs/{$path}"));
+
+        foreach ($expected as $item) {
+            $pattern = $this->normalizeExpectedFileContent($item);
+            $this->assertNotRegExp($pattern, $content, "Failed asserting that file not contains `{$item}`.");
+        }
+    }
+
     private function normalizeExpectedFileContent($content)
     {
         $content = '/' . preg_quote($content) . '/';

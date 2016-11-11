@@ -3,11 +3,11 @@
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
 
-class GenericCommand extends Command
+class NamespacedGenericCommand extends Command
 {
     use Loggable;
 
-    protected $signature = 'generic';
+    protected $signature = 'icl:generic';
 
     public function handle()
     {

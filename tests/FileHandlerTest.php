@@ -18,4 +18,12 @@ class FileHandlerTest extends TestCase
 
         $this->assertLogFileExists("generic/{$this->date}.log");
     }
+
+    /** @test */
+    public function namespaced_command_names_are_translated_into_a_separate_subfolders()
+    {
+        Artisan::call('foo:barbaz');
+
+        $this->assertLogFileExists("foo/barbaz/{$this->date}.log");
+    }
 }

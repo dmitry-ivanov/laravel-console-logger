@@ -41,4 +41,15 @@ class FileHandlerTest extends TestCase
             "[%datetime%]: [INFO]: Host: `{$host}` (`{$ip}`).",
         ]);
     }
+
+    /** @test */
+    public function it_does_not_write_additional_mysql_information_headers_for_non_mysql_connections()
+    {
+        Artisan::call('generic');
+
+        $this->assertLogFileNotContains("generic/{$this->date}.log", [
+            'Database host:',
+            'Database date:',
+        ]);
+    }
 }

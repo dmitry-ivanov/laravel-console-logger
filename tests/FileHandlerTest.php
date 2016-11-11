@@ -26,4 +26,19 @@ class FileHandlerTest extends TestCase
 
         $this->assertLogFileExists("foo/barbaz/{$this->date}.log");
     }
+
+    /** @test */
+    public function it_writes_to_log_file_information_header_each_iteration()
+    {
+        $class = GenericCommand::class;
+        $host = gethostname();
+        $ip = gethostbyname($host);
+
+        Artisan::call('generic');
+
+        $this->assertLogFileContains("generic/{$this->date}.log", [
+            "[%datetime%]: [INFO]: Command `{$class}` initialized.",
+            "[%datetime%]: [INFO]: Host: `{$host}` (`{$ip}`).",
+        ]);
+    }
 }

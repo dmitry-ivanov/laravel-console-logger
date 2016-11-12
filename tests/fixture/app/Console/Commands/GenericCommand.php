@@ -11,6 +11,11 @@ class GenericCommand extends Command
 
     public function handle()
     {
-        $this->info('Done!');
+        $this->logInfo('Done!');
+    }
+
+    public function fileHandler()
+    {
+        return $this->icLogger->getHandlers()[0];
     }
 }

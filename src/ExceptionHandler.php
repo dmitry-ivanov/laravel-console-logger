@@ -43,22 +43,25 @@ class ExceptionHandler extends Handler
         $this->timeStarted = microtime(true);
         $this->reservedMemory = str_repeat(' ', 20 * 1024);
 
-        register_shutdown_function(function () {
-            $this->reservedMemory = null;
+        register_shutdown_function([$this, 'onShutdown']);
+    }
 
-            $this->timeFinished = microtime(true);
-            $executionTime = round($this->timeFinished - $this->timeStarted, 3);
-            $this->logger->info("Execution time: {$executionTime} sec.");
+    public function onShutdown()
+    {
+        $this->reservedMemory = null;
 
-            $memoryPeak = format_bytes(memory_get_peak_usage(true));
-            $this->logger->info("Memory peak usage: {$memoryPeak}.");
+        $this->timeFinished = microtime(true);
+        $executionTime = round($this->timeFinished - $this->timeStarted, 3);
+        $this->logger->info("Execution time: {$executionTime} sec.");
 
-            $this->logger->info('%separator%');
+        $memoryPeak = format_bytes(memory_get_peak_usage(true));
+        $this->logger->info("Memory peak usage: {$memoryPeak}.");
 
-            $handlers = $this->logger->getHandlers();
-            foreach ($handlers as $handler) {
-                $handler->close();
-            }
-        });
+        $this->logger->info('%separator%');
+
+        $handlers = $this->logger->getHandlers();
+        foreach ($handlers as $handler) {
+            $handler->close();
+        }
     }
 }

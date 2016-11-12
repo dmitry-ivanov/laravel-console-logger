@@ -12,6 +12,21 @@ class FileHandlerOnMysqlTest extends TestCase
     }
 
     /** @test */
+    public function it_writes_to_log_file_information_header_each_iteration()
+    {
+        $class = GenericCommand::class;
+        $host = gethostname();
+        $ip = gethostbyname($host);
+
+        Artisan::call('generic');
+
+        $this->assertLogFileContains("generic/{$this->date}.log", [
+            "[%datetime%]: [INFO]: Command `{$class}` initialized.",
+            "[%datetime%]: [INFO]: Host: `{$host}` (`{$ip}`).",
+        ]);
+    }
+
+    /** @test */
     public function it_writes_to_log_file_mysql_specific_information_header()
     {
         $dbIp = (string) db_mysql_variable('wsrep_node_address');

@@ -1,6 +1,9 @@
 <?php
 
+use Carbon\Carbon;
 use Monolog\Handler\RotatingFileHandler;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 class FileHandlerTest extends TestCase
 {
@@ -66,5 +69,33 @@ class FileHandlerTest extends TestCase
         $handler = new Illuminated\Console\ExceptionHandler($this->app);
         $handler->initialize($logger);
         $handler->onShutdown();
+    }
+
+    /** @test */
+    public function it_provides_automatic_files_rotation_and_only_30_latest_files_are_stored()
+    {
+        $path = storage_path('logs/generic');
+        $this->createBunchOfOldLogsInCount45($path);
+        $this->assertCount(45, File::files($path));
+
+        $command = new GenericCommand;
+        $command->setLaravel($this->app);
+        $command->run(new ArrayInput([]), new BufferedOutput);
+        $command->fileHandler()->close();
+
+        $this->assertCount(30, File::files($path));
+    }
+
+    private function createBunchOfOldLogsInCount45($path)
+    {
+        if (!File::isDirectory($path)) {
+            File::makeDirectory($path);
+        }
+
+        $date = Carbon::parse('2016-01-01');
+        for ($i = 0; $i < 45; $i++) {
+            File::put("{$path}/{$date->toDateString()}.log", 'foo');
+            $date->addDay();
+        }
     }
 }

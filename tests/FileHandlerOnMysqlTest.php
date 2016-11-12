@@ -7,6 +7,7 @@ class FileHandlerOnMysqlTest extends TestCase
         config([
             'database.default' => 'mysql',
             'database.connections.mysql.database' => '',
+            'database.connections.mysql.username' => 'travis',
         ]);
     }
 

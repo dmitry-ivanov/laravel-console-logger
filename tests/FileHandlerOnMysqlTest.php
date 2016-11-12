@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Handler\RotatingFileHandler;
+
 class FileHandlerOnMysqlTest extends TestCase
 {
     protected function setUpDatabase()
@@ -53,7 +55,11 @@ class FileHandlerOnMysqlTest extends TestCase
         $logger->shouldReceive('info')->with('/Execution time\: .*? sec\./')->once();
         $logger->shouldReceive('info')->with('/Memory peak usage\: .*?\./')->once();
         $logger->shouldReceive('info')->with('%separator%')->once();
-        $logger->shouldReceive('getHandlers')->withNoArgs()->once()->andReturn([]);
+        $logger->shouldReceive('getHandlers')->withNoArgs()->once()->andReturn([
+            new RotatingFileHandler('foo'),
+            new RotatingFileHandler('bar'),
+            new RotatingFileHandler('baz'),
+        ]);
 
         $handler = new Illuminated\Console\ExceptionHandler($this->app);
         $handler->initialize($logger);

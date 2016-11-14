@@ -92,14 +92,14 @@ class FileHandlerTest extends TestCase
         Artisan::call('generic');
 
         $this->assertLogFileContains("generic/{$this->date}.log", [
-            "[%datetime%]: [DEBUG]: Debug!",
-            "[%datetime%]: [INFO]: Info!",
-            "[%datetime%]: [NOTICE]: Notice!",
-            "[%datetime%]: [WARNING]: Warning!",
-            "[%datetime%]: [ERROR]: Error!",
-            "[%datetime%]: [CRITICAL]: Critical!",
-            "[%datetime%]: [ALERT]: Alert!",
-            "[%datetime%]: [EMERGENCY]: Emergency!",
+            '[%datetime%]: [DEBUG]: Debug!',
+            '[%datetime%]: [INFO]: Info!',
+            '[%datetime%]: [NOTICE]: Notice!',
+            '[%datetime%]: [WARNING]: Warning!',
+            '[%datetime%]: [ERROR]: Error!',
+            '[%datetime%]: [CRITICAL]: Critical!',
+            '[%datetime%]: [ALERT]: Alert!',
+            '[%datetime%]: [EMERGENCY]: Emergency!',
         ]);
     }
 

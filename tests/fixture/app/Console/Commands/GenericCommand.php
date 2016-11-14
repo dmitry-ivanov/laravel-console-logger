@@ -14,8 +14,9 @@ class GenericCommand extends Command
         $this->logInfo('Done!');
     }
 
-    public function fileHandler()
+    public function emulateFileHandlerClose()
     {
-        return $this->icLogger->popHandler();
+        $this->icLogger->popHandler()->close();
+        $this->icLogger->pushHandler($this->getFileHandler());
     }
 }

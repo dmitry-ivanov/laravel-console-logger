@@ -81,7 +81,7 @@ class FileHandlerTest extends TestCase
         $command = new GenericCommand;
         $command->setLaravel($this->app);
         $command->run(new ArrayInput([]), new BufferedOutput);
-        $command->fileHandler()->close();
+        $command->emulateFileHandlerClose();
 
         $this->assertCount(30, File::files($path));
     }

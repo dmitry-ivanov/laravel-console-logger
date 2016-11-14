@@ -21,11 +21,6 @@ class GenericCommand extends Command
         $this->logEmergency('Emergency!');
     }
 
-    public function logSeparator()
-    {
-        $this->logInfo('%separator%');
-    }
-
     public function emulateFileHandlerClose()
     {
         $this->icLogger->popHandler()->close();

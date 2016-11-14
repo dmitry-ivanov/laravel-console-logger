@@ -16,6 +16,6 @@ class GenericCommand extends Command
 
     public function fileHandler()
     {
-        return $this->icLogger->getHandlers()[0];
+        return $this->icLogger->popHandler();
     }
 }

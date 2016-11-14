@@ -114,6 +114,23 @@ class FileHandlerTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function it_supports_context_for_psr3_methods_which_is_transformed_to_readable_dump()
+    {
+        Artisan::call('context');
+
+        $this->assertLogFileContains("context/{$this->date}.log", [
+            'Testing context!',
+            'Some log with data.',
+            get_dump([
+                'foo' => 'bar',
+                'baz' => 111,
+                'faz' => true,
+                3 => null,
+            ]),
+        ]);
+    }
+
     private function createBunchOfOldLogsInCount45($path)
     {
         if (!File::isDirectory($path)) {

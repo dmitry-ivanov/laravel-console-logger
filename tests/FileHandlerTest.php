@@ -86,6 +86,23 @@ class FileHandlerTest extends TestCase
         $this->assertCount(30, File::files($path));
     }
 
+    /** @test */
+    public function it_supports_psr3_methods_for_logging()
+    {
+        Artisan::call('generic');
+
+        $this->assertLogFileContains("generic/{$this->date}.log", [
+            "[%datetime%]: [DEBUG]: Debug!",
+            "[%datetime%]: [INFO]: Info!",
+            "[%datetime%]: [NOTICE]: Notice!",
+            "[%datetime%]: [WARNING]: Warning!",
+            "[%datetime%]: [ERROR]: Error!",
+            "[%datetime%]: [CRITICAL]: Critical!",
+            "[%datetime%]: [ALERT]: Alert!",
+            "[%datetime%]: [EMERGENCY]: Emergency!",
+        ]);
+    }
+
     private function createBunchOfOldLogsInCount45($path)
     {
         if (!File::isDirectory($path)) {

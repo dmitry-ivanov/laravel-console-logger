@@ -11,7 +11,14 @@ class GenericCommand extends Command
 
     public function handle()
     {
-        $this->logInfo('Done!');
+        $this->logDebug('Debug!');
+        $this->logInfo('Info!');
+        $this->logNotice('Notice!');
+        $this->logWarning('Warning!');
+        $this->logError('Error!');
+        $this->logCritical('Critical!');
+        $this->logAlert('Alert!');
+        $this->logEmergency('Emergency!');
     }
 
     public function emulateFileHandlerClose()

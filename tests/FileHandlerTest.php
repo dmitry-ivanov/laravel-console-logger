@@ -16,7 +16,7 @@ class FileHandlerTest extends TestCase
     }
 
     /** @test */
-    public function namespaced_command_names_are_translated_into_a_separate_subfolders()
+    public function it_creates_log_file_in_subfolder_if_command_is_namespaced()
     {
         Artisan::call('foo:barbaz');
 

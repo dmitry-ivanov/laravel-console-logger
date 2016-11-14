@@ -30,7 +30,7 @@ class FileHandlerOnMysqlTest extends TestCase
     }
 
     /** @test */
-    public function it_writes_to_log_file_mysql_specific_information_header()
+    public function it_writes_to_log_file_mysql_specific_information_after_header()
     {
         $dbIp = (string) db_mysql_variable('wsrep_node_address');
         $dbHost = (string) db_mysql_variable('hostname');

@@ -103,6 +103,17 @@ class FileHandlerTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function it_supports_separator_keyword_in_psr3_methods_which_is_converted_to_11_blank_lines()
+    {
+        $command = new GenericCommand;
+        $command->setLaravel($this->app);
+        $command->run(new ArrayInput([]), new BufferedOutput);
+        $command->logSeparator();
+
+        $this->assertLogFileContains("generic/{$this->date}.log", str_repeat("\n", 11));
+    }
+
     private function createBunchOfOldLogsInCount45($path)
     {
         if (!File::isDirectory($path)) {

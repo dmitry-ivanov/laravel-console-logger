@@ -2,7 +2,7 @@
 
 use Monolog\Logger;
 
-class DbHandlerTest extends TestCase
+class DatabaseHandlerTest extends TestCase
 {
     /** @test */
     public function it_is_not_storing_notifications_to_database_if_disabled()

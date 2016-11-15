@@ -7,7 +7,7 @@ class NamespacedCommand extends Command
 {
     use Loggable;
 
-    protected $signature = 'foo:barbaz';
+    protected $signature = 'namespaced:command';
 
     public function handle()
     {

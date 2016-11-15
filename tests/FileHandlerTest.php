@@ -18,9 +18,9 @@ class FileHandlerTest extends TestCase
     /** @test */
     public function it_creates_log_file_in_subfolder_if_command_is_namespaced()
     {
-        Artisan::call('foo:barbaz');
+        Artisan::call('namespaced:command');
 
-        $this->assertLogFileExists("foo/barbaz/{$this->date}.log");
+        $this->assertLogFileExists("namespaced/command/{$this->date}.log");
     }
 
     /** @test */

@@ -23,7 +23,7 @@ class GenericCommand extends Command
 
     public function emulateFileHandlerClose()
     {
-        $this->icLogger->popHandler()->close();
-        $this->icLogger->pushHandler($this->getFileHandler());
+        $this->icLogger()->popHandler()->close();
+        $this->icLogger()->pushHandler($this->getFileHandler());
     }
 }

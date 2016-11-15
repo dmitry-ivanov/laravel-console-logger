@@ -7,6 +7,6 @@ class Kernel extends \Orchestra\Testbench\Console\Kernel
         NamespacedCommand::class,
         CommandWithSeparatorLogging::class,
         CommandWithContextLogging::class,
-        CommandWithRecipients::class,
+        CommandWithNotificationRecipients::class,
     ];
 }

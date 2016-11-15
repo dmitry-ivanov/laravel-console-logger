@@ -16,7 +16,7 @@ class ExceptionHandlerTest extends TestCase
         ]))->once();
 
         $handler = new ExceptionHandler($this->app);
-        $handler->initialize($logger);
+        $handler->setLogger($logger);
         $handler->report(new Exception('Test exception', 111));
     }
 }

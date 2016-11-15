@@ -15,8 +15,13 @@ class ExceptionHandler extends Handler
 
     public function initialize(LoggerInterface $logger)
     {
-        $this->logger = $logger;
+        $this->setLogger($logger);
         $this->registerShutdownFunction();
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     public function report(Exception $e)

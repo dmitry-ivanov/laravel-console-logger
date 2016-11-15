@@ -3,9 +3,9 @@
 namespace Illuminated\Console;
 
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
+use Illuminated\Console\Log\DatabaseHandler;
 use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;
-use Illuminated\Console\Log\DatabaseHandler;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;

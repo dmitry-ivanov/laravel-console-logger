@@ -5,7 +5,7 @@ namespace Illuminated\Console;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;
-use Illuminated\Console\Log\MysqlHandler;
+use Illuminated\Console\Log\DatabaseHandler;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
@@ -145,7 +145,7 @@ trait Loggable
         $callback = $this->getNotificationDbCallback();
         $level = $this->getNotificationLevel();
 
-        return (new MysqlHandler($table, $callback, $level));
+        return (new DatabaseHandler($table, $callback, $level));
     }
 
     private function getFilteredNotificationRecipients()

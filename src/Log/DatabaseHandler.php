@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
-class MysqlHandler extends AbstractProcessingHandler
+class DatabaseHandler extends AbstractProcessingHandler
 {
     private $table;
     private $callback;

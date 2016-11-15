@@ -3,11 +3,11 @@
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
 
-class ContextCommand extends Command
+class CommandWithContextLogging extends Command
 {
     use Loggable;
 
-    protected $signature = 'context';
+    protected $signature = 'command-with-context-logging';
 
     public function handle()
     {

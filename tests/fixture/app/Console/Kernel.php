@@ -6,6 +6,6 @@ class Kernel extends \Orchestra\Testbench\Console\Kernel
         GenericCommand::class,
         NamespacedCommand::class,
         SeparatorCommand::class,
-        ContextCommand::class,
+        CommandWithContextLogging::class,
     ];
 }

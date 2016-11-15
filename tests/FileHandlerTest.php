@@ -117,9 +117,9 @@ class FileHandlerTest extends TestCase
     /** @test */
     public function it_supports_context_for_psr3_methods_which_is_transformed_to_readable_dump()
     {
-        Artisan::call('context');
+        Artisan::call('command-with-context-logging');
 
-        $this->assertLogFileContains("context/{$this->date}.log", [
+        $this->assertLogFileContains("command-with-context-logging/{$this->date}.log", [
             'Testing context!',
             'Some log with data.',
             get_dump([

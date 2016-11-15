@@ -5,6 +5,14 @@ use Monolog\Logger;
 class DbHandlerTest extends TestCase
 {
     /** @test */
+    public function it_is_not_storing_notifications_to_database_if_disabled()
+    {
+        Artisan::call('command-without-notification-db-storing');
+
+        $this->assertFalse(Schema::hasTable('iclogger_notifications'));
+    }
+
+    /** @test */
     public function it_stores_notifications_to_database_if_enabled_and_according_to_notifications_level()
     {
         Artisan::call('command-with-notification-db-storing');

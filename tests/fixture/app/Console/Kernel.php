@@ -10,5 +10,6 @@ class Kernel extends \Orchestra\Testbench\Console\Kernel
         CommandWithNotificationRecipients::class,
         CommandWithNotificationDbStoring::class,
         CommandWithoutNotificationDbStoring::class,
+        CommandWithCustomNotificationDbStoring::class,
     ];
 }

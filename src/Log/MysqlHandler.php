@@ -2,7 +2,10 @@
 
 namespace Illuminated\Console\Log;
 
+use Carbon\Carbon;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
@@ -22,17 +25,19 @@ class MysqlHandler extends AbstractProcessingHandler
 
     protected function initialize()
     {
-        DB::statement("create table if not exists `{$this->table}` (
-            `id` int(11) unsigned not null auto_increment primary key,
-            `level` int(11) unsigned not null,
-            `level_name` varchar(255) collate utf8_unicode_ci not null,
-            `message` varchar(255) collate utf8_unicode_ci not null,
-            `context` text collate utf8_unicode_ci,
-            `created_at` timestamp null default null,
-            key (`level`),
-            key (`level_name`),
-            key (`created_at`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+        if (Schema::hasTable($this->table)) {
+            return;
+        }
+
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('level')->unsigned()->index();
+            $table->string('level_name')->index();
+            $table->string('message');
+            $table->text('context')->nullable();
+            $table->timestamps();
+            $table->index('created_at');
+        });
     }
 
     protected function write(array $record)
@@ -42,11 +47,12 @@ class MysqlHandler extends AbstractProcessingHandler
         }
 
         $fields = '(`level`, `level_name`, `message`, `context`, `created_at`)';
-        DB::insert("insert into `{$this->table}` {$fields} values (?, ?, ?, ?, now())", [
+        DB::insert("insert into `{$this->table}` {$fields} values (?, ?, ?, ?, ?)", [
             $record['level'],
             $record['level_name'],
             $record['message'],
             get_dump($record['context']),
+            Carbon::now(),
         ]);
     }
 }

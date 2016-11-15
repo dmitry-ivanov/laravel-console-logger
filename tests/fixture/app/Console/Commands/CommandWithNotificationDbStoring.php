@@ -16,13 +16,13 @@ class CommandWithNotificationDbStoring extends Command
 
     public function handle()
     {
-        $this->logDebug('Debug!');
-        $this->logInfo('Info!');
-        $this->logNotice('Notice!');
-        $this->logWarning('Warning!');
-        $this->logError('Error!');
-        $this->logCritical('Critical!');
-        $this->logAlert('Alert!');
-        $this->logEmergency('Emergency!');
+        $this->logDebug('Debug!', ['foo' => 'bar']);
+        $this->logInfo('Info!', ['foo' => 'bar']);
+        $this->logNotice('Notice!', ['foo' => 'bar']);
+        $this->logWarning('Warning!', ['foo' => 'bar']);
+        $this->logError('Error!', ['foo' => 'bar']);
+        $this->logCritical('Critical!', ['foo' => 'bar']);
+        $this->logAlert('Alert!', ['foo' => 'bar']);
+        $this->logEmergency('Emergency!', ['foo' => 'bar']);
     }
 }

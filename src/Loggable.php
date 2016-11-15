@@ -137,7 +137,7 @@ trait Loggable
 
     protected function getDbHandler()
     {
-        if (!db_is_mysql() || !$this->enableNotificationDbStoring()) {
+        if (!$this->enableNotificationDbStoring()) {
             return false;
         }
 

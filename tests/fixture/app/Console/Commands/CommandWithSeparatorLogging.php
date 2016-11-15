@@ -3,11 +3,11 @@
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
 
-class SeparatorCommand extends Command
+class CommandWithSeparatorLogging extends Command
 {
     use Loggable;
 
-    protected $signature = 'separator';
+    protected $signature = 'command-with-separator-logging';
 
     public function handle()
     {

@@ -34,7 +34,7 @@ class ExceptionHandlerTest extends TestCase
                 'baz' => 123,
                 'faz' => true,
                 'daz' => null,
-            ]
+            ],
         ]))->once();
 
         $handler = new ExceptionHandler($this->app);

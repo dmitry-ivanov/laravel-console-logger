@@ -1,6 +1,7 @@
 <?php
 
 use Illuminated\Console\Log\HtmlFormatter;
+use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
@@ -60,6 +61,16 @@ class MailerHandlerTest extends TestCase
         $this->assertMailerHandlersAreEqual($this->composeNativeMailerHandler(), $handler);
     }
 
+    /** @test */
+    public function it_uses_configured_monolog_deduplication_handler_if_deduplication_enabled()
+    {
+        config(['mail.driver' => 'any-other']);
+        $handler = $this->runViaObject(CommandWithNotificationDeduplication::class)->mailerHandler();
+        $handler->flush();
+
+        $this->assertMailerHandlersAreEqual($this->composeDeduplicationHandler(), $handler);
+    }
+
     private function composeSwiftMailerHandler()
     {
         $handler = new SwiftMailerHandler(app('swift.mailer'), $this->composeMailerHandlerMessage(), Logger::NOTICE);
@@ -76,14 +87,14 @@ class MailerHandlerTest extends TestCase
         return $handler;
     }
 
-    private function composeNativeMailerHandler()
+    private function composeNativeMailerHandler($name = 'command-with-notification-recipients')
     {
         $handler = new NativeMailerHandler(
             to_rfc2822_email([
                 ['address' => 'john.doe@example.com', 'name' => 'John Doe'],
                 ['address' => 'jane.smith@example.com', 'name' => 'Jane Smith'],
             ]),
-            '[TESTING] %level_name% in `command-with-notification-recipients` command',
+            "[TESTING] %level_name% in `{$name}` command",
             to_rfc2822_email([
                 'address' => 'no-reply@example.com',
                 'name' => 'ICLogger Notification',
@@ -94,6 +105,13 @@ class MailerHandlerTest extends TestCase
         $handler->setFormatter(new HtmlFormatter());
 
         return $handler;
+    }
+
+    private function composeDeduplicationHandler()
+    {
+        return new DeduplicationHandler(
+            $this->composeNativeMailerHandler('command-with-notification-deduplication'), null, Logger::NOTICE, 60
+        );
     }
 
     private function composeMailerHandlerMessage()
@@ -126,6 +144,7 @@ class MailerHandlerTest extends TestCase
         $dump = preg_replace('/\{#\d*/', '{', $dump);
         $dump = preg_replace('/".*?@swift.generated"/', '"normalized"', $dump);
         $dump = preg_replace('/-_cacheKey: ".*?"/', '-_cacheKey: "normalized"', $dump);
+        $dump = preg_replace('/#initialized: .*?\n/', '', $dump);
 
         return $dump;
     }

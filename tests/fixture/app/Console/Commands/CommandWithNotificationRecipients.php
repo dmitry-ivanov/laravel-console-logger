@@ -21,4 +21,9 @@ class CommandWithNotificationRecipients extends Command
     public function handle()
     {
     }
+
+    public function mailerHandler()
+    {
+        return last($this->icLogger()->getHandlers());
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminated\Console\Log\HtmlFormatter;
+use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 
@@ -40,22 +41,47 @@ class MailerHandlerTest extends TestCase
         $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
     }
 
+    /** @test */
+    public function it_uses_configured_monolog_mandrill_mailer_handler_on_mandrill_driver()
+    {
+        config(['mail.driver' => 'mandrill', 'services.mandrill.secret' => 'secret']);
+        $handler = $this->runViaObject(CommandWithNotificationRecipients::class)->mailerHandler();
+
+        $this->assertMailerHandlersAreEqual($this->composeMandrillMailerHandler(), $handler);
+    }
+
     private function composeSwiftMailerHandler()
     {
-        $mailer = app('swift.mailer');
-        $message = $mailer->createMessage();
+        $handler = new SwiftMailerHandler(app('swift.mailer'), $this->composeMailerHandlerMessage(), Logger::NOTICE);
+        $handler->setFormatter(new HtmlFormatter());
+        return $handler;
+    }
+
+    private function composeMandrillMailerHandler()
+    {
+        $handler = new MandrillHandler(
+            config('services.mandrill.secret'), $this->composeMailerHandlerMessage(), Logger::NOTICE
+        );
+        $handler->setFormatter(new HtmlFormatter());
+        return $handler;
+    }
+
+    private function composeMailerHandlerMessage()
+    {
+        $message = app('swift.mailer')->createMessage();
         $message->setSubject('[TESTING] %level_name% in `command-with-notification-recipients` command');
-        $message->setFrom(to_swiftmailer_emails(['address' => 'no-reply@example.com', 'name' => 'ICLogger Notification']));
+        $message->setFrom(to_swiftmailer_emails([
+            'address' => 'no-reply@example.com',
+            'name' => 'ICLogger Notification'
+        ]));
         $message->setTo(to_swiftmailer_emails([
             ['address' => 'john.doe@example.com', 'name' => 'John Doe'],
             ['address' => 'jane.smith@example.com', 'name' => 'Jane Smith'],
         ]));
         $message->setContentType('text/html');
         $message->setCharset('utf-8');
-        $handler = new SwiftMailerHandler($mailer, $message, Logger::NOTICE);
-        $handler->setFormatter(new HtmlFormatter());
 
-        return $handler;
+        return $message;
     }
 
     protected function assertMailerHandlersAreEqual($handler1, $handler2)

@@ -2,6 +2,7 @@
 
 use Illuminated\Console\Log\HtmlFormatter;
 use Monolog\Handler\MandrillHandler;
+use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 
@@ -50,6 +51,15 @@ class MailerHandlerTest extends TestCase
         $this->assertMailerHandlersAreEqual($this->composeMandrillMailerHandler(), $handler);
     }
 
+    /** @test */
+    public function it_uses_configured_monolog_native_mailer_handler_on_other_drivers()
+    {
+        config(['mail.driver' => 'any-other']);
+        $handler = $this->runViaObject(CommandWithNotificationRecipients::class)->mailerHandler();
+
+        $this->assertMailerHandlersAreEqual($this->composeNativeMailerHandler(), $handler);
+    }
+
     private function composeSwiftMailerHandler()
     {
         $handler = new SwiftMailerHandler(app('swift.mailer'), $this->composeMailerHandlerMessage(), Logger::NOTICE);
@@ -63,6 +73,26 @@ class MailerHandlerTest extends TestCase
             config('services.mandrill.secret'), $this->composeMailerHandlerMessage(), Logger::NOTICE
         );
         $handler->setFormatter(new HtmlFormatter());
+        return $handler;
+    }
+
+    private function composeNativeMailerHandler()
+    {
+        $handler = new NativeMailerHandler(
+            to_rfc2822_email([
+                ['address' => 'john.doe@example.com', 'name' => 'John Doe'],
+                ['address' => 'jane.smith@example.com', 'name' => 'Jane Smith'],
+            ]),
+            '[TESTING] %level_name% in `command-with-notification-recipients` command',
+            to_rfc2822_email([
+                'address' => 'no-reply@example.com',
+                'name' => 'ICLogger Notification',
+            ]),
+            Logger::NOTICE
+        );
+        $handler->setContentType('text/html');
+        $handler->setFormatter(new HtmlFormatter());
+
         return $handler;
     }
 

@@ -14,7 +14,6 @@ class CommandWithNotificationRecipients extends Command
         return [
             ['address' => 'john.doe@example.com', 'name' => 'John Doe'],
             ['address' => 'jane.smith@example.com', 'name' => 'Jane Smith'],
-            ['address' => 'dmitry.g.ivanov@gmail.com', 'name' => 'Dmitry Ivanov'],
         ];
     }
 

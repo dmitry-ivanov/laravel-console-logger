@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Contracts\Console\Kernel as KernelContract;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Finder\Finder;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -53,6 +55,15 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
                 File::delete($object);
             }
         }
+    }
+
+    protected function runViaObject($class)
+    {
+        $command = new $class;
+        $command->setLaravel($this->app);
+        $command->run(new ArrayInput([]), new BufferedOutput);
+
+        return $command;
     }
 
     public function assertLogFileExists($path)

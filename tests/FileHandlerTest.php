@@ -2,8 +2,6 @@
 
 use Carbon\Carbon;
 use Monolog\Handler\RotatingFileHandler;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
 
 class FileHandlerTest extends TestCase
 {
@@ -78,10 +76,7 @@ class FileHandlerTest extends TestCase
         $this->createBunchOfOldLogsInCount45($path);
         $this->assertCount(45, File::files($path));
 
-        $command = new GenericCommand;
-        $command->setLaravel($this->app);
-        $command->run(new ArrayInput([]), new BufferedOutput);
-        $command->emulateFileHandlerClose();
+        $this->runViaObject(GenericCommand::class)->emulateFileHandlerClose();
 
         $this->assertCount(30, File::files($path));
     }

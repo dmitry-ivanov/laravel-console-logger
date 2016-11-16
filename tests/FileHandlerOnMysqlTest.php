@@ -35,13 +35,12 @@ class FileHandlerOnMysqlTest extends TestCase
         $dbIp = (string) db_mysql_variable('wsrep_node_address');
         $dbHost = (string) db_mysql_variable('hostname');
         $dbPort = (string) db_mysql_variable('port');
-        $now = db_mysql_now();
 
         Artisan::call('generic');
 
         $this->assertLogFileContains("generic/{$this->date}.log", [
             "[%datetime%]: [INFO]: Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.",
-            "[%datetime%]: [INFO]: Database date: `{$now}`.",
+            "[%datetime%]: [INFO]: Database date: `%datetime%`.",
         ]);
     }
 

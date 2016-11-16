@@ -31,6 +31,15 @@ class MailerHandlerTest extends TestCase
         $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
     }
 
+    /** @test */
+    public function it_uses_configured_monolog_swift_mailer_handler_on_sendmail_driver()
+    {
+        config(['mail.driver' => 'sendmail']);
+        $handler = $this->runViaObject(CommandWithNotificationRecipients::class)->mailerHandler();
+
+        $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
+    }
+
     private function composeSwiftMailerHandler()
     {
         $mailer = app('swift.mailer');

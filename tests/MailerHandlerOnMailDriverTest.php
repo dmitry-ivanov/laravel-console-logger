@@ -18,7 +18,7 @@ class MailerHandlerOnMailDriverTest extends TestCase
     {
         $mailer = app('swift.mailer');
         $message = $mailer->createMessage();
-        $message->setSubject("[TESTING] %level_name% in `command-with-notification-recipients` command");
+        $message->setSubject('[TESTING] %level_name% in `command-with-notification-recipients` command');
         $message->setFrom(to_swiftmailer_emails(['address' => 'no-reply@example.com', 'name' => 'ICLogger Notification']));
         $message->setTo(to_swiftmailer_emails([
             ['address' => 'john.doe@example.com', 'name' => 'John Doe'],

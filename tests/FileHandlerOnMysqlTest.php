@@ -40,7 +40,7 @@ class FileHandlerOnMysqlTest extends TestCase
 
         $this->assertLogFileContains("generic/{$this->date}.log", [
             "[%datetime%]: [INFO]: Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.",
-            "[%datetime%]: [INFO]: Database date: `%datetime%`.",
+            '[%datetime%]: [INFO]: Database date: `%datetime%`.',
         ]);
     }
 

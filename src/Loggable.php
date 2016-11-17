@@ -29,21 +29,7 @@ trait Loggable
     protected function initializeLogging()
     {
         $this->initializeErrorHandling();
-
-        $class = get_class($this);
-        $host = gethostname();
-        $ip = gethostbyname($host);
-        $this->logInfo("Command `{$class}` initialized.");
-        $this->logInfo("Host: `{$host}` (`{$ip}`).");
-
-        if (db_is_mysql()) {
-            $dbIp = (string) db_mysql_variable('wsrep_node_address');
-            $dbHost = (string) db_mysql_variable('hostname');
-            $dbPort = (string) db_mysql_variable('port');
-            $now = db_mysql_now();
-            $this->logInfo("Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.");
-            $this->logInfo("Database date: `{$now}`.");
-        }
+        $this->logIterationHeaderInformation();
     }
 
     private function initializeErrorHandling()
@@ -75,6 +61,24 @@ trait Loggable
         }
 
         return $handlers;
+    }
+
+    private function logIterationHeaderInformation()
+    {
+        $class = get_class($this);
+        $host = gethostname();
+        $ip = gethostbyname($host);
+        $this->logInfo("Command `{$class}` initialized.");
+        $this->logInfo("Host: `{$host}` (`{$ip}`).");
+
+        if (db_is_mysql()) {
+            $dbIp = (string) db_mysql_variable('wsrep_node_address');
+            $dbHost = (string) db_mysql_variable('hostname');
+            $dbPort = (string) db_mysql_variable('port');
+            $now = db_mysql_now();
+            $this->logInfo("Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.");
+            $this->logInfo("Database date: `{$now}`.");
+        }
     }
 
     protected function logDebug($message, array $context = [])

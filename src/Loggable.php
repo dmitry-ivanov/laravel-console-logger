@@ -5,12 +5,11 @@ namespace Illuminated\Console;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Log\DatabaseHandler;
-use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;
+use Illuminated\Console\Loggable\FileHandler\FileHandler;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
-use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +17,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 trait Loggable
 {
+    use FileHandler;
+
     protected $icLogger;
 
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -81,15 +82,6 @@ trait Loggable
         }
 
         return $handlers;
-    }
-
-    protected function getFileHandler()
-    {
-        $fileHandler = new RotatingFileHandler($this->getLogPath(), 30);
-        $fileHandler->setFilenameFormat('{date}', 'Y-m-d');
-        $fileHandler->setFormatter(new Formatter());
-
-        return $fileHandler;
     }
 
     protected function getMailerHandler()
@@ -201,12 +193,6 @@ trait Loggable
     protected function logEmergency($message, array $context = [])
     {
         return $this->icLogger->emergency($message, $context);
-    }
-
-    protected function getLogPath()
-    {
-        $name = str_replace(':', '/', $this->getName());
-        return storage_path("logs/{$name}/date.log");
     }
 
     protected function getNotificationRecipients()

@@ -19,6 +19,46 @@ trait Loggable
 
     protected $icLogger;
 
+    protected function logDebug($message, array $context = [])
+    {
+        return $this->icLogger->debug($message, $context);
+    }
+
+    protected function logInfo($message, array $context = [])
+    {
+        return $this->icLogger->info($message, $context);
+    }
+
+    protected function logNotice($message, array $context = [])
+    {
+        return $this->icLogger->notice($message, $context);
+    }
+
+    protected function logWarning($message, array $context = [])
+    {
+        return $this->icLogger->warning($message, $context);
+    }
+
+    protected function logError($message, array $context = [])
+    {
+        return $this->icLogger->error($message, $context);
+    }
+
+    protected function logCritical($message, array $context = [])
+    {
+        return $this->icLogger->critical($message, $context);
+    }
+
+    protected function logAlert($message, array $context = [])
+    {
+        return $this->icLogger->alert($message, $context);
+    }
+
+    protected function logEmergency($message, array $context = [])
+    {
+        return $this->icLogger->emergency($message, $context);
+    }
+
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->initializeLogging();
@@ -79,46 +119,6 @@ trait Loggable
             $this->logInfo("Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.");
             $this->logInfo("Database date: `{$now}`.");
         }
-    }
-
-    protected function logDebug($message, array $context = [])
-    {
-        return $this->icLogger->debug($message, $context);
-    }
-
-    protected function logInfo($message, array $context = [])
-    {
-        return $this->icLogger->info($message, $context);
-    }
-
-    protected function logNotice($message, array $context = [])
-    {
-        return $this->icLogger->notice($message, $context);
-    }
-
-    protected function logWarning($message, array $context = [])
-    {
-        return $this->icLogger->warning($message, $context);
-    }
-
-    protected function logError($message, array $context = [])
-    {
-        return $this->icLogger->error($message, $context);
-    }
-
-    protected function logCritical($message, array $context = [])
-    {
-        return $this->icLogger->critical($message, $context);
-    }
-
-    protected function logAlert($message, array $context = [])
-    {
-        return $this->icLogger->alert($message, $context);
-    }
-
-    protected function logEmergency($message, array $context = [])
-    {
-        return $this->icLogger->emergency($message, $context);
     }
 
     protected function getNotificationLevel()

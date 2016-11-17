@@ -1,6 +1,6 @@
 <?php
 
-use Illuminated\Console\RuntimeException;
+use Illuminated\Console\Exceptions\RuntimeException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 

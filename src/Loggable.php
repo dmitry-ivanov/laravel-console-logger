@@ -3,6 +3,7 @@
 namespace Illuminated\Console;
 
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
+use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Log\DatabaseHandler;
 use Illuminated\Console\Log\Formatter;
 use Illuminated\Console\Log\HtmlFormatter;

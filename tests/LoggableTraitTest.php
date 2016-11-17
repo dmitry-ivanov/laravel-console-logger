@@ -20,7 +20,7 @@ class LoggableTraitTest extends TestCase
     }
 
     /** @test */
-    public function it_supports_context_for_psr3_methods_which_is_transformed_to_readable_dump()
+    public function psr3_methods_are_supporting_context_and_it_is_logged_as_readable_dump()
     {
         Artisan::call('command-with-context-logging');
 

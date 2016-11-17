@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminated\Console\Loggable\DatabaseHandler;
+namespace Illuminated\Console\Loggable\DatabaseChannel;
 
 use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;

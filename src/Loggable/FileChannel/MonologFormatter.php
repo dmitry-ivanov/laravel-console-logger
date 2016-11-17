@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminated\Console\Loggable\FileHandler;
+namespace Illuminated\Console\Loggable\FileChannel;
 
 use Monolog\Formatter\LineFormatter;
 use Traversable;

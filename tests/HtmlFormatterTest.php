@@ -8,17 +8,22 @@ class HtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_an_emergency_records()
     {
-        $record = [
-            'message' => 'Emergency!',
-            'context' => [],
-            'level' => Logger::EMERGENCY,
-            'level_name' => Logger::getLevelName(Logger::EMERGENCY),
+        $record = $this->generateRecord('Emergency!', Logger::EMERGENCY);
+
+        $this->assertOutputsEqual($this->composeExpectedOutput($record), (new HtmlFormatter)->format($record));
+    }
+
+    protected function generateRecord($message, $level, array $context = [])
+    {
+        return [
+            'message' => $message,
+            'context' => $context,
+            'level' => $level,
+            'level_name' => Logger::getLevelName($level),
             'channel' => 'ICLogger',
             'datetime' => new DateTime('2016-11-11 11:12:13'),
             'extra' => [],
         ];
-
-        $this->assertOutputsEqual($this->composeExpectedOutput($record), (new HtmlFormatter)->format($record));
     }
 
     protected function assertOutputsEqual($output1, $output2)

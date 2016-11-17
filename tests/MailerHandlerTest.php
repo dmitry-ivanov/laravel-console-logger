@@ -144,6 +144,7 @@ class MailerHandlerTest extends TestCase
         $dump = preg_replace('/\{#\d*/', '{', $dump);
         $dump = preg_replace('/".*?@swift.generated"/', '"normalized"', $dump);
         $dump = preg_replace('/-_cacheKey: ".*?"/', '-_cacheKey: "normalized"', $dump);
+        $dump = preg_replace('/-_timestamp: .*?\n/', '', $dump);
         $dump = preg_replace('/#initialized: .*?\n/', '', $dump);
 
         return $dump;

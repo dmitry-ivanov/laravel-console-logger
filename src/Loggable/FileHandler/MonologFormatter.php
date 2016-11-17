@@ -1,11 +1,11 @@
 <?php
 
-namespace Illuminated\Console\Log;
+namespace Illuminated\Console\Loggable\FileHandler;
 
 use Monolog\Formatter\LineFormatter;
 use Traversable;
 
-class Formatter extends LineFormatter
+class MonologFormatter extends LineFormatter
 {
     public function __construct()
     {

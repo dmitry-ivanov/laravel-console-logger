@@ -4,7 +4,7 @@ namespace Illuminated\Console;
 
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Exceptions\ExceptionHandler;
-use Illuminated\Console\Log\DatabaseHandler;
+use Illuminated\Console\Loggable\DatabaseHandler\DatabaseHandler;
 use Illuminated\Console\Loggable\FileHandler\FileHandler;
 use Illuminated\Console\Loggable\MailerHandler\MailerHandler;
 use Monolog\Handler\DeduplicationHandler;
@@ -16,6 +16,7 @@ trait Loggable
 {
     use FileHandler;
     use MailerHandler;
+    use DatabaseHandler;
 
     protected $icLogger;
 
@@ -82,19 +83,6 @@ trait Loggable
         return $handlers;
     }
 
-    protected function getDatabaseHandler()
-    {
-        if (!$this->enableNotificationDbStoring()) {
-            return false;
-        }
-
-        $table = $this->getNotificationDbTable();
-        $callback = $this->getNotificationDbCallback();
-        $level = $this->getNotificationLevel();
-
-        return (new DatabaseHandler($table, $callback, $level));
-    }
-
     protected function logDebug($message, array $context = [])
     {
         return $this->icLogger->debug($message, $context);
@@ -138,21 +126,6 @@ trait Loggable
     protected function getNotificationLevel()
     {
         return Logger::NOTICE;
-    }
-
-    protected function enableNotificationDbStoring()
-    {
-        return false;
-    }
-
-    protected function getNotificationDbTable()
-    {
-        return 'iclogger_notifications';
-    }
-
-    protected function getNotificationDbCallback()
-    {
-        return null;
     }
 
     protected function icLogger()

@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminated\Console\Log;
+namespace Illuminated\Console\Loggable\DatabaseHandler;
 
 use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
-class DatabaseHandler extends AbstractProcessingHandler
+class MonologDatabaseHandler extends AbstractProcessingHandler
 {
     private $table;
     private $callback;

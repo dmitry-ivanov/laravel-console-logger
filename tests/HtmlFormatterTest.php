@@ -14,6 +14,30 @@ class HtmlFormatterTest extends TestCase
     }
 
     /** @test */
+    public function it_properly_formats_info_records()
+    {
+        $record = $this->generateRecord('Info!', Logger::INFO);
+
+        $this->assertFormatterGeneratesExpectedOutput($record);
+    }
+
+    /** @test */
+    public function it_properly_formats_notice_records()
+    {
+        $record = $this->generateRecord('Notice!', Logger::NOTICE);
+
+        $this->assertFormatterGeneratesExpectedOutput($record);
+    }
+
+    /** @test */
+    public function it_properly_formats_warning_records()
+    {
+        $record = $this->generateRecord('Warning!', Logger::WARNING);
+
+        $this->assertFormatterGeneratesExpectedOutput($record);
+    }
+
+    /** @test */
     public function it_properly_formats_an_emergency_records()
     {
         $record = $this->generateRecord('Emergency!', Logger::EMERGENCY);

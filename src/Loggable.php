@@ -74,15 +74,15 @@ trait Loggable
             $handlers[] = $mailerHandler;
         }
 
-        $dbHandler = $this->getDbHandler();
-        if (!empty($dbHandler)) {
-            $handlers[] = $dbHandler;
+        $databaseHandler = $this->getDatabaseHandler();
+        if (!empty($databaseHandler)) {
+            $handlers[] = $databaseHandler;
         }
 
         return $handlers;
     }
 
-    protected function getDbHandler()
+    protected function getDatabaseHandler()
     {
         if (!$this->enableNotificationDbStoring()) {
             return false;

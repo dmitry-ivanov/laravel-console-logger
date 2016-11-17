@@ -92,20 +92,22 @@ trait Loggable
     {
         $handlers = [];
 
-        $fileHandler = $this->getFileHandler();
-        $handlers[] = $fileHandler;
-
-        $mailerHandler = $this->getMailerHandler();
-        if (!empty($mailerHandler)) {
-            $handlers[] = $mailerHandler;
-        }
-
-        $databaseHandler = $this->getDatabaseHandler();
-        if (!empty($databaseHandler)) {
-            $handlers[] = $databaseHandler;
+        foreach (class_uses_recursive($this) as $trait) {
+            if ($this->isLoggableChannelTrait($trait)) {
+                $method = 'get' . class_basename($trait) . 'Handler';
+                $handler = $this->$method();
+                if (!empty($handler)) {
+                    $handlers[] = $handler;
+                }
+            }
         }
 
         return $handlers;
+    }
+
+    private function isLoggableChannelTrait($name)
+    {
+        return preg_match('/Illuminated\\\Console\\\Loggable\\\.*?Channel\\\.*?Channel/', $name);
     }
 
     private function logIterationHeaderInformation()

@@ -10,7 +10,7 @@ class HtmlFormatterTest extends TestCase
     {
         $record = $this->generateRecord('Emergency!', Logger::EMERGENCY);
 
-        $this->assertOutputsEqual($this->composeExpectedOutput($record), (new HtmlFormatter)->format($record));
+        $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
     protected function generateRecord($message, $level, array $context = [])
@@ -26,9 +26,16 @@ class HtmlFormatterTest extends TestCase
         ];
     }
 
-    protected function assertOutputsEqual($output1, $output2)
+    protected function assertFormatterGeneratesExpectedOutput(array $record)
     {
-        $this->assertEquals($this->normalizeOutput($output1), $this->normalizeOutput($output2));
+        $expected = $this->composeExpectedOutput($record);
+        $actual = (new HtmlFormatter)->format($record);
+
+        $this->assertEquals(
+            $this->normalizeOutput($expected),
+            $this->normalizeOutput($actual),
+            'Generated html formatter output is not expected.'
+        );
     }
 
     private function normalizeOutput($output)

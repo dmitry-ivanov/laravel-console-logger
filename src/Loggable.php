@@ -19,6 +19,11 @@ trait Loggable
 
     protected $icLogger;
 
+    protected function getNotificationLevel()
+    {
+        return Logger::NOTICE;
+    }
+
     protected function logDebug($message, array $context = [])
     {
         return $this->icLogger->debug($message, $context);
@@ -119,11 +124,6 @@ trait Loggable
             $this->logInfo("Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.");
             $this->logInfo("Database date: `{$now}`.");
         }
-    }
-
-    protected function getNotificationLevel()
-    {
-        return Logger::NOTICE;
     }
 
     protected function icLogger()

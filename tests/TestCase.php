@@ -57,6 +57,13 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         }
     }
 
+    protected function emulateProduction()
+    {
+        $this->app->detectEnvironment(function () {
+            return 'production';
+        });
+    }
+
     protected function runViaObject($class)
     {
         $command = new $class;

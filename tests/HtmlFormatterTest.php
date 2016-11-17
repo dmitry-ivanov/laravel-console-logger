@@ -90,6 +90,15 @@ class HtmlFormatterTest extends TestCase
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
+    /** @test */
+    public function it_has_no_environment_subtitle_for_production()
+    {
+        $this->emulateProduction();
+        $record = $this->generateRecord('Notice!', Logger::NOTICE);
+
+        $this->assertFormatterGeneratesExpectedOutput($record);
+    }
+
     protected function generateRecord($message, $level, $context = [])
     {
         return [
@@ -123,6 +132,13 @@ class HtmlFormatterTest extends TestCase
     private function composeExpectedOutput(array $record)
     {
         $color = (new HtmlFormatter)->getLevelColor($record['level']);
+
+        $subtitle =
+            "<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>
+            <h3 class='subtitle {$record['level_name']}'>This notification was sent from `TESTING` environment!</h3>";
+        if ($this->app->environment('production')) {
+            $subtitle = '';
+        }
 
         $context = '';
         if (!empty($record['context'])) {
@@ -174,8 +190,7 @@ class HtmlFormatterTest extends TestCase
                 </head>
                 <body>
                     <h2 class='title {$record['level_name']}'>{$record['level_name']}</h2>
-                    <style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>
-                    <h3 class='subtitle {$record['level_name']}'>This notification was sent from `TESTING` environment!</h3>
+                    {$subtitle}
                     <table cellspacing=\"1\" width=\"100%\">
                         <tr class='details-row'>
                             <th class='details-row-header'>Message:</th>

@@ -7,7 +7,6 @@ use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Loggable\DatabaseHandler\DatabaseHandler;
 use Illuminated\Console\Loggable\FileHandler\FileHandler;
 use Illuminated\Console\Loggable\MailerHandler\MailerHandler;
-use Monolog\Handler\DeduplicationHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -67,11 +66,6 @@ trait Loggable
 
         $mailerHandler = $this->getMailerHandler();
         if (!empty($mailerHandler)) {
-            if ($this->enableNotificationDeduplication()) {
-                $level = $this->getNotificationLevel();
-                $time = $this->getNotificationDeduplicationTime();
-                $mailerHandler = new DeduplicationHandler($mailerHandler, null, $level, $time);
-            }
             $handlers[] = $mailerHandler;
         }
 

@@ -2,6 +2,7 @@
 
 namespace Illuminated\Console\Loggable\MailerHandler;
 
+use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
@@ -48,6 +49,12 @@ trait MailerHandler
                 break;
         }
         $mailerHandler->setFormatter(new MonologHtmlFormatter);
+
+        if ($this->enableNotificationDeduplication()) {
+            $level = $this->getNotificationLevel();
+            $time = $this->getNotificationDeduplicationTime();
+            $mailerHandler = new DeduplicationHandler($mailerHandler, null, $level, $time);
+        }
 
         return $mailerHandler;
     }

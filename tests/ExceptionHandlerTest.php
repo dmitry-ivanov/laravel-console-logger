@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 class ExceptionHandlerTest extends TestCase
 {
     /** @test */
-    public function it_logs_an_error_for_all_occurred_application_exceptions()
+    public function it_logs_an_error_for_all_occurred_application_notices_warnings_errors_and_exceptions()
     {
         $logger = Mockery::mock(LoggerInterface::class);
         $logger->shouldReceive('error')->with('Test exception', Mockery::subset([
@@ -22,7 +22,7 @@ class ExceptionHandlerTest extends TestCase
     }
 
     /** @test */
-    public function it_supports_custom_runtime_exception_which_has_optional_context()
+    public function it_supports_custom_runtime_exception_which_has_ability_to_set_optional_context()
     {
         $logger = Mockery::mock(LoggerInterface::class);
         $logger->shouldReceive('error')->with('Test exception with context', Mockery::subset([

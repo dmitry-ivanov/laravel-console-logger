@@ -1,6 +1,6 @@
 <?php
 
-use Illuminated\Console\Log\HtmlFormatter;
+use Illuminated\Console\Loggable\MailerHandler\MonologHtmlFormatter;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
@@ -74,7 +74,7 @@ class MailerHandlerTest extends TestCase
     private function composeSwiftMailerHandler()
     {
         $handler = new SwiftMailerHandler(app('swift.mailer'), $this->composeMailerHandlerMessage(), Logger::NOTICE);
-        $handler->setFormatter(new HtmlFormatter());
+        $handler->setFormatter(new MonologHtmlFormatter);
         return $handler;
     }
 
@@ -83,7 +83,7 @@ class MailerHandlerTest extends TestCase
         $handler = new MandrillHandler(
             config('services.mandrill.secret'), $this->composeMailerHandlerMessage(), Logger::NOTICE
         );
-        $handler->setFormatter(new HtmlFormatter());
+        $handler->setFormatter(new MonologHtmlFormatter);
         return $handler;
     }
 
@@ -102,7 +102,7 @@ class MailerHandlerTest extends TestCase
             Logger::NOTICE
         );
         $handler->setContentType('text/html');
-        $handler->setFormatter(new HtmlFormatter());
+        $handler->setFormatter(new MonologHtmlFormatter);
 
         return $handler;
     }

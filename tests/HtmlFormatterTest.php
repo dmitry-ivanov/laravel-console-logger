@@ -69,6 +69,19 @@ class HtmlFormatterTest extends TestCase
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
+    /** @test */
+    public function it_properly_formats_records_with_context()
+    {
+        $record = $this->generateRecord('Record with context!', Logger::WARNING, [
+            'foo' => 'bar',
+            'baz' => 123,
+            'faz' => true,
+            'daz' => null,
+        ]);
+
+        $this->assertFormatterGeneratesExpectedOutput($record);
+    }
+
     protected function generateRecord($message, $level, array $context = [])
     {
         return [
@@ -102,6 +115,18 @@ class HtmlFormatterTest extends TestCase
     private function composeExpectedOutput(array $record)
     {
         $color = (new HtmlFormatter)->getLevelColor($record['level']);
+
+        $context = '';
+        if (!empty($record['context'])) {
+            $dump = get_dump($record['context']);
+            $dump = e($dump);
+            $dump = str_replace(' ', '&nbsp;', $dump);
+            $dump = nl2br($dump);
+            $context = "<tr class='details-row'>
+                <th class='details-row-header'>Context:</th>
+                <td class='details-row-body'>{$dump}</td>
+            </tr>";
+        }
 
         return "<!DOCTYPE html>
             <html>
@@ -147,6 +172,7 @@ class HtmlFormatterTest extends TestCase
                             <th class='details-row-header'>Message:</th>
                             <td class='details-row-body'>{$record['message']}</td>
                         </tr>
+                        {$context}
                         <tr class='details-row'>
                             <th class='details-row-header'>Time:</th>
                             <td class='details-row-body'>{$record['datetime']->format('Y-m-d H:i:s')}</td>

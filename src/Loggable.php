@@ -5,12 +5,9 @@ namespace Illuminated\Console;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Log\DatabaseHandler;
-use Illuminated\Console\Log\HtmlFormatter;
 use Illuminated\Console\Loggable\FileHandler\FileHandler;
+use Illuminated\Console\Loggable\MailerHandler\MailerHandler;
 use Monolog\Handler\DeduplicationHandler;
-use Monolog\Handler\MandrillHandler;
-use Monolog\Handler\NativeMailerHandler;
-use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 trait Loggable
 {
     use FileHandler;
+    use MailerHandler;
 
     protected $icLogger;
 
@@ -84,50 +82,6 @@ trait Loggable
         return $handlers;
     }
 
-    protected function getMailerHandler()
-    {
-        $recipients = $this->getFilteredNotificationRecipients();
-        if (empty($recipients)) {
-            return false;
-        }
-
-        $subject = $this->getNotificationSubject();
-        $from = $this->getNotificationFrom();
-        $level = $this->getNotificationLevel();
-
-        $driver = config('mail.driver');
-        switch ($driver) {
-            case 'mail':
-            case 'smtp':
-            case 'sendmail':
-            case 'mandrill':
-                $mailer = app('swift.mailer');
-                $message = $mailer->createMessage();
-                $message->setSubject($subject);
-                $message->setFrom(to_swiftmailer_emails($from));
-                $message->setTo(to_swiftmailer_emails($recipients));
-                $message->setContentType('text/html');
-                $message->setCharset('utf-8');
-
-                if ($driver == 'mandrill') {
-                    $mailerHandler = new MandrillHandler(config('services.mandrill.secret'), $message, $level);
-                } else {
-                    $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
-                }
-                break;
-
-            default:
-                $to = to_rfc2822_email($recipients);
-                $from = to_rfc2822_email($from);
-                $mailerHandler = new NativeMailerHandler($to, $subject, $from, $level);
-                $mailerHandler->setContentType('text/html');
-                break;
-        }
-        $mailerHandler->setFormatter(new HtmlFormatter());
-
-        return $mailerHandler;
-    }
-
     protected function getDbHandler()
     {
         if (!$this->enableNotificationDbStoring()) {
@@ -139,20 +93,6 @@ trait Loggable
         $level = $this->getNotificationLevel();
 
         return (new DatabaseHandler($table, $callback, $level));
-    }
-
-    private function getFilteredNotificationRecipients()
-    {
-        $result = [];
-
-        $recipients = $this->getNotificationRecipients();
-        foreach ($recipients as $recipient) {
-            if (!empty($recipient['address']) && is_email($recipient['address'])) {
-                $result[] = $recipient;
-            }
-        }
-
-        return $result;
     }
 
     protected function logDebug($message, array $context = [])
@@ -195,38 +135,9 @@ trait Loggable
         return $this->icLogger->emergency($message, $context);
     }
 
-    protected function getNotificationRecipients()
-    {
-        return [
-            ['address' => null, 'name' => null],
-        ];
-    }
-
-    protected function getNotificationSubject()
-    {
-        $env = str_upper(app()->environment());
-        $name = $this->getName();
-        return "[{$env}] %level_name% in `{$name}` command";
-    }
-
-    protected function getNotificationFrom()
-    {
-        return ['address' => 'no-reply@example.com', 'name' => 'ICLogger Notification'];
-    }
-
     protected function getNotificationLevel()
     {
         return Logger::NOTICE;
-    }
-
-    protected function enableNotificationDeduplication()
-    {
-        return false;
-    }
-
-    protected function getNotificationDeduplicationTime()
-    {
-        return 60;
     }
 
     protected function enableNotificationDbStoring()

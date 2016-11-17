@@ -2,7 +2,6 @@
 
 namespace Illuminated\Console\Loggable\MailerHandler;
 
-use Illuminated\Console\Log\HtmlFormatter;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
@@ -48,7 +47,7 @@ trait MailerHandler
                 $mailerHandler->setContentType('text/html');
                 break;
         }
-        $mailerHandler->setFormatter(new HtmlFormatter);
+        $mailerHandler->setFormatter(new MonologHtmlFormatter);
 
         return $mailerHandler;
     }

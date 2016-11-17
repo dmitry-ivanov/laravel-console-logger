@@ -7,7 +7,7 @@ use Monolog\Logger;
 class DatabaseHandlerTest extends TestCase
 {
     /** @test */
-    public function it_is_not_storing_notifications_to_database_if_disabled()
+    public function it_is_not_storing_notifications_to_database_if_it_is_disabled()
     {
         Artisan::call('command-without-notification-db-storing');
 
@@ -15,7 +15,7 @@ class DatabaseHandlerTest extends TestCase
     }
 
     /** @test */
-    public function it_stores_notifications_to_database_if_enabled_and_according_to_notifications_level()
+    public function it_stores_notifications_to_database_if_it_is_enabled_and_also_according_to_notifications_level()
     {
         Artisan::call('command-with-notification-db-storing');
 
@@ -59,7 +59,7 @@ class DatabaseHandlerTest extends TestCase
     }
 
     /** @test */
-    public function it_provides_an_ability_to_use_custom_notification_database_table_and_callback_for_storing()
+    public function it_provides_an_ability_to_use_custom_database_table_and_callback_for_notifications_storing()
     {
         Schema::create('my_custom_notifications', function (Blueprint $table) {
             $table->increments('id');

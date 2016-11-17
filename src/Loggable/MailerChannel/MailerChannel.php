@@ -9,7 +9,7 @@ use Monolog\Handler\SwiftMailerHandler;
 
 trait MailerChannel
 {
-    protected function getMailerHandler()
+    protected function getMailerChannelHandler()
     {
         $recipients = $this->getFilteredNotificationRecipients();
         if (empty($recipients)) {

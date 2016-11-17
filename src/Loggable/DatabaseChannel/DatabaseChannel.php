@@ -4,7 +4,7 @@ namespace Illuminated\Console\Loggable\DatabaseChannel;
 
 trait DatabaseChannel
 {
-    protected function getDatabaseHandler()
+    protected function getDatabaseChannelHandler()
     {
         if (!$this->enableNotificationDbStoring()) {
             return false;

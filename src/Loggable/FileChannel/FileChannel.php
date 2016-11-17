@@ -6,7 +6,7 @@ use Monolog\Handler\RotatingFileHandler;
 
 trait FileChannel
 {
-    protected function getFileHandler()
+    protected function getFileChannelHandler()
     {
         $fileHandler = new RotatingFileHandler($this->getLogPath(), 30);
         $fileHandler->setFilenameFormat('{date}', 'Y-m-d');

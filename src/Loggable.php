@@ -80,7 +80,7 @@ trait Loggable
     private function initializeErrorHandling()
     {
         app()->singleton('log.iclogger', function () {
-            return new Logger('ICLogger', $this->getLogHandlers());
+            return new Logger('ICLogger', $this->getChannelHandlers());
         });
         $this->icLogger = app('log.iclogger');
 
@@ -88,7 +88,7 @@ trait Loggable
         app(ExceptionHandlerContract::class)->initialize($this->icLogger);
     }
 
-    private function getLogHandlers()
+    private function getChannelHandlers()
     {
         $handlers = [];
 

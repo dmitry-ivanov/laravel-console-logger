@@ -51,7 +51,6 @@ trait MailerChannel
         $mailerHandler->setFormatter(new MonologHtmlFormatter);
 
         if ($this->enableNotificationDeduplication()) {
-            $level = $this->getNotificationLevel();
             $time = $this->getNotificationDeduplicationTime();
             $mailerHandler = new DeduplicationHandler($mailerHandler, null, $level, $time);
         }

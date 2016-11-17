@@ -1,13 +1,13 @@
 <?php
 
-namespace Illuminated\Console\Loggable\MailerHandler;
+namespace Illuminated\Console\Loggable\MailerChannel;
 
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
 
-trait MailerHandler
+trait MailerChannel
 {
     protected function getMailerHandler()
     {

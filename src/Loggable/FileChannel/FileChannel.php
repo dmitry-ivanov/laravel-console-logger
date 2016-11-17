@@ -1,10 +1,10 @@
 <?php
 
-namespace Illuminated\Console\Loggable\FileHandler;
+namespace Illuminated\Console\Loggable\FileChannel;
 
 use Monolog\Handler\RotatingFileHandler;
 
-trait FileHandler
+trait FileChannel
 {
     protected function getFileHandler()
     {

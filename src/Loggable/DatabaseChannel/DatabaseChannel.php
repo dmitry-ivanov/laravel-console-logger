@@ -1,8 +1,8 @@
 <?php
 
-namespace Illuminated\Console\Loggable\DatabaseHandler;
+namespace Illuminated\Console\Loggable\DatabaseChannel;
 
-trait DatabaseHandler
+trait DatabaseChannel
 {
     protected function getDatabaseHandler()
     {

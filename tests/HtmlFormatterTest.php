@@ -6,6 +6,14 @@ use Monolog\Logger;
 class HtmlFormatterTest extends TestCase
 {
     /** @test */
+    public function it_properly_formats_debug_records()
+    {
+        $record = $this->generateRecord('Debug!', Logger::DEBUG);
+
+        $this->assertFormatterGeneratesExpectedOutput($record);
+    }
+
+    /** @test */
     public function it_properly_formats_an_emergency_records()
     {
         $record = $this->generateRecord('Emergency!', Logger::EMERGENCY);
@@ -45,6 +53,8 @@ class HtmlFormatterTest extends TestCase
 
     private function composeExpectedOutput(array $record)
     {
+        $color = (new HtmlFormatter)->getLevelColor($record['level']);
+
         return "<!DOCTYPE html>
             <html>
                 <head>
@@ -61,7 +71,7 @@ class HtmlFormatterTest extends TestCase
                             padding: 15px;
                         }
                         .title.{$record['level_name']}, .subtitle.{$record['level_name']} {
-                            background: #000000;
+                            background: {$color};
                         }
                         .details-row {
                             text-align: left;

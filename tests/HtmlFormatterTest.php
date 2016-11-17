@@ -70,9 +70,9 @@ class HtmlFormatterTest extends TestCase
     }
 
     /** @test */
-    public function it_properly_formats_records_with_context()
+    public function it_properly_formats_records_with_array_context()
     {
-        $record = $this->generateRecord('Record with context!', Logger::WARNING, [
+        $record = $this->generateRecord('Record with array context!', Logger::WARNING, [
             'foo' => 'bar',
             'baz' => 123,
             'faz' => true,
@@ -82,7 +82,15 @@ class HtmlFormatterTest extends TestCase
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    protected function generateRecord($message, $level, array $context = [])
+    /** @test */
+    public function it_properly_formats_records_with_non_array_context()
+    {
+        $record = $this->generateRecord('Record with non array context!', Logger::WARNING, 'Non array context');
+
+        $this->assertFormatterGeneratesExpectedOutput($record);
+    }
+
+    protected function generateRecord($message, $level, $context = [])
     {
         return [
             'message' => $message,
@@ -118,10 +126,11 @@ class HtmlFormatterTest extends TestCase
 
         $context = '';
         if (!empty($record['context'])) {
-            $dump = get_dump($record['context']);
+            $dump = is_array($record['context']) ? get_dump($record['context']) : $record['context'];
             $dump = e($dump);
             $dump = str_replace(' ', '&nbsp;', $dump);
             $dump = nl2br($dump);
+
             $context = "<tr class='details-row'>
                 <th class='details-row-header'>Context:</th>
                 <td class='details-row-body'>{$dump}</td>

@@ -1,10 +1,10 @@
 <?php
 
-namespace Illuminated\Console\Log;
+namespace Illuminated\Console\Loggable\MailerHandler;
 
-use Monolog\Formatter\HtmlFormatter as MonologHtmlFormatter;
+use Monolog\Formatter\HtmlFormatter;
 
-class HtmlFormatter extends MonologHtmlFormatter
+class MonologHtmlFormatter extends HtmlFormatter
 {
     public function format(array $record)
     {

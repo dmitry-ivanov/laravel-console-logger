@@ -1,6 +1,8 @@
 <?php
 
+use Illuminated\Console\Exceptions\ExceptionHandler;
 use Monolog\Handler\RotatingFileHandler;
+use Psr\Log\LoggerInterface;
 
 class FileHandlerOnMysqlTest extends TestCase
 {
@@ -51,7 +53,7 @@ class FileHandlerOnMysqlTest extends TestCase
      */
     public function it_writes_to_log_file_information_footer_each_iteration()
     {
-        $logger = Mockery::mock(Psr\Log\LoggerInterface::class);
+        $logger = Mockery::mock(LoggerInterface::class);
         $logger->shouldReceive('info')->with('/Execution time\: .*? sec\./')->once();
         $logger->shouldReceive('info')->with('/Memory peak usage\: .*?\./')->once();
         $logger->shouldReceive('info')->with('%separator%')->once();
@@ -61,7 +63,7 @@ class FileHandlerOnMysqlTest extends TestCase
             new RotatingFileHandler('baz'),
         ]);
 
-        $handler = new Illuminated\Console\ExceptionHandler($this->app);
+        $handler = new ExceptionHandler($this->app);
         $handler->initialize($logger);
         $handler->onShutdown();
     }

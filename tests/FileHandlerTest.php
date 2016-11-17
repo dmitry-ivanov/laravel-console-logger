@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminated\Console\Exceptions\ExceptionHandler;
 use Monolog\Handler\RotatingFileHandler;
 
 class FileHandlerTest extends TestCase
@@ -64,7 +65,7 @@ class FileHandlerTest extends TestCase
             new RotatingFileHandler('baz'),
         ]);
 
-        $handler = new Illuminated\Console\ExceptionHandler($this->app);
+        $handler = new ExceptionHandler($this->app);
         $handler->initialize($logger);
         $handler->onShutdown();
     }

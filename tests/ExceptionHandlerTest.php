@@ -1,7 +1,7 @@
 <?php
 
-use Illuminated\Console\ExceptionHandler;
-use Illuminated\Console\RuntimeException;
+use Illuminated\Console\Exceptions\ExceptionHandler;
+use Illuminated\Console\Exceptions\RuntimeException;
 use Psr\Log\LoggerInterface;
 
 class ExceptionHandlerTest extends TestCase

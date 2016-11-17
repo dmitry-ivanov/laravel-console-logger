@@ -1,6 +1,7 @@
 <?php
 
 use Illuminated\Console\Log\HtmlFormatter;
+use Monolog\Logger;
 
 class HtmlFormatterTest extends TestCase
 {
@@ -10,8 +11,8 @@ class HtmlFormatterTest extends TestCase
         $record = [
             'message' => 'Emergency!',
             'context' => [],
-            'level' => 600,
-            'level_name' => 'EMERGENCY',
+            'level' => Logger::EMERGENCY,
+            'level_name' => Logger::getLevelName(Logger::EMERGENCY),
             'channel' => 'ICLogger',
             'datetime' => new DateTime('2016-11-11 11:12:13'),
             'extra' => [],

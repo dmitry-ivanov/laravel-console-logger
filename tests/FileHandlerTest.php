@@ -37,7 +37,7 @@ class FileHandlerTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_write_additional_mysql_information_headers_for_non_mysql_connections()
+    public function it_does_not_write_additional_mysql_information_for_non_mysql_connections()
     {
         Artisan::call('generic');
 
@@ -70,7 +70,7 @@ class FileHandlerTest extends TestCase
     }
 
     /** @test */
-    public function it_provides_automatic_files_rotation_and_only_30_latest_files_are_stored()
+    public function it_provides_automatic_file_rotation_and_only_30_latest_files_are_stored()
     {
         $path = storage_path('logs/generic');
         $this->createBunchOfOldLogsInCount45($path);

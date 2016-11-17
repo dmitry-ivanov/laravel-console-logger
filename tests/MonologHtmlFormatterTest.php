@@ -1,9 +1,9 @@
 <?php
 
-use Illuminated\Console\Log\HtmlFormatter;
+use Illuminated\Console\Loggable\MailerHandler\MonologHtmlFormatter;
 use Monolog\Logger;
 
-class HtmlFormatterTest extends TestCase
+class MonologHtmlFormatterTest extends TestCase
 {
     /** @test */
     public function it_properly_formats_debug_records()
@@ -115,7 +115,7 @@ class HtmlFormatterTest extends TestCase
     protected function assertFormatterGeneratesExpectedOutput(array $record)
     {
         $expected = $this->composeExpectedOutput($record);
-        $actual = (new HtmlFormatter)->format($record);
+        $actual = (new MonologHtmlFormatter)->format($record);
 
         $this->assertEquals(
             $this->normalizeOutput($expected),
@@ -131,7 +131,7 @@ class HtmlFormatterTest extends TestCase
 
     private function composeExpectedOutput(array $record)
     {
-        $color = (new HtmlFormatter)->getLevelColor($record['level']);
+        $color = (new MonologHtmlFormatter)->getLevelColor($record['level']);
 
         $subtitle =
             "<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>

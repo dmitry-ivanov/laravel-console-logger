@@ -19,7 +19,7 @@ class CommandWithCustomNotificationDbStoring extends Command
         return 'my_custom_notifications';
     }
 
-    protected function getNotificationDbCallback()
+    protected function getDatabaseNotificationsCallback()
     {
         return function (array $record) {
             MyCustomNotification::create([

@@ -18,7 +18,7 @@ trait DatabaseChannel
         }
 
         $table = $this->getDatabaseNotificationsTable();
-        $callback = $this->getNotificationDbCallback();
+        $callback = $this->getDatabaseNotificationsCallback();
         $level = $this->getDatabaseNotificationsLevel();
 
         return (new MonologDatabaseHandler($table, $callback, $level));
@@ -34,7 +34,7 @@ trait DatabaseChannel
         return 'iclogger_notifications';
     }
 
-    protected function getNotificationDbCallback()
+    protected function getDatabaseNotificationsCallback()
     {
         return null;
     }

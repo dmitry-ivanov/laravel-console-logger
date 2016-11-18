@@ -59,7 +59,7 @@ class DatabaseChannelTest extends TestCase
     }
 
     /** @test */
-    public function it_provides_an_ability_to_use_custom_database_table_and_callback_for_notifications_storing()
+    public function it_provides_an_ability_to_use_custom_database_table_and_callback_for_database_notifications()
     {
         Schema::create('custom_notifications', function (Blueprint $table) {
             $table->increments('id');

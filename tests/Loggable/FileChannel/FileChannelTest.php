@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 
-class FileHandlerTest extends TestCase
+class FileChannelTest extends TestCase
 {
     /** @test */
     public function it_creates_log_file_according_to_the_command_name_and_current_date()

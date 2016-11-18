@@ -27,7 +27,7 @@ trait EmailChannel
             return false;
         }
 
-        $subject = $this->getEmailNotificationSubject();
+        $subject = $this->getEmailNotificationsSubject();
         $from = $this->getEmailNotificationFrom();
         $level = $this->getEmailNotificationsLevel();
 
@@ -76,7 +76,7 @@ trait EmailChannel
         ];
     }
 
-    protected function getEmailNotificationSubject()
+    protected function getEmailNotificationsSubject()
     {
         $env = str_upper(app()->environment());
         $name = $this->getName();

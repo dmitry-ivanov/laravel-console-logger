@@ -113,7 +113,7 @@ class Foo extends Command
         return Logger::ERROR;
     }
 
-    protected function getEmailNotificationSubject()
+    protected function getEmailNotificationsSubject()
     {
         return "Oups! %level_name% while execution!";
     }

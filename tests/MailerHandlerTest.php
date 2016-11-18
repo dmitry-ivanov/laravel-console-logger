@@ -1,6 +1,6 @@
 <?php
 
-use Illuminated\Console\Loggable\MailerChannel\MonologHtmlFormatter;
+use Illuminated\Console\Loggable\EmailChannel\MonologHtmlFormatter;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;

@@ -1,6 +1,6 @@
 <?php
 
-use Illuminated\Console\Loggable\MailerChannel\MonologHtmlFormatter;
+use Illuminated\Console\Loggable\EmailChannel\MonologHtmlFormatter;
 use Monolog\Logger;
 
 class MonologHtmlFormatterTest extends TestCase

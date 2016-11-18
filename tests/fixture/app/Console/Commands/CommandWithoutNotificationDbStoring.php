@@ -9,7 +9,7 @@ class CommandWithoutNotificationDbStoring extends Command
 
     protected $signature = 'command-without-notification-db-storing';
 
-    protected function enableNotificationDbStoring()
+    protected function useDatabaseNotifications()
     {
         return false;
     }

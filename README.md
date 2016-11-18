@@ -271,7 +271,7 @@ And this can be a problem, if you have a huge number of commands. You'll get hun
 
 The good news is that you can deduplicate notifications very easy. You can enable deduplication by overriding `useEmailNotificationsDeduplication` method.
 
-Also, you can adjust deduplication time, by overridding `getNotificationDeduplicationTime` method:
+Also, you can adjust deduplication time, by overridding `getEmailNotificationsDeduplicationTime` method:
 
 ```php
 class Foo extends Command
@@ -283,7 +283,7 @@ class Foo extends Command
         return true;
     }
 
-    protected function getNotificationDeduplicationTime()
+    protected function getEmailNotificationsDeduplicationTime()
     {
         return 90;
     }

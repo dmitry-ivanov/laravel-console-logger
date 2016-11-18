@@ -56,7 +56,7 @@ trait EmailChannel
         $mailerHandler->setFormatter(new MonologHtmlFormatter);
 
         if ($this->useEmailNotificationsDeduplication()) {
-            $time = $this->getNotificationDeduplicationTime();
+            $time = $this->getEmailNotificationsDeduplicationTime();
             $mailerHandler = new DeduplicationHandler($mailerHandler, null, $level, $time);
         }
 
@@ -87,7 +87,7 @@ trait EmailChannel
         return false;
     }
 
-    protected function getNotificationDeduplicationTime()
+    protected function getEmailNotificationsDeduplicationTime()
     {
         return 60;
     }

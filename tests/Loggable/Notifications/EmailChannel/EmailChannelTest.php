@@ -7,7 +7,7 @@ use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 
-class MailerHandlerTest extends TestCase
+class EmailChannelTest extends TestCase
 {
     /** @test */
     public function it_validates_and_filters_notification_recipients()

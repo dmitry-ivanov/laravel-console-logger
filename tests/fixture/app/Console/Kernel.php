@@ -9,9 +9,9 @@ class Kernel extends \Orchestra\Testbench\Console\Kernel
         SeparatorLoggingCommand::class,
         EmailNotificationsCommand::class,
         EmailNotificationsDeduplicationCommand::class,
+        EmailNotificationsInvalidRecipientsCommand::class,
         CommandWithDatabaseNotifications::class,
         CommandWithoutDatabaseNotifications::class,
         CommandWithDatabaseNotificationsCallback::class,
-        CommandWithInvalidEmailNotificationsRecipients::class,
     ];
 }

@@ -3,11 +3,11 @@
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
 
-class CommandWithInvalidEmailNotificationsRecipients extends Command
+class EmailNotificationsInvalidRecipientsCommand extends Command
 {
     use Loggable;
 
-    protected $signature = 'command-with-invalid-email-notifications-recipients';
+    protected $signature = 'email-notifications-invalid-recipients-command';
 
     protected function getEmailNotificationsRecipients()
     {

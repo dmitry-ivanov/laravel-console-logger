@@ -3,11 +3,11 @@
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
 
-class CommandWithNotificationDeduplication extends Command
+class CommandWithEmailNotificationsDeduplication extends Command
 {
     use Loggable;
 
-    protected $signature = 'command-with-notification-deduplication';
+    protected $signature = 'command-with-email-notifications-deduplication';
 
     protected function getEmailNotificationsRecipients()
     {
@@ -24,6 +24,7 @@ class CommandWithNotificationDeduplication extends Command
 
     public function handle()
     {
+        $this->logInfo('Done!');
     }
 
     public function mailerHandler()

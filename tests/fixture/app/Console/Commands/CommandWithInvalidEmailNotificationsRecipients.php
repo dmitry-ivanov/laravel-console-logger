@@ -21,6 +21,7 @@ class CommandWithInvalidEmailNotificationsRecipients extends Command
 
     public function handle()
     {
+        $this->logInfo('Done!');
     }
 
     public function mailerHandler()

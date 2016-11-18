@@ -17,7 +17,7 @@ class DatabaseHandlerTest extends TestCase
     /** @test */
     public function it_stores_notifications_to_database_if_it_is_enabled_and_also_according_to_notifications_level()
     {
-        Artisan::call('command-with-database-notifications');
+        Artisan::call('database-notifications-command');
 
         $this->notSeeInDatabaseMany('iclogger_notifications', [
             ['level' => Logger::DEBUG],

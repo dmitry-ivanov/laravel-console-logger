@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminated\Console\Loggable\DatabaseChannel;
+namespace Illuminated\Console\Loggable\Notifications\DatabaseChannel;
 
 trait DatabaseChannel
 {

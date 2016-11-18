@@ -4,7 +4,7 @@ namespace Illuminated\Console;
 
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Exceptions\ExceptionHandler;
-use Illuminated\Console\Loggable\DatabaseChannel\DatabaseChannel;
+use Illuminated\Console\Loggable\Notifications\DatabaseChannel\DatabaseChannel;
 use Illuminated\Console\Loggable\Notifications\EmailChannel\EmailChannel;
 use Illuminated\Console\Loggable\FileChannel\FileChannel;
 use Monolog\Logger;

@@ -8,10 +8,10 @@ class Kernel extends \Orchestra\Testbench\Console\Kernel
         ContextLoggingCommand::class,
         SeparatorLoggingCommand::class,
         EmailNotificationsCommand::class,
+        EmailNotificationsDeduplicationCommand::class,
         CommandWithDatabaseNotifications::class,
         CommandWithoutDatabaseNotifications::class,
         CommandWithDatabaseNotificationsCallback::class,
         CommandWithInvalidEmailNotificationsRecipients::class,
-        CommandWithEmailNotificationsDeduplication::class,
     ];
 }

@@ -65,7 +65,7 @@ class MailerHandlerTest extends TestCase
     public function it_uses_configured_monolog_deduplication_handler_if_deduplication_enabled()
     {
         config(['mail.driver' => 'any-other']);
-        $handler = $this->runViaObject(CommandWithEmailNotificationsDeduplication::class)->mailerHandler();
+        $handler = $this->runViaObject(EmailNotificationsDeduplicationCommand::class)->mailerHandler();
         $handler->flush();
 
         $this->assertMailerHandlersAreEqual($this->composeDeduplicationHandler(), $handler);
@@ -110,7 +110,7 @@ class MailerHandlerTest extends TestCase
     private function composeDeduplicationHandler()
     {
         return new DeduplicationHandler(
-            $this->composeNativeMailerHandler('command-with-email-notifications-deduplication'), null, Logger::NOTICE, 60
+            $this->composeNativeMailerHandler('email-notifications-deduplication-command'), null, Logger::NOTICE, 60
         );
     }
 

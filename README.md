@@ -205,7 +205,7 @@ array:5 [
 
 Another cool feature available for you is auto saving notifications to database. Disabled by default.
 
-To enable it just override `enableNotificationDbStoring` method. By default, you'll get `iclogger_notifications` table with all required notifications information, which if fine for the most cases.
+To enable it just override `useDatabaseNotifications` method. By default, you'll get `iclogger_notifications` table with all required notifications information, which if fine for the most cases.
 
 However, you can customize database table name and even storing logic if needed:
 
@@ -214,7 +214,7 @@ class Foo extends Command
 {
     use Loggable;
 
-    protected function enableNotificationDbStoring()
+    protected function useDatabaseNotifications()
     {
         return true;
     }

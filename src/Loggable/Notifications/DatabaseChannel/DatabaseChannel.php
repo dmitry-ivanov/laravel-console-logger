@@ -6,14 +6,14 @@ use Monolog\Logger;
 
 trait DatabaseChannel
 {
-    protected function getDatabaseNotificationsLevel()
+    protected function useDatabaseNotifications()
     {
-        return Logger::NOTICE;
+        return false;
     }
 
     protected function getDatabaseChannelHandler()
     {
-        if (!$this->enableNotificationDbStoring()) {
+        if (!$this->useDatabaseNotifications()) {
             return false;
         }
 
@@ -24,9 +24,9 @@ trait DatabaseChannel
         return (new MonologDatabaseHandler($table, $callback, $level));
     }
 
-    protected function enableNotificationDbStoring()
+    protected function getDatabaseNotificationsLevel()
     {
-        return false;
+        return Logger::NOTICE;
     }
 
     protected function getNotificationDbTable()

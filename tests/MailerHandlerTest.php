@@ -20,7 +20,7 @@ class MailerHandlerTest extends TestCase
     public function it_uses_configured_monolog_swift_mailer_handler_on_mail_driver()
     {
         config(['mail.driver' => 'mail']);
-        $handler = $this->runViaObject(CommandWithNotificationRecipients::class)->mailerHandler();
+        $handler = $this->runViaObject(CommandWithEmailNotifications::class)->mailerHandler();
 
         $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
     }
@@ -29,7 +29,7 @@ class MailerHandlerTest extends TestCase
     public function it_uses_configured_monolog_swift_mailer_handler_on_smtp_driver()
     {
         config(['mail.driver' => 'smtp']);
-        $handler = $this->runViaObject(CommandWithNotificationRecipients::class)->mailerHandler();
+        $handler = $this->runViaObject(CommandWithEmailNotifications::class)->mailerHandler();
 
         $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
     }
@@ -38,7 +38,7 @@ class MailerHandlerTest extends TestCase
     public function it_uses_configured_monolog_swift_mailer_handler_on_sendmail_driver()
     {
         config(['mail.driver' => 'sendmail']);
-        $handler = $this->runViaObject(CommandWithNotificationRecipients::class)->mailerHandler();
+        $handler = $this->runViaObject(CommandWithEmailNotifications::class)->mailerHandler();
 
         $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
     }
@@ -47,7 +47,7 @@ class MailerHandlerTest extends TestCase
     public function it_uses_configured_monolog_mandrill_mailer_handler_on_mandrill_driver()
     {
         config(['mail.driver' => 'mandrill', 'services.mandrill.secret' => 'secret']);
-        $handler = $this->runViaObject(CommandWithNotificationRecipients::class)->mailerHandler();
+        $handler = $this->runViaObject(CommandWithEmailNotifications::class)->mailerHandler();
 
         $this->assertMailerHandlersAreEqual($this->composeMandrillMailerHandler(), $handler);
     }
@@ -56,7 +56,7 @@ class MailerHandlerTest extends TestCase
     public function it_uses_configured_monolog_native_mailer_handler_on_other_drivers()
     {
         config(['mail.driver' => 'any-other']);
-        $handler = $this->runViaObject(CommandWithNotificationRecipients::class)->mailerHandler();
+        $handler = $this->runViaObject(CommandWithEmailNotifications::class)->mailerHandler();
 
         $this->assertMailerHandlersAreEqual($this->composeNativeMailerHandler(), $handler);
     }
@@ -87,7 +87,7 @@ class MailerHandlerTest extends TestCase
         return $handler;
     }
 
-    private function composeNativeMailerHandler($name = 'command-with-notification-recipients')
+    private function composeNativeMailerHandler($name = 'command-with-email-notifications')
     {
         $handler = new NativeMailerHandler(
             to_rfc2822_email([
@@ -117,7 +117,7 @@ class MailerHandlerTest extends TestCase
     private function composeMailerHandlerMessage()
     {
         $message = app('swift.mailer')->createMessage();
-        $message->setSubject('[TESTING] %level_name% in `command-with-notification-recipients` command');
+        $message->setSubject('[TESTING] %level_name% in `command-with-email-notifications` command');
         $message->setFrom(to_swiftmailer_emails([
             'address' => 'no-reply@example.com',
             'name' => 'ICLogger Notification',

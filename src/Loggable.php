@@ -24,6 +24,19 @@ trait Loggable
         return Logger::NOTICE;
     }
 
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $this->initializeLogging();
+
+        return parent::initialize($input, $output);
+    }
+
+    protected function initializeLogging()
+    {
+        $this->initializeErrorHandling();
+        $this->logIterationHeaderInformation();
+    }
+
     protected function logDebug($message, array $context = [])
     {
         return $this->icLogger->debug($message, $context);
@@ -62,19 +75,6 @@ trait Loggable
     protected function logEmergency($message, array $context = [])
     {
         return $this->icLogger->emergency($message, $context);
-    }
-
-    protected function initialize(InputInterface $input, OutputInterface $output)
-    {
-        $this->initializeLogging();
-
-        return parent::initialize($input, $output);
-    }
-
-    protected function initializeLogging()
-    {
-        $this->initializeErrorHandling();
-        $this->logIterationHeaderInformation();
     }
 
     private function initializeErrorHandling()

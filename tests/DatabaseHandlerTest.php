@@ -74,7 +74,7 @@ class DatabaseHandlerTest extends TestCase
             $table->index('created_at');
         });
 
-        Artisan::call('command-with-database-notifications-callback');
+        Artisan::call('database-notifications-callback-command');
 
         $this->notSeeInDatabaseMany('my_custom_notifications', [
             ['level' => Logger::DEBUG],

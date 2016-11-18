@@ -9,9 +9,18 @@ use Monolog\Handler\SwiftMailerHandler;
 
 trait EmailChannel
 {
+    protected function useEmailNotifications()
+    {
+        return true;
+    }
+
     protected function getEmailChannelHandler()
     {
-        $recipients = $this->getFilteredNotificationRecipients();
+        if (!$this->useEmailNotifications()) {
+            return false;
+        }
+
+        $recipients = $this->normalizeEmailNotificationRecipients();
         if (empty($recipients)) {
             return false;
         }
@@ -87,7 +96,7 @@ trait EmailChannel
         return 60;
     }
 
-    private function getFilteredNotificationRecipients()
+    private function normalizeEmailNotificationRecipients()
     {
         $result = [];
 

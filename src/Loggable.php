@@ -115,12 +115,14 @@ trait Loggable
         $handlers = [];
 
         foreach (class_uses_recursive($this) as $trait) {
-            if ($this->isLoggableChannelTrait($trait)) {
-                $method = 'get' . class_basename($trait) . 'Handler';
-                $handler = $this->$method();
-                if (!empty($handler)) {
-                    $handlers[] = $handler;
-                }
+            if (!$this->isLoggableChannelTrait($trait)) {
+                continue;
+            }
+
+            $method = 'get' . class_basename($trait) . 'Handler';
+            $handler = $this->$method();
+            if (!empty($handler)) {
+                $handlers[] = $handler;
             }
         }
 

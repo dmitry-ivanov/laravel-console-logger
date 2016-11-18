@@ -1,15 +1,15 @@
 <?php
 
-namespace Illuminated\Console\Loggable\MailerChannel;
+namespace Illuminated\Console\Loggable\EmailChannel;
 
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
 
-trait MailerChannel
+trait EmailChannel
 {
-    protected function getMailerChannelHandler()
+    protected function getEmailChannelHandler()
     {
         $recipients = $this->getFilteredNotificationRecipients();
         if (empty($recipients)) {

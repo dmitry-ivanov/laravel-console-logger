@@ -131,7 +131,7 @@ trait Loggable
 
     private function isLoggableChannelTrait($name)
     {
-        return preg_match('/Illuminated\\\Console\\\Loggable\\\.*?Channel\\\.*?Channel/', $name);
+        return starts_with($name, __NAMESPACE__ . '\Loggable') && ends_with($name, 'Channel');
     }
 
     protected function icLogger()

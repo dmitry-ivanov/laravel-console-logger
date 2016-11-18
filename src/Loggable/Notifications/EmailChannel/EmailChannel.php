@@ -15,11 +15,6 @@ trait EmailChannel
         return true;
     }
 
-    protected function getEmailNotificationsLevel()
-    {
-        return Logger::NOTICE;
-    }
-
     protected function getEmailChannelHandler()
     {
         $recipients = $this->normalizeEmailNotificationRecipients();
@@ -67,6 +62,11 @@ trait EmailChannel
         }
 
         return $mailerHandler;
+    }
+
+    protected function getEmailNotificationsLevel()
+    {
+        return Logger::NOTICE;
     }
 
     protected function getEmailNotificationRecipients()

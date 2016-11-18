@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminated\Console\Loggable\EmailChannel;
+namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
 use Monolog\Formatter\HtmlFormatter;
 

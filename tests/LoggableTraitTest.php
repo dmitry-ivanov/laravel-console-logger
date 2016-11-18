@@ -22,9 +22,9 @@ class LoggableTraitTest extends TestCase
     /** @test */
     public function psr3_methods_are_supporting_context_and_it_is_logged_as_readable_dump()
     {
-        Artisan::call('command-with-context-logging');
+        Artisan::call('context-logging-command');
 
-        $this->assertLogFileContains("command-with-context-logging/{$this->date}.log", [
+        $this->assertLogFileContains("context-logging-command/{$this->date}.log", [
             'Testing context!',
             'Some log with data.',
             get_dump([

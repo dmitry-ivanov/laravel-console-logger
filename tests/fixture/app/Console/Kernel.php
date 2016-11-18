@@ -7,7 +7,7 @@ class Kernel extends \Orchestra\Testbench\Console\Kernel
         NamespacedCommand::class,
         ContextLoggingCommand::class,
         SeparatorLoggingCommand::class,
-        CommandWithEmailNotifications::class,
+        EmailNotificationsCommand::class,
         CommandWithDatabaseNotifications::class,
         CommandWithoutDatabaseNotifications::class,
         CommandWithDatabaseNotificationsCallback::class,

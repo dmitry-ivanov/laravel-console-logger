@@ -1,9 +1,6 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminated\Console\Exceptions\ExceptionHandler;
-use Monolog\Handler\RotatingFileHandler;
-use Psr\Log\LoggerInterface;
 
 class FileHandlerTest extends TestCase
 {
@@ -21,54 +18,6 @@ class FileHandlerTest extends TestCase
         Artisan::call('namespaced:command');
 
         $this->assertLogFileExists("namespaced/command/{$this->date}.log");
-    }
-
-    /** @test */
-    public function it_writes_to_log_file_information_header_each_iteration()
-    {
-        $class = GenericCommand::class;
-        $host = gethostname();
-        $ip = gethostbyname($host);
-
-        Artisan::call('generic');
-
-        $this->assertLogFileContains("generic/{$this->date}.log", [
-            "[%datetime%]: [INFO]: Command `{$class}` initialized.",
-            "[%datetime%]: [INFO]: Host: `{$host}` (`{$ip}`).",
-        ]);
-    }
-
-    /** @test */
-    public function it_does_not_write_additional_mysql_information_for_non_mysql_connections()
-    {
-        Artisan::call('generic');
-
-        $this->assertLogFileNotContains("generic/{$this->date}.log", [
-            'Database host:',
-            'Database date:',
-        ]);
-    }
-
-    /**
-     * @test
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function it_writes_to_log_file_information_footer_each_iteration()
-    {
-        $logger = Mockery::mock(LoggerInterface::class);
-        $logger->shouldReceive('info')->with('/Execution time\: .*? sec\./')->once();
-        $logger->shouldReceive('info')->with('/Memory peak usage\: .*?\./')->once();
-        $logger->shouldReceive('info')->with('%separator%')->once();
-        $logger->shouldReceive('getHandlers')->withNoArgs()->once()->andReturn([
-            new RotatingFileHandler('foo'),
-            new RotatingFileHandler('bar'),
-            new RotatingFileHandler('baz'),
-        ]);
-
-        $handler = new ExceptionHandler($this->app);
-        $handler->initialize($logger);
-        $handler->onShutdown();
     }
 
     /** @test */

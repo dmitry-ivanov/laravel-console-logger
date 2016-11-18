@@ -22,7 +22,7 @@ trait EmailChannel
         }
 
         $subject = $this->getEmailNotificationSubject();
-        $from = $this->getNotificationFrom();
+        $from = $this->getEmailNotificationFrom();
         $level = $this->getNotificationLevel();
 
         $driver = config('mail.driver');
@@ -77,7 +77,7 @@ trait EmailChannel
         return "[{$env}] %level_name% in `{$name}` command";
     }
 
-    protected function getNotificationFrom()
+    protected function getEmailNotificationFrom()
     {
         return ['address' => 'no-reply@example.com', 'name' => 'ICLogger Notification'];
     }

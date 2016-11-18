@@ -113,7 +113,7 @@ class Foo extends Command
         return "Oups! %level_name% while execution!";
     }
 
-    protected function getNotificationFrom()
+    protected function getEmailNotificationFrom()
     {
         return ['address' => 'no-reply@awesome.com', 'name' => 'My Awesome Notification'];
     }

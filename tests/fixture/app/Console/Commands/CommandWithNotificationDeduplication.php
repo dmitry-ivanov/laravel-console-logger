@@ -17,7 +17,7 @@ class CommandWithNotificationDeduplication extends Command
         ];
     }
 
-    protected function enableNotificationDeduplication()
+    protected function useEmailNotificationsDeduplication()
     {
         return true;
     }

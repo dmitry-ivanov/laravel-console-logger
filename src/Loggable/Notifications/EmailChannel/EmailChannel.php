@@ -55,7 +55,7 @@ trait EmailChannel
         }
         $mailerHandler->setFormatter(new MonologHtmlFormatter);
 
-        if ($this->enableNotificationDeduplication()) {
+        if ($this->useEmailNotificationsDeduplication()) {
             $time = $this->getNotificationDeduplicationTime();
             $mailerHandler = new DeduplicationHandler($mailerHandler, null, $level, $time);
         }
@@ -82,7 +82,7 @@ trait EmailChannel
         return ['address' => 'no-reply@example.com', 'name' => 'ICLogger Notification'];
     }
 
-    protected function enableNotificationDeduplication()
+    protected function useEmailNotificationsDeduplication()
     {
         return false;
     }

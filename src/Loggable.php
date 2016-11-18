@@ -33,6 +33,7 @@ trait Loggable
 
     protected function initializeLogging()
     {
+        $this->initializeICLogger();
         $this->initializeErrorHandling();
         $this->logIterationHeaderInformation();
     }
@@ -77,13 +78,16 @@ trait Loggable
         return $this->icLogger->emergency($message, $context);
     }
 
-    private function initializeErrorHandling()
+    private function initializeICLogger()
     {
         app()->singleton('log.iclogger', function () {
             return new Logger('ICLogger', $this->getChannelHandlers());
         });
         $this->icLogger = app('log.iclogger');
+    }
 
+    private function initializeErrorHandling()
+    {
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
         app(ExceptionHandlerContract::class)->initialize($this->icLogger);
     }

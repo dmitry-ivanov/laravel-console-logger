@@ -2,6 +2,7 @@
 
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
+use Monolog\Handler\NullHandler;
 
 class GenericCommand extends Command
 {
@@ -24,6 +25,6 @@ class GenericCommand extends Command
     public function emulateFileHandlerClose()
     {
         $this->icLogger()->popHandler()->close();
-        $this->icLogger()->pushHandler($this->getFileChannelHandler());
+        $this->icLogger()->pushHandler(new NullHandler);
     }
 }

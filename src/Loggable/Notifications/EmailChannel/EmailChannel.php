@@ -16,12 +16,8 @@ trait EmailChannel
 
     protected function getEmailChannelHandler()
     {
-        if (!$this->useEmailNotifications()) {
-            return false;
-        }
-
         $recipients = $this->normalizeEmailNotificationRecipients();
-        if (empty($recipients)) {
+        if (!$this->useEmailNotifications() || empty($recipients)) {
             return false;
         }
 

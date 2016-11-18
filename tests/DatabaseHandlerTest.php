@@ -61,7 +61,7 @@ class DatabaseHandlerTest extends TestCase
     /** @test */
     public function it_provides_an_ability_to_use_custom_database_table_and_callback_for_notifications_storing()
     {
-        Schema::create('my_custom_notifications', function (Blueprint $table) {
+        Schema::create('custom_notifications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('level')->unsigned()->index();
             $table->string('level_name')->index();
@@ -76,11 +76,11 @@ class DatabaseHandlerTest extends TestCase
 
         Artisan::call('database-notifications-callback-command');
 
-        $this->notSeeInDatabaseMany('my_custom_notifications', [
+        $this->notSeeInDatabaseMany('custom_notifications', [
             ['level' => Logger::DEBUG],
             ['level' => Logger::INFO],
         ]);
-        $this->seeInDatabaseMany('my_custom_notifications', [
+        $this->seeInDatabaseMany('custom_notifications', [
             [
                 'level' => Logger::NOTICE,
                 'level_name' => Logger::getLevelName(Logger::NOTICE),

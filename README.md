@@ -221,13 +221,13 @@ class Foo extends Command
 
     protected function getDatabaseNotificationsTable()
     {
-        return 'my_custom_notifications';
+        return 'custom_notifications';
     }
 
     protected function getDatabaseNotificationsCallback()
     {
         return function (array $record) {
-            MyCustomNotification::create([
+            CustomNotification::create([
                 'level' => $record['level'],
                 'level_name' => $record['level_name'],
                 'message' => $record['message'],

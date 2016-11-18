@@ -5,8 +5,8 @@ namespace Illuminated\Console;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Loggable\DatabaseChannel\DatabaseChannel;
+use Illuminated\Console\Loggable\EmailChannel\EmailChannel;
 use Illuminated\Console\Loggable\FileChannel\FileChannel;
-use Illuminated\Console\Loggable\MailerChannel\MailerChannel;
 use Monolog\Logger;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 trait Loggable
 {
     use FileChannel;
-    use MailerChannel;
+    use EmailChannel;
     use DatabaseChannel;
 
     protected $icLogger;

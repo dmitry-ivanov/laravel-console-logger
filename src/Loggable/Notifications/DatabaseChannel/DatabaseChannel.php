@@ -2,8 +2,15 @@
 
 namespace Illuminated\Console\Loggable\Notifications\DatabaseChannel;
 
+use Monolog\Logger;
+
 trait DatabaseChannel
 {
+    protected function getDatabaseNotificationsLevel()
+    {
+        return Logger::NOTICE;
+    }
+
     protected function getDatabaseChannelHandler()
     {
         if (!$this->enableNotificationDbStoring()) {
@@ -12,7 +19,7 @@ trait DatabaseChannel
 
         $table = $this->getNotificationDbTable();
         $callback = $this->getNotificationDbCallback();
-        $level = $this->getNotificationLevel();
+        $level = $this->getDatabaseNotificationsLevel();
 
         return (new MonologDatabaseHandler($table, $callback, $level));
     }

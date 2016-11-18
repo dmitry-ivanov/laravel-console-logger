@@ -108,6 +108,11 @@ class Foo extends Command
 {
     use Loggable;
 
+    protected function getEmailNotificationsLevel()
+    {
+        return Logger::ERROR;
+    }
+
     protected function getEmailNotificationSubject()
     {
         return "Oups! %level_name% while execution!";
@@ -116,11 +121,6 @@ class Foo extends Command
     protected function getEmailNotificationFrom()
     {
         return ['address' => 'no-reply@awesome.com', 'name' => 'My Awesome Notification'];
-    }
-
-    protected function getNotificationLevel()
-    {
-        return Logger::ERROR;
     }
 
     // ...

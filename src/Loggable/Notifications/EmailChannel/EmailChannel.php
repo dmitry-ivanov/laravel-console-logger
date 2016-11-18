@@ -6,12 +6,18 @@ use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
+use Monolog\Logger;
 
 trait EmailChannel
 {
     protected function useEmailNotifications()
     {
         return true;
+    }
+
+    protected function getEmailNotificationsLevel()
+    {
+        return Logger::NOTICE;
     }
 
     protected function getEmailChannelHandler()
@@ -23,7 +29,7 @@ trait EmailChannel
 
         $subject = $this->getEmailNotificationSubject();
         $from = $this->getEmailNotificationFrom();
-        $level = $this->getNotificationLevel();
+        $level = $this->getEmailNotificationsLevel();
 
         $driver = config('mail.driver');
         switch ($driver) {

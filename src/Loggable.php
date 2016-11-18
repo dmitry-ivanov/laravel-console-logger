@@ -19,11 +19,6 @@ trait Loggable
 
     protected $icLogger;
 
-    protected function getNotificationLevel()
-    {
-        return Logger::NOTICE;
-    }
-
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->initializeLogging();

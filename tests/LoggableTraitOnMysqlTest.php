@@ -4,7 +4,7 @@ use Illuminated\Console\Exceptions\ExceptionHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Psr\Log\LoggerInterface;
 
-class FileHandlerOnMysqlTest extends TestCase
+class LoggableTraitOnMysqlTest extends TestCase
 {
     protected function setUpDatabase()
     {

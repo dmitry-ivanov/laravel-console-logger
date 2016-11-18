@@ -9,7 +9,7 @@ class DatabaseHandlerTest extends TestCase
     /** @test */
     public function it_is_not_storing_notifications_to_database_if_it_is_disabled()
     {
-        Artisan::call('command-without-database-notifications');
+        Artisan::call('database-notifications-disabled-command');
 
         $this->assertFalse(Schema::hasTable('iclogger_notifications'));
     }

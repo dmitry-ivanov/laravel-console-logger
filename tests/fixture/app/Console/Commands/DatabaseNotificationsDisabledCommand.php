@@ -3,11 +3,11 @@
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
 
-class CommandWithoutDatabaseNotifications extends Command
+class DatabaseNotificationsDisabledCommand extends Command
 {
     use Loggable;
 
-    protected $signature = 'command-without-database-notifications';
+    protected $signature = 'database-notifications-disabled-command';
 
     protected function useDatabaseNotifications()
     {

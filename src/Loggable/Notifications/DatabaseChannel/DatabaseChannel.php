@@ -21,7 +21,7 @@ trait DatabaseChannel
         $callback = $this->getDatabaseNotificationsCallback();
         $level = $this->getDatabaseNotificationsLevel();
 
-        return (new MonologDatabaseHandler($table, $callback, $level));
+        return new MonologDatabaseHandler($table, $callback, $level);
     }
 
     protected function getDatabaseNotificationsLevel()

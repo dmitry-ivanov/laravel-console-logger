@@ -17,7 +17,7 @@ trait DatabaseChannel
             return false;
         }
 
-        $table = $this->getNotificationDbTable();
+        $table = $this->getDatabaseNotificationsTable();
         $callback = $this->getNotificationDbCallback();
         $level = $this->getDatabaseNotificationsLevel();
 
@@ -29,7 +29,7 @@ trait DatabaseChannel
         return Logger::NOTICE;
     }
 
-    protected function getNotificationDbTable()
+    protected function getDatabaseNotificationsTable()
     {
         return 'iclogger_notifications';
     }

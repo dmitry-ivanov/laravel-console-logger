@@ -14,7 +14,7 @@ class CommandWithCustomNotificationDbStoring extends Command
         return true;
     }
 
-    protected function getNotificationDbTable()
+    protected function getDatabaseNotificationsTable()
     {
         return 'my_custom_notifications';
     }

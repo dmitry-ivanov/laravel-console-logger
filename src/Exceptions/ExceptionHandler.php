@@ -13,15 +13,15 @@ class ExceptionHandler extends Handler
     private $timeFinished;
     protected $reservedMemory;
 
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function initialize(LoggerInterface $logger)
     {
         $this->setLogger($logger);
         $this->registerShutdownFunction();
-    }
-
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
     }
 
     public function report(Exception $e)

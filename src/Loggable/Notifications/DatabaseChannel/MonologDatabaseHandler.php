@@ -18,12 +18,13 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
     {
         $this->table = $table;
         $this->callback = $callback;
-        $this->initialize();
+
+        $this->guaranteeTableExists();
 
         parent::__construct($level, $bubble);
     }
 
-    protected function initialize()
+    protected function guaranteeTableExists()
     {
         if (Schema::hasTable($this->table)) {
             return;

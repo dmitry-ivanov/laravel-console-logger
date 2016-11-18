@@ -67,7 +67,7 @@ trait EmailChannel
         return $mailerHandler;
     }
 
-    protected function getNotificationRecipients()
+    protected function getEmailNotificationRecipients()
     {
         return [
             ['address' => null, 'name' => null],
@@ -100,7 +100,7 @@ trait EmailChannel
     {
         $result = [];
 
-        $recipients = $this->getNotificationRecipients();
+        $recipients = $this->getEmailNotificationRecipients();
         foreach ($recipients as $recipient) {
             if (!empty($recipient['address']) && is_email($recipient['address'])) {
                 $result[] = $recipient;

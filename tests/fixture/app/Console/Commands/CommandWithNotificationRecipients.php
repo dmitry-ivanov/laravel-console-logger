@@ -9,7 +9,7 @@ class CommandWithNotificationRecipients extends Command
 
     protected $signature = 'command-with-notification-recipients';
 
-    protected function getNotificationRecipients()
+    protected function getEmailNotificationRecipients()
     {
         return [
             ['address' => 'john.doe@example.com', 'name' => 'John Doe'],

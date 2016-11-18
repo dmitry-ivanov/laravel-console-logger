@@ -9,7 +9,7 @@ class CommandWithNotificationDeduplication extends Command
 
     protected $signature = 'command-with-notification-deduplication';
 
-    protected function getNotificationRecipients()
+    protected function getEmailNotificationRecipients()
     {
         return [
             ['address' => 'john.doe@example.com', 'name' => 'John Doe'],

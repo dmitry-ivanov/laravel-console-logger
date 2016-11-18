@@ -36,7 +36,7 @@ Provides logging and notifications for Laravel console commands.
     {
         use Loggable;
 
-        protected function getNotificationRecipients()
+        protected function getEmailNotificationRecipients()
         {
             return [
                 ['address' => 'john.doe@example.com', 'name' => 'John Doe'],

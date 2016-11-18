@@ -9,7 +9,7 @@ class CommandWithInvalidNotificationRecipients extends Command
 
     protected $signature = 'command-with-invalid-notification-recipients';
 
-    protected function getNotificationRecipients()
+    protected function getEmailNotificationRecipients()
     {
         return [
             ['address' => 'not_an_email', 'name' => 'John Doe'],

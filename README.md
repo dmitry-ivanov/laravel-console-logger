@@ -108,7 +108,7 @@ class Foo extends Command
 {
     use Loggable;
 
-    protected function getNotificationSubject()
+    protected function getEmailNotificationSubject()
     {
         return "Oups! %level_name% while execution!";
     }

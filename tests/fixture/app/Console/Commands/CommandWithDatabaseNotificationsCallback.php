@@ -3,11 +3,11 @@
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
 
-class CommandWithCustomNotificationDbStoring extends Command
+class CommandWithDatabaseNotificationsCallback extends Command
 {
     use Loggable;
 
-    protected $signature = 'command-with-custom-notification-db-storing';
+    protected $signature = 'command-with-database-notifications-callback';
 
     protected function useDatabaseNotifications()
     {

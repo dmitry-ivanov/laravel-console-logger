@@ -10,7 +10,7 @@ class Kernel extends \Orchestra\Testbench\Console\Kernel
         CommandWithEmailNotifications::class,
         CommandWithDatabaseNotifications::class,
         CommandWithoutDatabaseNotifications::class,
-        CommandWithCustomNotificationDbStoring::class,
+        CommandWithDatabaseNotificationsCallback::class,
         CommandWithInvalidNotificationRecipients::class,
         CommandWithNotificationDeduplication::class,
     ];

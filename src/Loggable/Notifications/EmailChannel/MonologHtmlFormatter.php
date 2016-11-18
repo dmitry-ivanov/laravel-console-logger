@@ -34,8 +34,8 @@ class MonologHtmlFormatter extends HtmlFormatter
     protected function composeStyle(array $record)
     {
         $level = $record['level'];
-        $level_name = $record['level_name'];
-        $color = $this->getLevelColor($level);
+        $levelName = $record['level_name'];
+        $levelColor = $this->getLevelColor($level);
 
         return "<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
                 <style>
@@ -48,8 +48,8 @@ class MonologHtmlFormatter extends HtmlFormatter
                         margin: 0px;
                         padding: 15px;
                     }
-                    .title.{$level_name}, .subtitle.{$level_name} {
-                        background: {$color};
+                    .title.{$levelName}, .subtitle.{$levelName} {
+                        background: {$levelColor};
                     }
                     .details-row {
                         text-align: left;

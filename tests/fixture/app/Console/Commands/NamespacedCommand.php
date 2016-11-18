@@ -11,6 +11,6 @@ class NamespacedCommand extends Command
 
     public function handle()
     {
-        $this->info('Done!');
+        $this->logInfo('Done!');
     }
 }

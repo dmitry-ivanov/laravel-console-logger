@@ -36,17 +36,6 @@ Provides logging and notifications for Laravel console commands.
     {
         use Loggable;
 
-        // ...
-    }
-    ```
-
-3. Now your command is loggable!
-
-    ```php
-    class MyLoggableCommand extends Command
-    {
-        use Loggable;
-
         public function handle()
         {
             $this->logInfo('Hello World!');
@@ -56,6 +45,9 @@ Provides logging and notifications for Laravel console commands.
     }
     ```
 
+3. Now your command is loggable!
+
+    Here is the produced log file:
     ```
     [2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\MyLoggableCommand` initialized.
     [2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).

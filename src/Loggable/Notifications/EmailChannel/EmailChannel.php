@@ -17,7 +17,7 @@ trait EmailChannel
 
     protected function getEmailChannelHandler()
     {
-        $recipients = $this->normalizeEmailNotificationsRecipients();
+        $recipients = $this->filterEmailNotificationsRecipients();
         if (!$this->useEmailNotifications() || empty($recipients)) {
             return false;
         }
@@ -98,7 +98,7 @@ trait EmailChannel
         return 60;
     }
 
-    private function normalizeEmailNotificationsRecipients()
+    private function filterEmailNotificationsRecipients()
     {
         $result = [];
 

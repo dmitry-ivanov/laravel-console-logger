@@ -42,21 +42,8 @@ Provides logging and notifications for Laravel console commands.
 
 3. Now your command is loggable!
 
-    You have logs separated by commands and by dates, auto-rotation, global error handler, email notifications for any kind of errors (even for PHP notices in your commands), auto saving to database, set of useful info added to each iteration, context support with nice dumps for each type of message and even more cool features right out of the box!
-
-    These PSR-3 methods are available for you:
-    - `logDebug`
-    - `logInfo`
-    - `logNotice`
-    - `logWarning`
-    - `logError`
-    - `logCritical`
-    - `logAlert`
-    - `logEmergency`
-
-    Here is the basic example of usage:
     ```php
-    class Foo extends Command
+    class MyLoggableCommand extends Command
     {
         use Loggable;
 
@@ -70,7 +57,7 @@ Provides logging and notifications for Laravel console commands.
     ```
 
     ```
-    [2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\Foo` initialized.
+    [2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\MyLoggableCommand` initialized.
     [2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
     [2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
     [2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.

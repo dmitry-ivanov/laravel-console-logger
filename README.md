@@ -133,7 +133,7 @@ class MyLoggableCommand extends Command
 
 Want to be notified if some kind of an error occurred? Meet notifications!
 
-Notifications are optional and disabled by default. Each of them can be enabled and configured as needed.
+Notification channels are optional and disabled by default. Each of them can be enabled and configured as needed.
 By default, you'll get notifications of each level which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).
 That means, that you'll get notifications about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY, occurred while execution.
 

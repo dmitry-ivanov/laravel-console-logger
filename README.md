@@ -104,6 +104,27 @@ For example:
 - `php artisan my-loggable-command` would have it's logs at `storage/logs/my-loggable-command/[date].log`;
 - `php artisan namespaced:command` would be `storage/logs/namespaced/command/[date].log`;
 
+As you can see, each command has a separate folder for it's logs. And also, there is automatic log files rotation for you.
+By default, only latest thirty log files are stored. However, you can override this behavior as you wish:
+
+```php
+class MyLoggableCommand extends Command
+{
+    use Loggable;
+
+    protected function getLogPath()
+    {
+        return storage_path('logs/custom-logs-folder/date.log');
+    }
+
+    protected function getLogMaxFiles()
+    {
+        return 45;
+    }
+
+    // ...
+}
+```
 
 
 
@@ -120,13 +141,6 @@ For example:
 
 
 
-
-
-## Location
-
-Each command has a separate folder for it's logs. Path is generated according to the command's name.
-For example, command `php artisan foo` would have it's logs on `./storage/logs/foo/` folder, and command `php artisan foo:bar` on `./storage/logs/foo/bar/`.
-Log file names are corresponding to dates, and only latest thirty files are stored.
 
 ## Notifications
 
@@ -278,25 +292,6 @@ class Foo extends Command
 ```
 
 ## Advanced
-
-#### Custom location
-
-Sometimes it's needed to change location of the log files. For example, you want it to be dependent on some command's argument.
-If that is your case, just override `getLogPath` method in your command class:
-
-```php
-class Foo extends Command
-{
-    use Loggable;
-
-    protected function getLogPath()
-    {
-        return storage_path('logs/anything/you/want/date.log');
-    }
-
-    // ...
-}
-```
 
 #### Notifications deduplication (Emails)
 

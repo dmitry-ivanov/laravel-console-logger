@@ -18,13 +18,13 @@ Provides logging and notifications for Laravel console commands.
 - [Requirements](#requirements)
 - [Usage](#usage)
 - [Available methods](#available-methods)
-- [Error handling](#???)
-  - [Custom exceptions](#???)
-- [Channels](#???)
+- [Channels](#channels)
   - [File channel](#???)
   - [Notification channels](#???)
     - [Email channel](#???)
     - [Database channel](#???)
+- [Error handling](#???)
+  - [Custom exceptions](#???)
 - [Guzzle integration](#???)
 - [Powered by Monolog](#???)
 - [Troubleshooting](#???)
@@ -90,7 +90,7 @@ As soon as you're using `Loggable` trait, these [PSR-3](http://www.php-fig.org/p
 
 Each of them expects the message and optional context for additional data.
 
-## Error handling
+## Channels
 
 ...
 

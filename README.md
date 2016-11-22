@@ -162,8 +162,8 @@ class MyLoggableCommand extends Command
 }
 ```
 
-There is a bunch of methods specific to email channel. If you want to change email notifications level,
-or change the subject, or the from address - just override proper method as you wish. And you're done!
+There is a bunch of methods specific to email channel. If you want to change email notifications level, or change the
+subject, or change the from address, or something else - just override proper method as you wish. And you're done!
 
 Another cool feature of email notifications is deduplication. Sometimes the same error can be produced many-many times.
 For example, you're using some kind of external web service which is down. Or imagine that database server goes down.

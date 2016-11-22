@@ -162,6 +162,34 @@ class MyLoggableCommand extends Command
 }
 ```
 
+There is a bunch of methods specific to email channel. If you want to change email notifications level,
+or change the subject, or the from address - just override proper method as you wish. And you're done!
+
+Another cool feature of email notifications is deduplication. Sometimes the same error can be produced many-many times.
+For example, you're using some kind of external web service which is down. Or imagine that database server goes down.
+You'll get a lot of similar emails in that case. Email notifications deduplication is the solution for that scenario.
+
+Disabled by default, it can be enabled and also adjusted time in seconds, for which deduplication works, if needed.
+
+```php
+class MyLoggableCommand extends Command
+{
+    use Loggable;
+
+    protected function useEmailNotificationsDeduplication()
+    {
+        return true;
+    }
+
+    protected function getEmailNotificationsDeduplicationTime()
+    {
+        return 90;
+    }
+
+    // ...
+}
+```
+
 ### Database channel
 
 Database channel stores notifications in database.
@@ -322,35 +350,6 @@ class Foo extends Command
 ```
 
 ## Advanced
-
-#### Notifications deduplication (Emails)
-
-Often different console commands can produce similar errors. For example, maybe all of your commands are using some common external service. And if that service goes down, you'll get an error notification from each of your commands.
-Or, another example, probably you're using database server. If it goes down - again, you'll get an error notification from each of your commands.
-And this can be a problem, if you have a huge number of commands. You'll get hundreds of emails for a few hours.
-
-The good news is that you can deduplicate notifications very easy. You can enable deduplication by overriding `useEmailNotificationsDeduplication` method.
-
-Also, you can adjust deduplication time, by overridding `getEmailNotificationsDeduplicationTime` method:
-
-```php
-class Foo extends Command
-{
-    use Loggable;
-
-    protected function useEmailNotificationsDeduplication()
-    {
-        return true;
-    }
-
-    protected function getEmailNotificationsDeduplicationTime()
-    {
-        return 90;
-    }
-
-    // ...
-}
-```
 
 #### Notifications mail driver
 

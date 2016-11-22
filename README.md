@@ -77,7 +77,7 @@ Provides logging and notifications for Laravel console commands.
 
 ## Available methods
 
-As soon as you're using `Loggable` trait, these PSR-3 methods are available for you:
+As soon as you're using `Loggable` trait, these [PSR-3](http://www.php-fig.org/psr/psr-3/) methods are available for you:
 
 - `logDebug`
 - `logInfo`

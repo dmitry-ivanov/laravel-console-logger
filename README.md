@@ -20,7 +20,7 @@ Provides logging and notifications for Laravel console commands.
 - [Available methods](#available-methods)
 - [Channels](#channels)
   - [File channel](#file-channel)
-  - [Notification channels](#???)
+  - [Notification channels](#notification-channels)
     - [Email channel](#???)
     - [Database channel](#???)
 - [Error handling](#???)
@@ -129,9 +129,9 @@ class MyLoggableCommand extends Command
 }
 ```
 
+### Notification channels
 
-
-
+Want to be notified if some kind of an error occurred? Meet notifications!
 
 
 

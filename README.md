@@ -21,8 +21,8 @@ Provides logging and notifications for Laravel console commands.
 - [Channels](#channels)
   - [File channel](#file-channel)
   - [Notification channels](#notification-channels)
-    - [Email channel](#???)
-    - [Database channel](#???)
+    - [Email channel](#email-channel)
+    - [Database channel](#database-channel)
 - [Error handling](#???)
   - [Custom exceptions](#???)
 - [Guzzle integration](#???)
@@ -129,9 +129,17 @@ class MyLoggableCommand extends Command
 }
 ```
 
-### Notification channels
+## Notification channels
 
 Want to be notified if some kind of an error occurred? Meet notifications!
+
+### Email channel
+
+...
+
+### Database channel
+
+...
 
 
 

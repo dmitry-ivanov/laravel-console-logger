@@ -133,13 +133,19 @@ class MyLoggableCommand extends Command
 
 Want to be notified if some kind of an error occurred? Meet notifications!
 
+Notification channels are optional and disabled by default. Each of them has proper method to enable it.
+Each of them has proper method to set notifications level. By default, you'll get notification of each level which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).
+That means, that you'll get notification about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY, occurred while execution.
+
+Surely you can change this and other channel-specific aspects as you wish. 
+
 ### Email channel
 
-...
+Email channel provides notifications via email.
 
 ### Database channel
 
-...
+Database channel stores notifications in database.
 
 
 
@@ -154,12 +160,6 @@ Want to be notified if some kind of an error occurred? Meet notifications!
 
 
 ## Notifications
-
-Notification recipients were set, so they would get email notifications according to execution process and log events.
-By default, you'll get notification of each level which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).
-This means, that you'll get notification about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY, occurred while execution.
-
-You can change this behaviour and customize other aspects of notifications too. Subject, "from address" and maybe some others, could be customized by overriding proper methods:
 
 ```php
 use Monolog\Logger;

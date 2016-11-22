@@ -15,8 +15,8 @@ Provides logging and notifications for Laravel console commands.
 
 ## Table of contents
 
-- [Requirements](#Requirements)
-- [Usage](#Usage)
+- [Requirements](#requirements)
+- [Usage](#usage)
 - ...
 
 ## Requirements

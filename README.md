@@ -143,7 +143,7 @@ Surely you can change this and other channel-specific aspects as you wish.
 
 Email channel provides notifications via email.
 
-Basically, the only thing you have to do to have email notifications is specify recipients.
+Basically, the only thing you have to do to have email notifications running is specify recipients.
 
 ```php
 class MyLoggableCommand extends Command

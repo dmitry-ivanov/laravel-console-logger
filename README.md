@@ -75,6 +75,35 @@ Provides logging and notifications for Laravel console commands.
     [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
     ```
 
+## PSR-3 methods
+
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Location
 
 Each command has a separate folder for it's logs. Path is generated according to the command's name.

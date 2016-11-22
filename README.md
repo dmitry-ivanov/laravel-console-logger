@@ -101,8 +101,11 @@ File channel is writing log messages into the file. It is the main channel, and 
 Log file can be found at `storage/logs/[command-name]/[date].log`. Namespaced commands exploded into subfolders.
 
 For example:
-- `php artisan my-loggable-command` would have it's logs at `storage/logs/my-loggable-command/[date].log`;
-- `php artisan namespaced:command` would be `storage/logs/namespaced/command/[date].log`;
+
+| Command                           | Logs path                                     |
+| --------------------------------- | --------------------------------------------- |
+| `php artisan my-loggable-command` | `storage/logs/my-loggable-command/[date].log` |
+| `php artisan namespaced:command`  | `storage/logs/namespaced/command/[date].log`  |
 
 As you can see, each command has a separate folder for it's logs. And also, there is automatic log files rotation for you.
 By default, only latest thirty log files are stored. However, you can override this behavior as you wish:

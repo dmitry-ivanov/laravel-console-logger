@@ -97,6 +97,7 @@ Channels are very simple. It's just the different ways to handle log messages.
 ### File channel
 
 File channel is writing log messages into the file. It is the main channel, and it is always enabled.
+
 Log file can be found at `storage/logs/[command-name]/[date].log`. Namespaced commands exploded into subfolders.
 
 For example:

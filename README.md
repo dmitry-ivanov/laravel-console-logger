@@ -107,7 +107,7 @@ For example:
 | `php artisan send-report` | `storage/logs/send-report/[date].log` |
 | `php artisan send:report` | `storage/logs/send/report/[date].log` |
 
-As you can see, each command has a separate folder for it's logs. Also, there is automatic log files rotation configured for you.
+As you can see, each command has a separate folder for it's logs. Also, you get configured log files rotation out of the box.
 By default, only latest thirty log files are stored. However, you can override this behavior as you wish:
 
 ```php

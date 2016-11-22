@@ -13,6 +13,12 @@
 
 Provides logging and notifications for Laravel console commands.
 
+## Table of contents
+
+- [Requirements](#Requirements)
+- [Usage](#Usage)
+- ...
+
 ## Requirements
 
 - `PHP >=5.6.4`

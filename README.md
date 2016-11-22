@@ -206,33 +206,7 @@ Database channel stores notifications in database.
 
 
 
-## Notifications
 
-```php
-use Monolog\Logger;
-
-class Foo extends Command
-{
-    use Loggable;
-
-    protected function getEmailNotificationsLevel()
-    {
-        return Logger::ERROR;
-    }
-
-    protected function getEmailNotificationsSubject()
-    {
-        return "Oups! %level_name% while execution!";
-    }
-
-    protected function getEmailNotificationsFrom()
-    {
-        return ['address' => 'no-reply@awesome.com', 'name' => 'My Awesome Notification'];
-    }
-
-    // ...
-}
-```
 
 ## Error handler
 

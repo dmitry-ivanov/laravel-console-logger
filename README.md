@@ -17,7 +17,16 @@ Provides logging and notifications for Laravel console commands.
 
 - [Requirements](#requirements)
 - [Usage](#usage)
-- ...
+- [PSR-3 methods](#???)
+- [Global error handling](#???)
+- [Channels](#???)
+  - [File channel](#???)
+  - [Notification channels](#???)
+    - [Email channel](#???)
+    - [Database channel](#???)
+- [Troubleshooting](#???)
+  - [Trait included, but nothing happens?](#???)
+  - [Several traits conflict?](#???)
 
 ## Requirements
 

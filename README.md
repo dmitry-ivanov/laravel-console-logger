@@ -98,11 +98,11 @@ Channels are very simple. It's just the different ways to handle log messages.
 
 File channel is writing log messages into the file. It is the main channel, and it is always enabled.
 
-Log file can be found at `storage/logs/[command-name]/[current-date].log`. Namespaced commands exploded into subfolders.
+Log file can be found at `storage/logs/[command-name]/[date].log`. Namespaced commands exploded into subfolders.
 
 For example:
-- `php artisan my-loggable-command` would have it's logs at `storage/logs/my-loggable-command/[current-date].log`;
-- `php artisan namespaced:command` would be `storage/logs/namespaced/command/[current-date].log`;
+- `php artisan my-loggable-command` would have it's logs at `storage/logs/my-loggable-command/[date].log`;
+- `php artisan namespaced:command` would be `storage/logs/namespaced/command/[date].log`;
 
 
 

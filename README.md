@@ -17,7 +17,7 @@ Provides logging and notifications for Laravel console commands.
 
 - [Requirements](#requirements)
 - [Usage](#usage)
-- [PSR-3 methods](#???)
+- [Available methods](#available-methods)
 - [Error handling](#???)
   - [Custom exceptions](#???)
 - [Channels](#???)
@@ -75,13 +75,24 @@ Provides logging and notifications for Laravel console commands.
     [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
     ```
 
-## PSR-3 methods
+## Available methods
+
+As soon as you're using `Loggable` trait, these PSR-3 methods are available for you:
+
+- `logDebug`
+- `logInfo`
+- `logNotice`
+- `logWarning`
+- `logError`
+- `logCritical`
+- `logAlert`
+- `logEmergency`
+
+Each of them expects the message and optional context for additional data.
+
+## Error handling
 
 ...
-
-
-
-
 
 
 

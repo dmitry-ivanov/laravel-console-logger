@@ -117,7 +117,7 @@ class MyLoggableCommand extends Command
 
     protected function getLogPath()
     {
-        return storage_path('logs/custom-logs-folder/date.log');
+        return storage_path('logs/custom-folder/date.log');
     }
 
     protected function getLogMaxFiles()

@@ -19,7 +19,7 @@ Provides logging and notifications for Laravel console commands.
 - [Usage](#usage)
 - [Available methods](#available-methods)
 - [Channels](#channels)
-  - [File channel](#???)
+  - [File channel](#file-channel)
   - [Notification channels](#???)
     - [Email channel](#???)
     - [Database channel](#???)
@@ -92,10 +92,9 @@ Each of them expects the message and optional context for additional data.
 
 ## Channels
 
+### File channel
+
 ...
-
-
-
 
 
 

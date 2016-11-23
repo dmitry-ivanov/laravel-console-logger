@@ -254,7 +254,7 @@ You'll know immediately if something went wrong while execution. Very useful, es
 
 ### Custom exceptions
 
-You can throw an exception of any type from your code, and it would be properly handled by an exceptions handler.
+You can throw an exception of any type from your code, and it would be properly handled by the exception handler.
 However, if you want to pass an additional context, use `Illuminated\Console\Exceptions\RuntimeException` class:
 
 ```php

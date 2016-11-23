@@ -22,6 +22,7 @@ Provides logging and notifications for Laravel console commands.
   - [File channel](#file-channel)
   - [Notification channels](#notification-channels)
     - [Email channel](#email-channel)
+    - [Slack channel](#slack-channel)
     - [Database channel](#database-channel)
 - [Error handling](#error-handling)
   - [Custom exceptions](#custom-exceptions)
@@ -191,6 +192,12 @@ class MyLoggableCommand extends Command
     // ...
 }
 ```
+
+### Slack channel
+
+Slack channel provides notifications via Slack.
+
+This channel is not implemented yet. If you need it, let [me](mailto:dmitry.g.ivanov@gmail.com) know and I'll try to make it faster.
 
 ### Database channel
 

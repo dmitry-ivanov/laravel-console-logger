@@ -25,7 +25,7 @@ Provides logging and notifications for Laravel console commands.
     - [Database channel](#database-channel)
 - [Error handling](#error-handling)
   - [Custom exceptions](#custom-exceptions)
-- [Guzzle 6 integration](#guzzle-6-integration)
+- [Guzzle 6+ integration](#guzzle-6+-integration)
 - [Powered by Monolog](#???)
 - [Troubleshooting](#???)
   - [Trait included, but nothing happens?](#???)
@@ -292,7 +292,7 @@ array:5 [
 ]
 ```
 
-## Guzzle 6 integration
+## Guzzle 6+ integration
 
 If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll want to have logs of your http interactions.
 

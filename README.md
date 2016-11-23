@@ -248,7 +248,9 @@ class MyLoggableCommand extends Command
 
 ## Error handling
 
-...
+One of the coolest features is error handling. Each exception, error and even PHP notice or warning are handled for you.
+It would be automatically logged, and you'll get proper notifications according to your setup. You'll know immediately
+if something went wrong while execution. Very useful for scheduled commands.
 
 ### Custom exceptions
 
@@ -264,48 +266,6 @@ class MyLoggableCommand extends Command
 
 
 
-
-
-
-
-
-
-
-
-
-## Error handler
-
-Each exception, error and even PHP notice or warning are handled for you. It would be automatically logged, and you'll get email notification. You'll know immediately if something went wrong while execution. Very useful for scheduled commands.
-
-```php
-class Foo extends Command
-{
-    use Loggable;
-
-    public function handle()
-    {
-        fatal();
-    }
-
-    // ...
-}
-```
-
-Fatal error is handled and logged:
-
-```
-[2016-05-11 17:19:21]: [ERROR]: Call to undefined function App\Console\Commands\fatal()
-array:4 [
-    "code" => 0
-    "message" => "Call to undefined function App\Console\Commands\fatal()"
-    "file" => "/Applications/MAMP/htdocs/illuminated-console-logger-test/app/Console/Commands/Foo.php"
-    "line" => 15
-]
-```
-
-And email notification is sent:
-
-![Notification example](doc/img/notification-example.png)
 
 ## Custom exceptions
 

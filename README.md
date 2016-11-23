@@ -25,7 +25,7 @@ Provides logging and notifications for Laravel console commands.
     - [Database channel](#database-channel)
 - [Error handling](#error-handling)
   - [Custom exceptions](#custom-exceptions)
-- [Guzzle integration](#???)
+- [Guzzle integration](#guzzle-integration)
 - [Powered by Monolog](#???)
 - [Troubleshooting](#???)
   - [Trait included, but nothing happens?](#???)
@@ -292,9 +292,7 @@ array:5 [
 ]
 ```
 
-## Advanced
-
-#### Guzzle 6 integration
+## Guzzle integration
 
 If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll want to have logs of your http interactions.
 
@@ -343,6 +341,22 @@ $middleware = iclogger_guzzle_middleware($log, 'json',
     }
 );
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Accessing Monolog instance
 

@@ -17,7 +17,7 @@ Provides logging and notifications for Laravel console commands.
 
 - [Requirements](#requirements)
 - [Usage](#usage)
-- [Available methods](#available-methods)
+- [Methods](#methods)
 - [Channels](#channels)
   - [File channel](#file-channel)
   - [Notification channels](#notification-channels)
@@ -75,7 +75,7 @@ Provides logging and notifications for Laravel console commands.
     [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
     ```
 
-## Available methods
+## Methods
 
 As soon as you're using `Loggable` trait, these [PSR-3](http://www.php-fig.org/psr/psr-3/) methods are available for you:
 

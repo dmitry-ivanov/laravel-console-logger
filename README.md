@@ -192,7 +192,7 @@ class MyLoggableCommand extends Command
 
 ### Database channel
 
-Database channel stores notifications in database.
+Database channel provides saving of notifications into the database.
 
 Disabled by default, it can be easily enabled be the proper method.
 

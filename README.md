@@ -26,7 +26,7 @@ Provides logging and notifications for Laravel console commands.
 - [Error handling](#error-handling)
   - [Custom exceptions](#custom-exceptions)
 - [Guzzle 6+ integration](#guzzle-6-integration)
-- [Powered by Monolog](#???)
+- [Powered by Monolog](#powered-by-monolog)
 - [Troubleshooting](#???)
   - [Trait included, but nothing happens?](#???)
   - [Several traits conflict?](#???)
@@ -342,30 +342,15 @@ $middleware = iclogger_guzzle_middleware($log, 'json',
 );
 ```
 
+## Powered by Monolog
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### Accessing Monolog instance
-
-This package is using [Monolog logging library](https://packagist.org/packages/monolog/monolog) with all of it's power and benefits.
+This package is using [Monolog logging library](https://github.com/Seldaek/monolog) with all of it's power and benefits.
 If needed, you may access the underlying Monolog instance in a two ways:
 
 - Using `icLogger` command's method:
+
     ```php
-    class Foo extends Command
+    class MyLoggableCommand extends Command
     {
         use Loggable;
 
@@ -379,6 +364,7 @@ If needed, you may access the underlying Monolog instance in a two ways:
     ```
 
 - Through Laravel service container:
+
     ```php
     $log = $app('log.iclogger');
     ```

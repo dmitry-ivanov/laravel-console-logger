@@ -25,7 +25,7 @@ Provides logging and notifications for Laravel console commands.
     - [Database channel](#database-channel)
 - [Error handling](#error-handling)
   - [Custom exceptions](#custom-exceptions)
-- [Guzzle 6+ integration](#guzzle-6+-integration)
+- [Guzzle 6+ integration](#guzzle-6-integration)
 - [Powered by Monolog](#???)
 - [Troubleshooting](#???)
   - [Trait included, but nothing happens?](#???)

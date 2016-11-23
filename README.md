@@ -27,9 +27,9 @@ Provides logging and notifications for Laravel console commands.
   - [Custom exceptions](#custom-exceptions)
 - [Guzzle 6+ integration](#guzzle-6-integration)
 - [Powered by Monolog](#powered-by-monolog)
-- [Troubleshooting](#???)
-  - [Trait included, but nothing happens?](#???)
-  - [Several traits conflict?](#???)
+- [Troubleshooting](#troubleshooting)
+  - [Trait included, but nothing happens?](#trait-included-but-nothing-happens)
+  - [Several traits conflict?](#several-traits-conflict)
 
 ## Requirements
 
@@ -372,7 +372,7 @@ If needed, you may access the underlying Monolog instance in a two ways:
 
 ## Troubleshooting
 
-#### Trait included, but nothing happens?
+### Trait included, but nothing happens?
 
 Note, that `Loggable` trait is overriding `initialize` method:
 ```php
@@ -405,7 +405,7 @@ class Foo extends Command
 }
 ```
 
-#### Several traits conflict?
+### Several traits conflict?
 
 If you're using some other cool `illuminated/console-%` packages, well, then you can find yourself getting "traits conflict".
 For example, if you're trying to build loggable command, which is [protected against overlapping](https://packagist.org/packages/illuminated/console-mutex):

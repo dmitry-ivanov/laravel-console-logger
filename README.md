@@ -375,6 +375,7 @@ If needed, you may access the underlying Monolog instance in a two ways:
 ### Trait included, but nothing happens?
 
 Note, that `Loggable` trait is overriding `initialize` method:
+
 ```php
 trait Loggable
 {
@@ -388,8 +389,9 @@ trait Loggable
 ```
 
 If your command is overriding `initialize` method too, then you should call `initializeLogging` method by yourself:
+
 ```php
-class Foo extends Command
+class MyLoggableCommand extends Command
 {
     use Loggable;
 
@@ -397,6 +399,7 @@ class Foo extends Command
     {
         $this->initializeLogging();
 
+        $this->foo = $this->argument('foo');
         $this->bar = $this->argument('bar');
         $this->baz = $this->argument('baz');
     }
@@ -409,8 +412,9 @@ class Foo extends Command
 
 If you're using some other cool `illuminated/console-%` packages, well, then you can find yourself getting "traits conflict".
 For example, if you're trying to build loggable command, which is [protected against overlapping](https://packagist.org/packages/illuminated/console-mutex):
+
 ```php
-class Foo extends Command
+class MyLoggableCommand extends Command
 {
     use Loggable;
     use WithoutOverlapping;
@@ -419,12 +423,12 @@ class Foo extends Command
 }
 ```
 
-You'll get fatal error, the "traits conflict", because both of these traits are overriding `initialize` method:
->If two traits insert a method with the same name, a fatal error is produced, if the conflict is not explicitly resolved.
+You'll get fatal error, the "traits conflict", because both of these traits are overriding `initialize` method.
 
 But don't worry, solution is very simple. Override `initialize` method by yourself, and initialize traits in required order:
+
 ```php
-class Foo extends Command
+class MyLoggableCommand extends Command
 {
     use Loggable;
     use WithoutOverlapping;

@@ -39,11 +39,13 @@ Provides logging and notifications for Laravel console commands.
 ## Usage
 
 1. Install package through `composer`:
+    
     ```shell
     composer require illuminated/console-logger
     ```
 
 2. Use `Illuminated\Console\Loggable` trait:
+    
     ```php
     namespace App\Console\Commands;
 

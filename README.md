@@ -411,7 +411,7 @@ class MyLoggableCommand extends Command
 ### Several traits conflict?
 
 If you're using some other cool `illuminated/console-%` packages, well, then you can find yourself getting "traits conflict".
-For example, if you're trying to build loggable command, which is [protected against overlapping](https://packagist.org/packages/illuminated/console-mutex):
+For example, if you're trying to build loggable command, which is [protected against overlapping](https://github.com/dmitry-ivanov/laravel-console-mutex):
 
 ```php
 class MyLoggableCommand extends Command

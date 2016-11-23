@@ -194,6 +194,68 @@ class MyLoggableCommand extends Command
 
 Database channel stores notifications in database.
 
+Disabled by default, it can be easily enabled be the proper method.
+
+```php
+class MyLoggableCommand extends Command
+{
+    use Loggable;
+
+    protected function useDatabaseNotifications()
+    {
+        return true;
+    }
+
+    // ...
+}
+```
+
+By default, you'll get `iclogger_notifications` table, which would be created automatically for you if it doesn't exist yet.
+Surely, you can change the table name or even the logic of notification saving by overriding proper methods. It can be useful
+if you want to add some custom fields to notifications table. Here is the basic example of what it may look like:
+
+```php
+class MyLoggableCommand extends Command
+{
+    use Loggable;
+
+    protected function useDatabaseNotifications()
+    {
+        return true;
+    }
+
+    protected function getDatabaseNotificationsTable()
+    {
+        return 'custom_notifications';
+    }
+
+    protected function getDatabaseNotificationsCallback()
+    {
+        return function (array $record) {
+            CustomNotification::create([
+                'level' => $record['level'],
+                'level_name' => $record['level_name'],
+                'message' => $record['message'],
+                'context' => get_dump($record['context']),
+                'some_custom_field' => 'Lorem!',
+            ]);
+        };
+    }
+
+    // ...
+}
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -280,47 +342,6 @@ array:5 [
         "context" => null
     ]
 ]
-```
-
-## Auto saving to database
-
-Another cool feature available for you is auto saving notifications to database. Disabled by default.
-
-To enable it just override `useDatabaseNotifications` method. By default, you'll get `iclogger_notifications` table with all required notifications information, which if fine for the most cases.
-
-However, you can customize database table name and even storing logic if needed:
-
-```php
-class Foo extends Command
-{
-    use Loggable;
-
-    protected function useDatabaseNotifications()
-    {
-        return true;
-    }
-
-    protected function getDatabaseNotificationsTable()
-    {
-        return 'custom_notifications';
-    }
-
-    protected function getDatabaseNotificationsCallback()
-    {
-        return function (array $record) {
-            CustomNotification::create([
-                'level' => $record['level'],
-                'level_name' => $record['level_name'],
-                'message' => $record['message'],
-                'context' => get_dump($record['context']),
-                'bar' => 'some-additional-data',
-                'baz' => 'more-additional-data',
-            ]);
-        };
-    }
-
-    // ...
-}
 ```
 
 ## Advanced

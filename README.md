@@ -249,8 +249,8 @@ class MyLoggableCommand extends Command
 ## Error handling
 
 One of the coolest features is error handling. Each exception, each error and even PHP notices and warnings are handled.
-It would be automatically logged, and you'll get proper notifications according to your setup. You'll know immediately
-if something went wrong while execution. Very useful for scheduled commands.
+It would be automatically logged as an error, and you'll get proper notifications according to your command's setup.
+You'll know immediately if something went wrong while execution. Very useful for scheduled commands.
 
 ### Custom exceptions
 

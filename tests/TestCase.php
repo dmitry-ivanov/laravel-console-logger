@@ -38,25 +38,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app->singleton(KernelContract::class, Kernel::class);
     }
 
-    protected function tearDown()
-    {
-        $this->cleanLogsDirectory();
-
-        parent::tearDown();
-    }
-
-    private function cleanLogsDirectory()
-    {
-        $objects = (new Finder)->in(storage_path('logs'))->depth(0);
-        foreach ($objects as $object) {
-            if (File::isDirectory($object)) {
-                File::deleteDirectory($object);
-            } else {
-                File::delete($object);
-            }
-        }
-    }
-
     protected function emulateProduction()
     {
         $this->app->detectEnvironment(function () {
@@ -106,5 +87,24 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $content = str_replace('%datetime%', '\d{4}-\d{2}-\d{2} \d{2}\:\d{2}\:\d{2}', $content);
 
         return $content;
+    }
+
+    protected function tearDown()
+    {
+        $this->cleanLogsDirectory();
+
+        parent::tearDown();
+    }
+
+    private function cleanLogsDirectory()
+    {
+        $objects = (new Finder)->in(storage_path('logs'))->depth(0);
+        foreach ($objects as $object) {
+            if (File::isDirectory($object)) {
+                File::deleteDirectory($object);
+            } else {
+                File::delete($object);
+            }
+        }
     }
 }

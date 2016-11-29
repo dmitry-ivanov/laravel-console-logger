@@ -13,7 +13,7 @@ class LoggableTraitTest extends TestCase
         $host = gethostname();
         $ip = gethostbyname($host);
 
-        Artisan::call('generic');
+        $this->artisan('generic');
 
         $this->assertLogFileContains("generic/{$this->date}.log", [
             "[%datetime%]: [INFO]: Command `{$class}` initialized.",
@@ -24,7 +24,7 @@ class LoggableTraitTest extends TestCase
     /** @test */
     public function it_does_not_write_mysql_specific_information_for_non_mysql_connections()
     {
-        Artisan::call('generic');
+        $this->artisan('generic');
 
         $this->assertLogFileNotContains("generic/{$this->date}.log", [
             'Database host:',
@@ -53,7 +53,7 @@ class LoggableTraitTest extends TestCase
     /** @test */
     public function it_supports_psr3_methods_for_logging()
     {
-        Artisan::call('generic');
+        $this->artisan('generic');
 
         $this->assertLogFileContains("generic/{$this->date}.log", [
             '[%datetime%]: [DEBUG]: Debug!',
@@ -70,7 +70,7 @@ class LoggableTraitTest extends TestCase
     /** @test */
     public function psr3_methods_are_supporting_context_and_it_is_logged_as_readable_dump()
     {
-        Artisan::call('context-logging-command');
+        $this->artisan('context-logging-command');
 
         $this->assertLogFileContains("context-logging-command/{$this->date}.log", [
             'Testing context!',

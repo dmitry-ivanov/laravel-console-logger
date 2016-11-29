@@ -23,7 +23,7 @@ class LoggableTraitOnMysqlTest extends TestCase
         $host = gethostname();
         $ip = gethostbyname($host);
 
-        Artisan::call('generic');
+        $this->artisan('generic');
 
         $this->assertLogFileContains("generic/{$this->date}.log", [
             "[%datetime%]: [INFO]: Command `{$class}` initialized.",
@@ -38,7 +38,7 @@ class LoggableTraitOnMysqlTest extends TestCase
         $dbHost = (string) db_mysql_variable('hostname');
         $dbPort = (string) db_mysql_variable('port');
 
-        Artisan::call('generic');
+        $this->artisan('generic');
 
         $this->assertLogFileContains("generic/{$this->date}.log", [
             "[%datetime%]: [INFO]: Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.",

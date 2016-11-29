@@ -9,7 +9,7 @@ class DatabaseChannelTest extends TestCase
     /** @test */
     public function it_is_not_storing_notifications_to_database_if_it_is_disabled()
     {
-        Artisan::call('database-notifications-disabled-command');
+        $this->artisan('database-notifications-disabled-command');
 
         $this->assertFalse(Schema::hasTable('iclogger_notifications'));
     }
@@ -17,7 +17,7 @@ class DatabaseChannelTest extends TestCase
     /** @test */
     public function it_stores_notifications_to_database_if_it_is_enabled_and_also_according_to_notifications_level()
     {
-        Artisan::call('database-notifications-command');
+        $this->artisan('database-notifications-command');
 
         $this->notSeeInDatabaseMany('iclogger_notifications', [
             ['level' => Logger::DEBUG],
@@ -74,7 +74,7 @@ class DatabaseChannelTest extends TestCase
             $table->index('created_at');
         });
 
-        Artisan::call('database-notifications-callback-command');
+        $this->artisan('database-notifications-callback-command');
 
         $this->notSeeInDatabaseMany('custom_notifications', [
             ['level' => Logger::DEBUG],

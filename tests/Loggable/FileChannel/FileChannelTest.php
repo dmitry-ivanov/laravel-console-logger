@@ -7,7 +7,7 @@ class FileChannelTest extends TestCase
     /** @test */
     public function it_creates_log_file_according_to_the_command_name_and_current_date()
     {
-        Artisan::call('generic');
+        $this->artisan('generic');
 
         $this->assertLogFileExists("generic/{$this->date}.log");
     }
@@ -15,7 +15,7 @@ class FileChannelTest extends TestCase
     /** @test */
     public function it_creates_log_file_in_subfolder_if_command_is_namespaced()
     {
-        Artisan::call('namespaced:command');
+        $this->artisan('namespaced:command');
 
         $this->assertLogFileExists("namespaced/command/{$this->date}.log");
     }
@@ -35,7 +35,7 @@ class FileChannelTest extends TestCase
     /** @test */
     public function it_supports_separator_in_psr3_methods_which_is_transformed_to_11_blank_lines()
     {
-        Artisan::call('separator-logging-command');
+        $this->artisan('separator-logging-command');
 
         $this->assertLogFileContains("separator-logging-command/{$this->date}.log", [
             'Testing separator!',

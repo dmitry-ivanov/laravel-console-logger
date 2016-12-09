@@ -1,11 +1,14 @@
 <?php
 
 use Illuminated\Console\Exceptions\ExceptionHandler;
+use Illuminated\Testing\Asserts\LogFileAsserts;
 use Monolog\Handler\RotatingFileHandler;
 use Psr\Log\LoggerInterface;
 
 class LoggableTraitOnMysqlTest extends TestCase
 {
+    use LogFileAsserts;
+
     protected function setUpDatabase()
     {
         config([

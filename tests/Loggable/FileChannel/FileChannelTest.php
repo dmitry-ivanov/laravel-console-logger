@@ -1,9 +1,14 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminated\Testing\Asserts\LogFileAsserts;
+use Illuminated\Testing\InteractsWithConsole;
 
 class FileChannelTest extends TestCase
 {
+    use InteractsWithConsole;
+    use LogFileAsserts;
+
     /** @test */
     public function it_creates_log_file_according_to_the_command_name_and_current_date()
     {
@@ -27,7 +32,7 @@ class FileChannelTest extends TestCase
         $this->createBunchOfOldLogsInCount45($path);
         $this->assertCount(45, File::files($path));
 
-        $this->runViaObject(GenericCommand::class)->emulateFileHandlerClose();
+        $this->runConsoleCommand(GenericCommand::class)->emulateFileHandlerClose();
 
         $this->assertCount(30, File::files($path));
     }

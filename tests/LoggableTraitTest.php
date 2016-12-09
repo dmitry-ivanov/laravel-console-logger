@@ -1,11 +1,14 @@
 <?php
 
 use Illuminated\Console\Exceptions\ExceptionHandler;
+use Illuminated\Testing\Asserts\LogFileAsserts;
 use Monolog\Handler\RotatingFileHandler;
 use Psr\Log\LoggerInterface;
 
 class LoggableTraitTest extends TestCase
 {
+    use LogFileAsserts;
+
     /** @test */
     public function it_writes_to_log_file_information_header_each_iteration()
     {

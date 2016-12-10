@@ -2,10 +2,13 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminated\Testing\Asserts\DatabaseAsserts;
 use Monolog\Logger;
 
 class DatabaseChannelTest extends TestCase
 {
+    use DatabaseAsserts;
+
     /** @test */
     public function it_is_not_storing_notifications_to_database_if_it_is_disabled()
     {
@@ -19,7 +22,7 @@ class DatabaseChannelTest extends TestCase
     {
         $this->artisan('database-notifications-command');
 
-        $this->notSeeInDatabaseMany('iclogger_notifications', [
+        $this->dontSeeInDatabaseMany('iclogger_notifications', [
             ['level' => Logger::DEBUG],
             ['level' => Logger::INFO],
         ]);
@@ -76,7 +79,7 @@ class DatabaseChannelTest extends TestCase
 
         $this->artisan('database-notifications-callback-command');
 
-        $this->notSeeInDatabaseMany('custom_notifications', [
+        $this->dontSeeInDatabaseMany('custom_notifications', [
             ['level' => Logger::DEBUG],
             ['level' => Logger::INFO],
         ]);
@@ -131,19 +134,5 @@ class DatabaseChannelTest extends TestCase
                 'custom-field-foo' => 'bar',
             ],
         ]);
-    }
-
-    protected function seeInDatabaseMany($table, $rows)
-    {
-        foreach ($rows as $row) {
-            $this->seeInDatabase($table, $row);
-        }
-    }
-
-    protected function notSeeInDatabaseMany($table, $rows)
-    {
-        foreach ($rows as $row) {
-            $this->notSeeInDatabase($table, $row);
-        }
     }
 }

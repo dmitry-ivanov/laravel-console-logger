@@ -25,7 +25,7 @@ class EmailChannelTest extends TestCase
         config(['mail.driver' => 'mail']);
         $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
 
-        $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
     }
 
     /** @test */
@@ -34,7 +34,7 @@ class EmailChannelTest extends TestCase
         config(['mail.driver' => 'smtp']);
         $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
 
-        $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
     }
 
     /** @test */
@@ -43,7 +43,7 @@ class EmailChannelTest extends TestCase
         config(['mail.driver' => 'sendmail']);
         $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
 
-        $this->assertMailerHandlersAreEqual($this->composeSwiftMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
     }
 
     /** @test */
@@ -52,7 +52,7 @@ class EmailChannelTest extends TestCase
         config(['mail.driver' => 'mandrill', 'services.mandrill.secret' => 'secret']);
         $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
 
-        $this->assertMailerHandlersAreEqual($this->composeMandrillMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeMandrillMailerHandler(), $handler);
     }
 
     /** @test */
@@ -61,7 +61,7 @@ class EmailChannelTest extends TestCase
         config(['mail.driver' => 'any-other']);
         $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
 
-        $this->assertMailerHandlersAreEqual($this->composeNativeMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeNativeMailerHandler(), $handler);
     }
 
     /** @test */
@@ -71,7 +71,7 @@ class EmailChannelTest extends TestCase
         $handler = $this->runConsoleCommand(EmailNotificationsDeduplicationCommand::class)->mailerHandler();
         $handler->flush();
 
-        $this->assertMailerHandlersAreEqual($this->composeDeduplicationHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeDeduplicationHandler(), $handler);
     }
 
     private function composeSwiftMailerHandler()
@@ -135,7 +135,7 @@ class EmailChannelTest extends TestCase
         return $message;
     }
 
-    protected function assertMailerHandlersAreEqual($handler1, $handler2)
+    protected function assertMailerHandlersEqual($handler1, $handler2)
     {
         $handler1 = $this->normalizeMailerHandlerDump(get_dump($handler1));
         $handler2 = $this->normalizeMailerHandlerDump(get_dump($handler2));

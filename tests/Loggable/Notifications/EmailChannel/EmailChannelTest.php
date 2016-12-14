@@ -15,7 +15,7 @@ class EmailChannelTest extends TestCase
     /** @test */
     public function it_validates_and_filters_notification_recipients()
     {
-        $handler = $this->runConsoleCommand(EmailNotificationsInvalidRecipientsCommand::class)->mailerHandler();
+        $handler = $this->runConsoleCommand(EmailNotificationsInvalidRecipientsCommand::class)->emailChannelHandler();
         $this->assertNotInstanceOf(SwiftMailerHandler::class, $handler);
     }
 
@@ -33,7 +33,7 @@ class EmailChannelTest extends TestCase
     public function it_uses_configured_monolog_swift_mailer_handler_on_mail_driver()
     {
         config(['mail.driver' => 'mail']);
-        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
+        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->emailChannelHandler();
 
         $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
     }
@@ -42,7 +42,7 @@ class EmailChannelTest extends TestCase
     public function it_uses_configured_monolog_swift_mailer_handler_on_smtp_driver()
     {
         config(['mail.driver' => 'smtp']);
-        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
+        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->emailChannelHandler();
 
         $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
     }
@@ -51,7 +51,7 @@ class EmailChannelTest extends TestCase
     public function it_uses_configured_monolog_swift_mailer_handler_on_sendmail_driver()
     {
         config(['mail.driver' => 'sendmail']);
-        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
+        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->emailChannelHandler();
 
         $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
     }
@@ -60,7 +60,7 @@ class EmailChannelTest extends TestCase
     public function it_uses_configured_monolog_mandrill_mailer_handler_on_mandrill_driver()
     {
         config(['mail.driver' => 'mandrill', 'services.mandrill.secret' => 'secret']);
-        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
+        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->emailChannelHandler();
 
         $this->assertMailerHandlersEqual($this->composeMandrillMailerHandler(), $handler);
     }
@@ -69,7 +69,7 @@ class EmailChannelTest extends TestCase
     public function it_uses_configured_monolog_native_mailer_handler_on_other_drivers()
     {
         config(['mail.driver' => 'any-other']);
-        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->mailerHandler();
+        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->emailChannelHandler();
 
         $this->assertMailerHandlersEqual($this->composeNativeMailerHandler(), $handler);
     }
@@ -78,7 +78,7 @@ class EmailChannelTest extends TestCase
     public function it_uses_configured_monolog_deduplication_handler_if_deduplication_enabled()
     {
         config(['mail.driver' => 'any-other']);
-        $handler = $this->runConsoleCommand(EmailNotificationsDeduplicationCommand::class)->mailerHandler();
+        $handler = $this->runConsoleCommand(EmailNotificationsDeduplicationCommand::class)->emailChannelHandler();
         $handler->flush();
 
         $this->assertMailerHandlersEqual($this->composeDeduplicationHandler(), $handler);

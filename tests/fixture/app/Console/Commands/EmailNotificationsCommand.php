@@ -27,7 +27,7 @@ class EmailNotificationsCommand extends Command
         return $this->getEmailChannelHandler();
     }
 
-    public function mailerHandler()
+    public function emailChannelHandler()
     {
         return last($this->icLogger()->getHandlers());
     }

@@ -27,7 +27,7 @@ class EmailNotificationsDeduplicationCommand extends Command
         $this->logInfo('Done!');
     }
 
-    public function mailerHandler()
+    public function emailChannelHandler()
     {
         return last($this->icLogger()->getHandlers());
     }

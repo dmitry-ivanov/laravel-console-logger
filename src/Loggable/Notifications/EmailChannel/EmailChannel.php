@@ -28,6 +28,9 @@ trait EmailChannel
 
         $driver = config('mail.driver');
         switch ($driver) {
+            case 'null':
+                return false;
+
             case 'mail':
             case 'smtp':
             case 'sendmail':

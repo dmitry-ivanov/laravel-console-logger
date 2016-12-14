@@ -20,6 +20,16 @@ class EmailChannelTest extends TestCase
     }
 
     /** @test */
+    public function it_is_disabled_on_null_driver()
+    {
+        config(['mail.driver' => 'null']);
+
+        $handler = $this->runConsoleCommand(EmailNotificationsCommand::class)->createEmailChannelHandler();
+
+        $this->assertFalse($handler);
+    }
+
+    /** @test */
     public function it_uses_configured_monolog_swift_mailer_handler_on_mail_driver()
     {
         config(['mail.driver' => 'mail']);

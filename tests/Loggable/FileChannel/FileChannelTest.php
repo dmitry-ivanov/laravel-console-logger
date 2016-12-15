@@ -1,14 +1,9 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminated\Testing\Asserts\LogFileAsserts;
-use Illuminated\Testing\InteractsWithConsole;
 
 class FileChannelTest extends TestCase
 {
-    use InteractsWithConsole;
-    use LogFileAsserts;
-
     /** @test */
     public function it_creates_log_file_according_to_the_command_name_and_current_date()
     {

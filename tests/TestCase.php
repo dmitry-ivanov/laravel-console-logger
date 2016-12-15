@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Contracts\Console\Kernel as KernelContract;
+use Illuminated\Testing\TestingTools;
 use Symfony\Component\Finder\Finder;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use TestingTools;
+
     protected $date;
 
     protected function setUp()

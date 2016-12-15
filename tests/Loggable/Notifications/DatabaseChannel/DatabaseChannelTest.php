@@ -2,13 +2,10 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminated\Testing\Asserts\DatabaseAsserts;
 use Monolog\Logger;
 
 class DatabaseChannelTest extends TestCase
 {
-    use DatabaseAsserts;
-
     /** @test */
     public function it_is_not_storing_notifications_to_database_if_it_is_disabled()
     {

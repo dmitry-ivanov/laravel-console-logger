@@ -1,13 +1,10 @@
 <?php
 
 use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter;
-use Illuminated\Testing\EmulatesEnvironment;
 use Monolog\Logger;
 
 class MonologHtmlFormatterTest extends TestCase
 {
-    use EmulatesEnvironment;
-
     /** @test */
     public function it_properly_formats_debug_records()
     {

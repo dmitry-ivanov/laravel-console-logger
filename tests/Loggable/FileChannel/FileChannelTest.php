@@ -25,11 +25,11 @@ class FileChannelTest extends TestCase
     {
         $path = storage_path('logs/generic');
         $this->createBunchOfOldLogsInCount45($path);
-        $this->assertCount(45, File::files($path));
+        $this->assertFilesCount($path, 45);
 
         $this->runConsoleCommand(new GenericCommand)->emulateFileHandlerClose();
 
-        $this->assertCount(30, File::files($path));
+        $this->assertFilesCount($path, 30);
     }
 
     /** @test */

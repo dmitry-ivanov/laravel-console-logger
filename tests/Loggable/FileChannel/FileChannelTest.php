@@ -27,7 +27,7 @@ class FileChannelTest extends TestCase
         $this->createBunchOfOldLogsInCount45($path);
         $this->assertCount(45, File::files($path));
 
-        $this->runConsoleCommand(GenericCommand::class)->emulateFileHandlerClose();
+        $this->runConsoleCommand(new GenericCommand)->emulateFileHandlerClose();
 
         $this->assertCount(30, File::files($path));
     }

@@ -23,7 +23,7 @@
         "orchestra/testbench": "^3.3",
         "mockery/mockery": "^0.9.5",
         "guzzlehttp/guzzle": "^6.2",
-        "illuminated/testing-tools": "^0.2"
+        "illuminated/testing-tools": "^0.3"
     },
     "autoload": {
         "files": ["integrations/autoload.php"],

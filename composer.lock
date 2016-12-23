@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5f6e337da0f872903391eb6a842523e9",
-    "content-hash": "849cccd3a43cfb999a685e5870e5ef15",
+    "hash": "b1a67d6d396664178607fafaf52703ad",
+    "content-hash": "8b4f3bd4690694465c1bb13a3db8c803",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2294,16 +2294,16 @@
         },
         {
             "name": "illuminated/testing-tools",
-            "version": "0.2.6",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-testing-tools.git",
-                "reference": "cfadbc81fa552ab11b32328c947017cd62b4b539"
+                "reference": "03027ef0d4552d58f70c1b6ce9d65f5df307d7b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-testing-tools/zipball/cfadbc81fa552ab11b32328c947017cd62b4b539",
-                "reference": "cfadbc81fa552ab11b32328c947017cd62b4b539",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-testing-tools/zipball/03027ef0d4552d58f70c1b6ce9d65f5df307d7b0",
+                "reference": "03027ef0d4552d58f70c1b6ce9d65f5df307d7b0",
                 "shasum": ""
             },
             "require": {
@@ -2337,20 +2337,20 @@
                 "laravel",
                 "testing"
             ],
-            "time": "2016-12-22 21:50:50"
+            "time": "2016-12-23 14:46:45"
         },
         {
             "name": "mockery/mockery",
-            "version": "0.9.6",
+            "version": "0.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "65d4ca18e15cb02eeb1e5336f884e46b9b905be0"
+                "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/65d4ca18e15cb02eeb1e5336f884e46b9b905be0",
-                "reference": "65d4ca18e15cb02eeb1e5336f884e46b9b905be0",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/4de7969f4664da3cef1ccd83866c9f59378c3371",
+                "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371",
                 "shasum": ""
             },
             "require": {
@@ -2402,7 +2402,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2016-09-30 12:09:40"
+            "time": "2016-12-19 14:50:55"
         },
         {
             "name": "myclabs/deep-copy",

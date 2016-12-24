@@ -11,7 +11,7 @@ class DatabaseChannelTest extends TestCase
     {
         $this->artisan('database-notifications-disabled-command');
 
-        $this->assertFalse(Schema::hasTable('iclogger_notifications'));
+        $this->dontSeeDatabaseTable('iclogger_notifications');
     }
 
     /** @test */

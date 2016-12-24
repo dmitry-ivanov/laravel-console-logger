@@ -163,16 +163,16 @@
         },
         {
             "name": "illuminated/helper-functions",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
-                "reference": "e7577038c8cd76e9a81fa72ecbab3417ab0b0f16"
+                "reference": "e53a43afc02de1d29d4c16a50e374ce4e4875773"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/e7577038c8cd76e9a81fa72ecbab3417ab0b0f16",
-                "reference": "e7577038c8cd76e9a81fa72ecbab3417ab0b0f16",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/e53a43afc02de1d29d4c16a50e374ce4e4875773",
+                "reference": "e53a43afc02de1d29d4c16a50e374ce4e4875773",
                 "shasum": ""
             },
             "require": {
@@ -211,7 +211,7 @@
                 "helper",
                 "laravel"
             ],
-            "time": "2016-12-09 18:58:20"
+            "time": "2016-12-24 16:41:03"
         },
         {
             "name": "jakub-onderka/php-console-color",

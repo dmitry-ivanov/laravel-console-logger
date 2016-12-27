@@ -15,7 +15,7 @@ class LoggableTraitTest extends TestCase
 
         $this->artisan('generic');
 
-        $this->assertLogFileContains("generic/{$this->date}.log", [
+        $this->seeInLogFile("generic/{$this->date}.log", [
             "[%datetime%]: [INFO]: Command `{$class}` initialized.",
             "[%datetime%]: [INFO]: Host: `{$host}` (`{$ip}`).",
         ]);
@@ -26,7 +26,7 @@ class LoggableTraitTest extends TestCase
     {
         $this->artisan('generic');
 
-        $this->assertLogFileNotContains("generic/{$this->date}.log", [
+        $this->dontSeeInLogFile("generic/{$this->date}.log", [
             'Database host:',
             'Database date:',
         ]);
@@ -55,7 +55,7 @@ class LoggableTraitTest extends TestCase
     {
         $this->artisan('generic');
 
-        $this->assertLogFileContains("generic/{$this->date}.log", [
+        $this->seeInLogFile("generic/{$this->date}.log", [
             '[%datetime%]: [DEBUG]: Debug!',
             '[%datetime%]: [INFO]: Info!',
             '[%datetime%]: [NOTICE]: Notice!',
@@ -72,7 +72,7 @@ class LoggableTraitTest extends TestCase
     {
         $this->artisan('context-logging-command');
 
-        $this->assertLogFileContains("context-logging-command/{$this->date}.log", [
+        $this->seeInLogFile("context-logging-command/{$this->date}.log", [
             'Testing context!',
             'Some log with data.',
             get_dump([

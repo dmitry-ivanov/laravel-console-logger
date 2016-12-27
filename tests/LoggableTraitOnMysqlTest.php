@@ -25,7 +25,7 @@ class LoggableTraitOnMysqlTest extends TestCase
 
         $this->artisan('generic');
 
-        $this->assertLogFileContains("generic/{$this->date}.log", [
+        $this->seeInLogFile("generic/{$this->date}.log", [
             "[%datetime%]: [INFO]: Command `{$class}` initialized.",
             "[%datetime%]: [INFO]: Host: `{$host}` (`{$ip}`).",
         ]);
@@ -40,7 +40,7 @@ class LoggableTraitOnMysqlTest extends TestCase
 
         $this->artisan('generic');
 
-        $this->assertLogFileContains("generic/{$this->date}.log", [
+        $this->seeInLogFile("generic/{$this->date}.log", [
             "[%datetime%]: [INFO]: Database host: `{$dbHost}`, port: `{$dbPort}`, ip: `{$dbIp}`.",
             '[%datetime%]: [INFO]: Database date: `%datetime%`.',
         ]);

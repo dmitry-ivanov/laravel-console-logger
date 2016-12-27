@@ -9,7 +9,7 @@ class FileChannelTest extends TestCase
     {
         $this->artisan('generic');
 
-        $this->assertLogFileExists("generic/{$this->date}.log");
+        $this->seeLogFile("generic/{$this->date}.log");
     }
 
     /** @test */
@@ -17,7 +17,7 @@ class FileChannelTest extends TestCase
     {
         $this->artisan('namespaced:command');
 
-        $this->assertLogFileExists("namespaced/command/{$this->date}.log");
+        $this->seeLogFile("namespaced/command/{$this->date}.log");
     }
 
     /** @test */
@@ -37,7 +37,7 @@ class FileChannelTest extends TestCase
     {
         $this->artisan('separator-logging-command');
 
-        $this->assertLogFileContains("separator-logging-command/{$this->date}.log", [
+        $this->seeInLogFile("separator-logging-command/{$this->date}.log", [
             'Testing separator!',
             str_repeat("\n", 11),
         ]);

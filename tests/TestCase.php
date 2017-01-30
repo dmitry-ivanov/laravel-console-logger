@@ -16,6 +16,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->setUpDate();
         $this->setUpDatabase();
+        $this->setUpSendmail();
         $this->setUpStorage();
     }
 
@@ -27,6 +28,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function setUpDatabase()
     {
         config(['database.default' => 'testing']);
+    }
+
+    protected function setUpSendmail()
+    {
+        config(['mail.sendmail' => '/usr/sbin/sendmail -bs']);
     }
 
     private function setUpStorage()

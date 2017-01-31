@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": ">=5.5.9",
+        "illuminate/support": "^5.1",
         "illuminate/console": "^5.1",
         "monolog/monolog": "^1.11",
         "symfony/finder": "^2.7|^3.0",

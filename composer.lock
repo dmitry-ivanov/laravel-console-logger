@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0734638acca55f92dbed01a1626546b3",
+    "content-hash": "1dc28a25373e983d2289ac99c328d8c0",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -298,16 +298,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.33",
+            "version": "1.0.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "5c7f98498b12d47f9de90ec9186a90000125777c"
+                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/5c7f98498b12d47f9de90ec9186a90000125777c",
-                "reference": "5c7f98498b12d47f9de90ec9186a90000125777c",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
+                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
                 "shasum": ""
             },
             "require": {
@@ -377,7 +377,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-01-23T10:32:09+00:00"
+            "time": "2017-01-30T17:41:17+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1981,26 +1981,27 @@
         },
         {
             "name": "illuminated/testing-tools",
-            "version": "0.4.5",
+            "version": "0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-testing-tools.git",
-                "reference": "1d6afdfb439d1af92cd291189b384116d3cbe8b7"
+                "reference": "3294cd577b2a758b98db2b9b661b415a2de74407"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-testing-tools/zipball/1d6afdfb439d1af92cd291189b384116d3cbe8b7",
-                "reference": "1d6afdfb439d1af92cd291189b384116d3cbe8b7",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-testing-tools/zipball/3294cd577b2a758b98db2b9b661b415a2de74407",
+                "reference": "3294cd577b2a758b98db2b9b661b415a2de74407",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^5.2",
-                "mockery/mockery": "^0.9.7",
-                "php": ">=5.6.4"
+                "illuminate/support": "^5.1",
+                "mockery/mockery": "^0.9",
+                "php": ">=5.5.9"
             },
             "require-dev": {
-                "orchestra/testbench": "^3.3",
-                "phpunit/phpunit": "^5.7"
+                "orchestra/database": "^3.1",
+                "orchestra/testbench": "^3.1",
+                "phpunit/phpunit": "^5.0"
             },
             "type": "library",
             "autoload": {
@@ -2025,7 +2026,7 @@
                 "laravel",
                 "testing"
             ],
-            "time": "2017-01-19T18:06:51+00:00"
+            "time": "2017-01-30T21:44:57+00:00"
         },
         {
             "name": "mockery/mockery",

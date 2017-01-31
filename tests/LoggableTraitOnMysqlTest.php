@@ -63,7 +63,7 @@ class LoggableTraitOnMysqlTest extends TestCase
             new RotatingFileHandler('baz'),
         ]);
 
-        $handler = new ExceptionHandler($this->app);
+        $handler = app(ExceptionHandler::class);
         $handler->initialize($logger);
         $handler->onShutdown();
     }

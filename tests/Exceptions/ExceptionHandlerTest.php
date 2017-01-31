@@ -16,7 +16,7 @@ class ExceptionHandlerTest extends TestCase
             'file' => __FILE__,
         ]))->once();
 
-        $handler = new ExceptionHandler($this->app);
+        $handler = app(ExceptionHandler::class);
         $handler->setLogger($logger);
         $handler->report(new Exception('Test exception', 111));
     }
@@ -37,7 +37,7 @@ class ExceptionHandlerTest extends TestCase
             ],
         ]))->once();
 
-        $handler = new ExceptionHandler($this->app);
+        $handler = app(ExceptionHandler::class);
         $handler->setLogger($logger);
         $handler->report(new RuntimeException('Test exception with context', [
             'foo' => 'bar',

@@ -47,13 +47,15 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
             return call_user_func($this->callback, $record);
         }
 
-        $fields = '(`level`, `level_name`, `message`, `context`, `created_at`)';
-        DB::insert("insert into `{$this->table}` {$fields} values (?, ?, ?, ?, ?)", [
+        $now = Carbon::now();
+        $fields = '(`level`, `level_name`, `message`, `context`, `created_at`, `updated_at`)';
+        DB::insert("insert into `{$this->table}` {$fields} values (?, ?, ?, ?, ?, ?)", [
             $record['level'],
             $record['level_name'],
             $record['message'],
             get_dump($record['context']),
-            Carbon::now(),
+            $now,
+            $now,
         ]);
     }
 }

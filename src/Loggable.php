@@ -109,7 +109,7 @@ trait Loggable
     {
         $handlers = [];
 
-        foreach (class_uses_recursive($this) as $trait) {
+        foreach (class_uses_recursive(get_class($this)) as $trait) {
             if (!$this->isLoggableChannelTrait($trait)) {
                 continue;
             }

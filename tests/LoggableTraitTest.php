@@ -45,7 +45,7 @@ class LoggableTraitTest extends TestCase
         $logger->shouldReceive('info')->with('%separator%')->once();
         $logger->shouldReceive('getHandlers')->withNoArgs()->once()->andReturn([new RotatingFileHandler('foo')]);
 
-        $handler = new ExceptionHandler($this->app);
+        $handler = app(ExceptionHandler::class);
         $handler->initialize($logger);
         $handler->onShutdown();
     }

@@ -1,7 +1,12 @@
 <?php
 
+namespace Illuminated\Console\ConsoleLogger\Tests\Exceptions;
+
+use Exception;
+use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Exceptions\RuntimeException;
+use Mockery;
 use Psr\Log\LoggerInterface;
 
 class ExceptionHandlerTest extends TestCase

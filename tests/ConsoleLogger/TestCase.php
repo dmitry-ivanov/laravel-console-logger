@@ -1,7 +1,11 @@
 <?php
 
+namespace Illuminated\Console\ConsoleLogger\Tests;
+
 use Illuminate\Contracts\Console\Kernel as KernelContract;
+use Illuminate\Support\Facades\File;
 use Illuminated\Testing\TestingTools;
+use Kernel;
 use Symfony\Component\Finder\Finder;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase

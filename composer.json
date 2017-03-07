@@ -34,8 +34,8 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php",
-            "tests/fixture/app"
+            "tests/ConsoleLogger/TestCase.php",
+            "tests/ConsoleLogger/fixture/app"
         ]
     }
 }

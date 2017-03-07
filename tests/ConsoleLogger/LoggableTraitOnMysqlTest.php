@@ -1,6 +1,10 @@
 <?php
 
+namespace Illuminated\Console\ConsoleLogger\Tests;
+
+use GenericCommand;
 use Illuminated\Console\Exceptions\ExceptionHandler;
+use Mockery;
 use Monolog\Handler\RotatingFileHandler;
 use Psr\Log\LoggerInterface;
 

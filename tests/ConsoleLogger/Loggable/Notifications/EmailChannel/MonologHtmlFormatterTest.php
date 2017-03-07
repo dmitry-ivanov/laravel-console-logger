@@ -1,5 +1,9 @@
 <?php
 
+namespace Illuminated\Console\ConsoleLogger\Tests\Loggable\Notifications\EmailChannel;
+
+use DateTime;
+use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter;
 use Monolog\Logger;
 

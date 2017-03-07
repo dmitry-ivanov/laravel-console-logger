@@ -1,5 +1,11 @@
 <?php
 
+namespace Illuminated\Console\ConsoleLogger\Tests\Loggable\Notifications\EmailChannel;
+
+use EmailNotificationsCommand;
+use EmailNotificationsDeduplicationCommand;
+use EmailNotificationsInvalidRecipientsCommand;
+use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\MandrillHandler;

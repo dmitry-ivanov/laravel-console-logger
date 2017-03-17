@@ -1,4 +1,4 @@
-# Laravel console logger
+# Laravel Console Logger
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b6404099-b40b-4c59-8e71-5140a390f018/big.png)](https://insight.sensiolabs.com/projects/b6404099-b40b-4c59-8e71-5140a390f018)
 

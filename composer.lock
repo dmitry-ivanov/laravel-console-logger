@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "86c30ad3b26db0a82de1a9721b6e11f3",
+    "content-hash": "e6e14060684ccbfcecaafacdfca64122",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -2092,16 +2092,16 @@
         },
         {
             "name": "illuminated/testing-tools",
-            "version": "0.5.7",
+            "version": "0.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-testing-tools.git",
-                "reference": "3853b13d6895df98ddea586387ffe339f40aeae8"
+                "reference": "d18a011f3ea3cc341e6d369d4e1d01b59503f851"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-testing-tools/zipball/3853b13d6895df98ddea586387ffe339f40aeae8",
-                "reference": "3853b13d6895df98ddea586387ffe339f40aeae8",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-testing-tools/zipball/d18a011f3ea3cc341e6d369d4e1d01b59503f851",
+                "reference": "d18a011f3ea3cc341e6d369d4e1d01b59503f851",
                 "shasum": ""
             },
             "require": {
@@ -2138,7 +2138,7 @@
                 "laravel",
                 "testing"
             ],
-            "time": "2017-03-15T12:31:53+00:00"
+            "time": "2017-03-17T11:03:51+00:00"
         },
         {
             "name": "mockery/mockery",

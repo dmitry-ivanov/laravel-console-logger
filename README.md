@@ -48,12 +48,9 @@ Provides logging and notifications for Laravel console commands.
 2. Use `Illuminated\Console\Loggable` trait:
 
     ```php
-    namespace App\Console\Commands;
-
-    use Illuminate\Console\Command;
     use Illuminated\Console\Loggable;
 
-    class MyLoggableCommand extends Command
+    class ExampleCommand extends Command
     {
         use Loggable;
 
@@ -69,7 +66,7 @@ Provides logging and notifications for Laravel console commands.
 3. Now your command is loggable!
 
     ```
-    [2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\MyLoggableCommand` initialized.
+    [2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\ExampleCommand` initialized.
     [2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
     [2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
     [2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.
@@ -112,7 +109,7 @@ As you can see, each command has a separate folder for it's logs. Also, you get 
 By default, only latest thirty log files are stored. However, you can override this behavior as you wish:
 
 ```php
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
 
@@ -147,7 +144,7 @@ Email channel provides notifications via email.
 Basically, the only thing you have to do is specify recipients. Set recipients and email notifications are ready to go!
 
 ```php
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
 
@@ -173,7 +170,7 @@ You'll get a lot of similar emails in those cases. Email notifications deduplica
 Disabled by default, it can be enabled and also adjusted time in seconds, for which deduplication works.
 
 ```php
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
 
@@ -204,7 +201,7 @@ Database channel provides saving of notifications into the database.
 Disabled by default, it can be easily enabled be the proper method.
 
 ```php
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
 
@@ -222,7 +219,7 @@ Surely, you can change the table name or even the logic of notification saving b
 useful if you want to add some custom fields to notifications table. Here is the basic example of what it may look like:
 
 ```php
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
 
@@ -267,7 +264,7 @@ However, if you want to pass an additional context, use `Illuminated\Console\Exc
 ```php
 use Illuminated\Console\Exceptions\RuntimeException;
 
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
 
@@ -289,7 +286,7 @@ class MyLoggableCommand extends Command
 array:5 [
     "code" => 0
     "message" => "Oooups! Houston, we have a problem!"
-    "file" => "/Applications/MAMP/htdocs/icl-test/app/Console/Commands/MyLoggableCommand.php"
+    "file" => "/Applications/MAMP/htdocs/icl-test/app/Console/Commands/ExampleCommand.php"
     "line" => 22
     "context" => array:3 [
         "some" => 123
@@ -358,7 +355,7 @@ If needed, you may access the underlying Monolog instance in a two ways:
 - Using `icLogger` command's method:
 
     ```php
-    class MyLoggableCommand extends Command
+    class ExampleCommand extends Command
     {
         use Loggable;
 
@@ -398,7 +395,7 @@ trait Loggable
 If your command is overriding `initialize` method too, then you should call `initializeLogging` method by yourself:
 
 ```php
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
 
@@ -421,7 +418,7 @@ If you're using some other cool `illuminated/console-%` packages, well, then you
 For example, if you're trying to build loggable command, which is [protected against overlapping](https://github.com/dmitry-ivanov/laravel-console-mutex):
 
 ```php
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
     use WithoutOverlapping;
@@ -436,7 +433,7 @@ You'll get fatal error, the "traits conflict", because both of these traits are 
 But don't worry, solution is very simple. Override `initialize` method by yourself, and initialize traits in required order:
 
 ```php
-class MyLoggableCommand extends Command
+class ExampleCommand extends Command
 {
     use Loggable;
     use WithoutOverlapping;

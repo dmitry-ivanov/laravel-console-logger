@@ -14,7 +14,7 @@ class DatabaseChannelTest extends TestCase
     {
         $this->artisan('database-notifications-disabled-command');
 
-        $this->dontSeeDatabaseTable('iclogger_notifications');
+        $this->assertDatabaseMissingTable('iclogger_notifications');
     }
 
     /** @test */
@@ -22,11 +22,11 @@ class DatabaseChannelTest extends TestCase
     {
         $this->artisan('database-notifications-command');
 
-        $this->dontSeeInDatabaseMany('iclogger_notifications', [
+        $this->assertDatabaseMissingMany('iclogger_notifications', [
             ['level' => Logger::DEBUG],
             ['level' => Logger::INFO],
         ]);
-        $this->seeInDatabaseMany('iclogger_notifications', [
+        $this->assertDatabaseHasMany('iclogger_notifications', [
             [
                 'level' => Logger::NOTICE,
                 'level_name' => Logger::getLevelName(Logger::NOTICE),
@@ -79,11 +79,11 @@ class DatabaseChannelTest extends TestCase
 
         $this->artisan('database-notifications-callback-command');
 
-        $this->dontSeeInDatabaseMany('custom_notifications', [
+        $this->assertDatabaseMissingMany('custom_notifications', [
             ['level' => Logger::DEBUG],
             ['level' => Logger::INFO],
         ]);
-        $this->seeInDatabaseMany('custom_notifications', [
+        $this->assertDatabaseHasMany('custom_notifications', [
             [
                 'level' => Logger::NOTICE,
                 'level_name' => Logger::getLevelName(Logger::NOTICE),

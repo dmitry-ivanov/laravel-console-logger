@@ -2,9 +2,9 @@
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b6404099-b40b-4c59-8e71-5140a390f018/big.png)](https://insight.sensiolabs.com/projects/b6404099-b40b-4c59-8e71-5140a390f018)
 
-[![StyleCI](https://styleci.io/repos/61117768/shield?branch=5.4&style=flat)](https://styleci.io/repos/61117768)
-[![Build Status](https://travis-ci.org/dmitry-ivanov/laravel-console-logger.svg?branch=5.4)](https://travis-ci.org/dmitry-ivanov/laravel-console-logger)
-[![Coverage Status](https://coveralls.io/repos/github/dmitry-ivanov/laravel-console-logger/badge.svg?branch=5.4)](https://coveralls.io/github/dmitry-ivanov/laravel-console-logger?branch=5.4)
+[![StyleCI](https://styleci.io/repos/61117768/shield?branch=master&style=flat)](https://styleci.io/repos/61117768)
+[![Build Status](https://travis-ci.org/dmitry-ivanov/laravel-console-logger.svg?branch=master)](https://travis-ci.org/dmitry-ivanov/laravel-console-logger)
+[![Coverage Status](https://coveralls.io/repos/github/dmitry-ivanov/laravel-console-logger/badge.svg?branch=master)](https://coveralls.io/github/dmitry-ivanov/laravel-console-logger?branch=master)
 
 [![Latest Stable Version](https://poser.pugx.org/illuminated/console-logger/v/stable)](https://packagist.org/packages/illuminated/console-logger)
 [![Latest Unstable Version](https://poser.pugx.org/illuminated/console-logger/v/unstable)](https://packagist.org/packages/illuminated/console-logger)
@@ -36,7 +36,7 @@ Provides logging and notifications for Laravel console commands.
 1. Install package through `composer`:
 
     ```shell
-    composer require "illuminated/console-logger:5.4.*"
+    composer require illuminated/console-logger
     ```
 
 2. Use `Illuminated\Console\Loggable` trait:

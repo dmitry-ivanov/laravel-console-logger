@@ -5,6 +5,7 @@ namespace Illuminated\Console\ConsoleLogger\Tests;
 use GenericCommand;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Mockery;
+use Monolog\Handler\AbstractProcessingHandler;
 use Psr\Log\LoggerInterface;
 
 class LoggableTraitOnMysqlTest extends TestCase
@@ -54,9 +55,13 @@ class LoggableTraitOnMysqlTest extends TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function it_writes_to_log_file_information_footer_each_iteration()
+    public function it_writes_to_log_file_information_footer_each_iteration_and_close_all_handlers_on_shutdown()
     {
         $logger = spy(LoggerInterface::class);
+        $logger->expects()->getHandlers()->andReturn([
+            $processingHandler1 = spy(AbstractProcessingHandler::class),
+            $processingHandler2 = spy(AbstractProcessingHandler::class),
+        ]);
 
         $handler = app(ExceptionHandler::class);
         $handler->initialize($logger);
@@ -65,5 +70,7 @@ class LoggableTraitOnMysqlTest extends TestCase
         $logger->shouldHaveReceived()->info(Mockery::pattern('/Execution time\: .*? sec\./'));
         $logger->shouldHaveReceived()->info(Mockery::pattern('/Memory peak usage\: .*?\./'));
         $logger->shouldHaveReceived()->info('%separator%');
+        $processingHandler1->shouldHaveReceived()->close();
+        $processingHandler2->shouldHaveReceived()->close();
     }
 }

@@ -5,7 +5,6 @@ namespace Illuminated\Console\ConsoleLogger\Tests;
 use GenericCommand;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Mockery;
-use Monolog\Handler\RotatingFileHandler;
 use Psr\Log\LoggerInterface;
 
 class LoggableTraitTest extends TestCase
@@ -43,15 +42,15 @@ class LoggableTraitTest extends TestCase
      */
     public function it_writes_to_log_file_information_footer_each_iteration()
     {
-        $logger = Mockery::mock(LoggerInterface::class);
-        $logger->shouldReceive('info')->with(Mockery::pattern('/Execution time\: .*? sec\./'))->once();
-        $logger->shouldReceive('info')->with(Mockery::pattern('/Memory peak usage\: .*?\./'))->once();
-        $logger->shouldReceive('info')->with('%separator%')->once();
-        $logger->shouldReceive('getHandlers')->withNoArgs()->once()->andReturn([new RotatingFileHandler('foo')]);
+        $logger = spy(LoggerInterface::class);
 
         $handler = app(ExceptionHandler::class);
         $handler->initialize($logger);
         $handler->onShutdown();
+
+        $logger->shouldHaveReceived()->info(Mockery::pattern('/Execution time\: .*? sec\./'));
+        $logger->shouldHaveReceived()->info(Mockery::pattern('/Memory peak usage\: .*?\./'));
+        $logger->shouldHaveReceived()->info('%separator%');
     }
 
     /** @test */

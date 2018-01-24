@@ -44,8 +44,8 @@ class LoggableTraitTest extends TestCase
     public function it_writes_to_log_file_information_footer_each_iteration()
     {
         $logger = Mockery::mock(LoggerInterface::class);
-        $logger->shouldReceive('info')->with('/Execution time\: .*? sec\./')->once();
-        $logger->shouldReceive('info')->with('/Memory peak usage\: .*?\./')->once();
+        $logger->shouldReceive('info')->with(Mockery::pattern('/Execution time\: .*? sec\./'))->once();
+        $logger->shouldReceive('info')->with(Mockery::pattern('/Memory peak usage\: .*?\./'))->once();
         $logger->shouldReceive('info')->with('%separator%')->once();
         $logger->shouldReceive('getHandlers')->withNoArgs()->once()->andReturn([new RotatingFileHandler('foo')]);
 

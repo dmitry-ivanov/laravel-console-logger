@@ -64,7 +64,7 @@ class ExceptionHandler extends Handler
 
         $this->logger->info('%separator%');
 
-        $handlers = $this->logger->getHandlers();
+        $handlers = (array) $this->logger->getHandlers();
         foreach ($handlers as $handler) {
             $handler->close();
         }

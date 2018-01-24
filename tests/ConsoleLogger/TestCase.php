@@ -6,7 +6,10 @@ use Illuminate\Contracts\Console\Kernel as KernelContract;
 use Illuminate\Support\Facades\File;
 use Illuminated\Testing\TestingTools;
 use Kernel;
+use Mockery;
 use Symfony\Component\Finder\Finder;
+
+Mockery::globalHelpers();
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {

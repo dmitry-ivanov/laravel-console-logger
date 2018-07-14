@@ -199,7 +199,7 @@ This channel is not implemented yet. If you need it, let [me](mailto:dmitry.g.iv
 
 Database channel provides saving of notifications into the database.
 
-Disabled by default, it can be easily enabled be the proper method.
+Disabled by default, it can be easily enabled by the proper method.
 
 ```php
 class ExampleCommand extends Command

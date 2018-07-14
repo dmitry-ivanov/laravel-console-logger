@@ -165,7 +165,7 @@ There is a bunch of methods specific to email channel. If you want to change ema
 subject, or change the from address, or something else - override proper method as you wish. And you're done!
 
 Another cool feature of email notifications is deduplication. Sometimes the same error can be produced many-many times.
-For example, you're using some kind of external web service which is down. Or imagine that database server goes down.
+For example, you're using some external web service which is down. Or imagine that database server goes down.
 You'll get a lot of similar emails in those cases. Email notifications deduplication is the solution for those scenarios.
 
 Disabled by default, it can be enabled and also adjusted time in seconds, for which deduplication works.

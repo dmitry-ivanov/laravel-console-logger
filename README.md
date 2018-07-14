@@ -9,7 +9,7 @@
 [![Total Downloads](https://poser.pugx.org/illuminated/console-logger/downloads)](https://packagist.org/packages/illuminated/console-logger)
 [![License](https://poser.pugx.org/illuminated/console-logger/license)](https://packagist.org/packages/illuminated/console-logger)
 
-Provides logging and notifications for Laravel console commands.
+Logging and notifications for Laravel console commands.
 
 | Laravel | Console Logger                                                            |
 | ------- | :-----------------------------------------------------------------------: |
@@ -28,7 +28,6 @@ Provides logging and notifications for Laravel console commands.
   - [File channel](#file-channel)
   - [Notification channels](#notification-channels)
     - [Email channel](#email-channel)
-    - [Slack channel](#slack-channel)
     - [Database channel](#database-channel)
 - [Error handling](#error-handling)
   - [Custom exceptions](#custom-exceptions)
@@ -106,7 +105,7 @@ Log file can be found at `storage/logs/[command-name]/[date].log`. Namespaced co
 | `php artisan send-report` | `storage/logs/send-report/[date].log` |
 | `php artisan send:report` | `storage/logs/send/report/[date].log` |
 
-As you can see, each command has a separate folder for it's logs. Also, you get configured log files rotation out of the box.
+As you can see, each command has a separate folder for its logs. Also, you get configured log files rotation out of the box.
 By default, only latest thirty log files are stored. However, you can override this behavior as you wish:
 
 ```php
@@ -130,19 +129,19 @@ class ExampleCommand extends Command
 
 ## Notification channels
 
-Want to be notified if some kind of an error occurred? Meet notifications!
+Want to be notified if some error occurred? Meet notifications!
 
 Notification channels are optional and disabled by default. Each of them can be enabled and configured as needed.
-By default, you'll get notifications of each level which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).
-It means, that you'll get notifications about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY, occurred while execution.
+By default, you'll get notifications of each level which is higher than NOTICE (see [PSR-3 log levels](https://www.php-fig.org/psr/psr-3/#5-psrlogloglevel)).
+It means that you'll get notifications about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY, occurred while execution.
 
-Surely you can change this and other channel-specific aspects as you wish.
+Of course, you can change this and other channel-specific aspects as you wish.
 
 ### Email channel
 
 Email channel provides notifications via email.
 
-Basically, the only thing you have to do is specify recipients. Set recipients and email notifications are ready to go!
+The only thing you have to do is specify recipients. Set recipients and email notifications are ready to go!
 
 ```php
 class ExampleCommand extends Command
@@ -162,13 +161,13 @@ class ExampleCommand extends Command
 ```
 
 There is a bunch of methods specific to email channel. If you want to change email notifications level, or change the
-subject, or change the from address, or something else - just override proper method as you wish. And you're done!
+subject, or change the from address, or something else - override proper method as you wish. And you're done!
 
-Another cool feature of email notifications is deduplication. Sometimes the same error can be produced many-many times.
-For example, you're using some kind of external web service which is down. Or imagine that database server goes down.
-You'll get a lot of similar emails in those cases. Email notifications deduplication is the solution for those scenarios.
+Another cool feature of email notifications is deduplication. Sometimes the same error can be produced many times.
+For example, you're using some external web service which is down. Or imagine that database server goes down.
+You'll get a lot of similar emails in those cases. Email notifications deduplication is the solution for these scenarios.
 
-Disabled by default, it can be enabled and also adjusted time in seconds, for which deduplication works.
+Disabled by default, it can be enabled and also adjusted the time in seconds, for which deduplication works.
 
 ```php
 class ExampleCommand extends Command
@@ -189,17 +188,11 @@ class ExampleCommand extends Command
 }
 ```
 
-### Slack channel
-
-Slack channel provides notifications via Slack.
-
-This channel is not implemented yet. If you need it, let [me](mailto:dmitry.g.ivanov@gmail.com) know and I'll try to make it faster.
-
 ### Database channel
 
 Database channel provides saving of notifications into the database.
 
-Disabled by default, it can be easily enabled be the proper method.
+Disabled by default, it can be easily enabled by the proper method.
 
 ```php
 class ExampleCommand extends Command
@@ -216,8 +209,8 @@ class ExampleCommand extends Command
 ```
 
 By default, you will get `iclogger_notifications` table, which would be created automatically, if it doesn't exist yet.
-Surely, you can change the table name or even the logic of notification saving by overriding proper methods. It can be
-useful if you want to add some custom fields to notifications table. Here is the basic example of what it may look like:
+Of course, you can change the table name or even the logic of notification saving by overriding proper methods. It can be
+useful if you want to add some custom fields to the notifications table. Here is the basic example of what it may look like:
 
 ```php
 class ExampleCommand extends Command
@@ -299,7 +292,7 @@ array:5 [
 
 ## Guzzle 6+ integration
 
-If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll want to have logs of your http interactions.
+If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll want to have logs of your HTTP interactions.
 
 There is a helper function `iclogger_guzzle_middleware`, which makes it very easy:
 
@@ -318,11 +311,11 @@ $client = new Client([
 ```
 
 Now, your guzzle interactions are fully loggable. Each request, response and even errors would be logged for you.
-You can also set type, as a second argument. Set it to `json` to get auto json decoding for request params and response body.
+You can also set type, as a second argument. Set it to `json` to get auto JSON decoding for request params and response body.
 
 And even more advanced options are the third and the fourth optional arguments, which are callbacks, by which you can customize your logging logic if needed.
-Both of them should return bool. `shouldLogRequest` determines if request bodies should be logged or not, and `shouldLogResponse` determines the same for the response bodies.
-You can set any of your custom logic here. For example, maybe you want to skip logging for just specific urls, or maybe you want to check content length of the response, etc.
+Both of them should return a bool. `shouldLogRequest` determines if request bodies should be logged or not, and `shouldLogResponse` determines the same for the response bodies.
+You can set any of your custom logic here. For example, maybe you want to skip logging for just specific URLs, or maybe you want to check the content length of the response, etc.
 
 ```php
 use Psr\Http\Message\RequestInterface;
@@ -349,7 +342,7 @@ $middleware = iclogger_guzzle_middleware($log, 'json',
 
 ## Powered by Monolog
 
-This package is using [Monolog logging library](https://github.com/Seldaek/monolog) with all of it's power and benefits.
+This package is using the [Monolog logging library](https://github.com/Seldaek/monolog) with all of its power and benefits.
 
 If needed, you may access the underlying Monolog instance in a two ways:
 
@@ -415,7 +408,8 @@ class ExampleCommand extends Command
 
 ### Several traits conflict?
 
-If you're using some other cool `illuminated/console-%` packages, well, then you can find yourself getting "traits conflict".
+If you're using another `illuminated/console-%` package, then you can find yourself getting into the "traits conflict".
+
 For example, if you're trying to build loggable command, which is [protected against overlapping](https://github.com/dmitry-ivanov/laravel-console-mutex):
 
 ```php
@@ -428,10 +422,10 @@ class ExampleCommand extends Command
 }
 ```
 
-You'll get fatal error, the "traits conflict", because both of these traits are overriding `initialize` method.
->If two traits insert a method with the same name, a fatal error is produced, if the conflict is not explicitly resolved.
+You'll get the fatal error - the traits conflict, because of both of these traits are overriding `initialize` method:
+> If two traits insert a method with the same name, a fatal error is produced, if the conflict is not explicitly resolved.
 
-But don't worry, solution is very simple. Override `initialize` method by yourself, and initialize traits in required order:
+Override `initialize` method by yourself, and initialize traits in required order:
 
 ```php
 class ExampleCommand extends Command

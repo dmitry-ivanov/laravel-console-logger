@@ -415,7 +415,8 @@ class ExampleCommand extends Command
 
 ### Several traits conflict?
 
-If you're using some other cool `illuminated/console-%` packages, well, then you can find yourself getting "traits conflict".
+If you're using another `illuminated/console-%` package, then you can find yourself getting into the "traits conflict".
+
 For example, if you're trying to build loggable command, which is [protected against overlapping](https://github.com/dmitry-ivanov/laravel-console-mutex):
 
 ```php

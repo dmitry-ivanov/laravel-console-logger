@@ -142,7 +142,7 @@ Of course, you can change this and other channel-specific aspects as you wish.
 
 Email channel provides notifications via email.
 
-Basically, the only thing you have to do is specify recipients. Set recipients and email notifications are ready to go!
+The only thing you have to do is specify recipients. Set recipients and email notifications are ready to go!
 
 ```php
 class ExampleCommand extends Command

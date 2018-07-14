@@ -349,7 +349,7 @@ $middleware = iclogger_guzzle_middleware($log, 'json',
 
 ## Powered by Monolog
 
-This package is using [Monolog logging library](https://github.com/Seldaek/monolog) with all of it's power and benefits.
+This package is using the [Monolog logging library](https://github.com/Seldaek/monolog) with all of its power and benefits.
 
 If needed, you may access the underlying Monolog instance in a two ways:
 

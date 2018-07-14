@@ -318,7 +318,7 @@ $client = new Client([
 ```
 
 Now, your guzzle interactions are fully loggable. Each request, response and even errors would be logged for you.
-You can also set type, as a second argument. Set it to `json` to get auto json decoding for request params and response body.
+You can also set type, as a second argument. Set it to `json` to get auto JSON decoding for request params and response body.
 
 And even more advanced options are the third and the fourth optional arguments, which are callbacks, by which you can customize your logging logic if needed.
 Both of them should return bool. `shouldLogRequest` determines if request bodies should be logged or not, and `shouldLogResponse` determines the same for the response bodies.

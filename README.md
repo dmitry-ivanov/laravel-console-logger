@@ -321,7 +321,7 @@ Now, your guzzle interactions are fully loggable. Each request, response and eve
 You can also set type, as a second argument. Set it to `json` to get auto JSON decoding for request params and response body.
 
 And even more advanced options are the third and the fourth optional arguments, which are callbacks, by which you can customize your logging logic if needed.
-Both of them should return bool. `shouldLogRequest` determines if request bodies should be logged or not, and `shouldLogResponse` determines the same for the response bodies.
+Both of them should return a bool. `shouldLogRequest` determines if request bodies should be logged or not, and `shouldLogResponse` determines the same for the response bodies.
 You can set any of your custom logic here. For example, maybe you want to skip logging for just specific URLs, or maybe you want to check the content length of the response, etc.
 
 ```php

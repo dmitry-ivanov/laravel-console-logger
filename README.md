@@ -164,7 +164,7 @@ class ExampleCommand extends Command
 There is a bunch of methods specific to email channel. If you want to change email notifications level, or change the
 subject, or change the from address, or something else - override proper method as you wish. And you're done!
 
-Another cool feature of email notifications is deduplication. Sometimes the same error can be produced many-many times.
+Another cool feature of email notifications is deduplication. Sometimes the same error can be produced many times.
 For example, you're using some external web service which is down. Or imagine that database server goes down.
 You'll get a lot of similar emails in those cases. Email notifications deduplication is the solution for those scenarios.
 

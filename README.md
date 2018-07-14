@@ -216,8 +216,8 @@ class ExampleCommand extends Command
 ```
 
 By default, you will get `iclogger_notifications` table, which would be created automatically, if it doesn't exist yet.
-Surely, you can change the table name or even the logic of notification saving by overriding proper methods. It can be
-useful if you want to add some custom fields to notifications table. Here is the basic example of what it may look like:
+Of course, you can change the table name or even the logic of notification saving by overriding proper methods. It can be
+useful if you want to add some custom fields to the notifications table. Here is the basic example of what it may look like:
 
 ```php
 class ExampleCommand extends Command

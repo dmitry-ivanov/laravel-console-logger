@@ -133,7 +133,7 @@ class ExampleCommand extends Command
 Want to be notified if some error occurred? Meet notifications!
 
 Notification channels are optional and disabled by default. Each of them can be enabled and configured as needed.
-By default, you'll get notifications of each level which is higher than NOTICE (see [PSR-3 log levels](http://www.php-fig.org/psr/psr-3/#5-psr-log-loglevel)).
+By default, you'll get notifications of each level which is higher than NOTICE (see [PSR-3 log levels](https://www.php-fig.org/psr/psr-3/#5-psrlogloglevel)).
 It means that you'll get notifications about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY, occurred while execution.
 
 Surely you can change this and other channel-specific aspects as you wish.

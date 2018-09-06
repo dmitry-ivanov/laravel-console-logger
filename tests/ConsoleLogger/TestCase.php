@@ -15,6 +15,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     use TestingTools;
 
+    public $mockConsoleOutput = false;
+
     protected $date;
 
     public function setUp()

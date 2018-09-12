@@ -281,16 +281,16 @@
         },
         {
             "name": "illuminated/helper-functions",
-            "version": "5.7.0",
+            "version": "5.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
-                "reference": "6a8890764fc9e2d06963dbfca4c2ac21cdcf681e"
+                "reference": "afb577f6c5782032c19a595de1ef4af6a4d52572"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/6a8890764fc9e2d06963dbfca4c2ac21cdcf681e",
-                "reference": "6a8890764fc9e2d06963dbfca4c2ac21cdcf681e",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/afb577f6c5782032c19a595de1ef4af6a4d52572",
+                "reference": "afb577f6c5782032c19a595de1ef4af6a4d52572",
                 "shasum": ""
             },
             "require": {
@@ -333,7 +333,7 @@
                 "helper",
                 "laravel"
             ],
-            "time": "2018-09-06T16:21:10+00:00"
+            "time": "2018-09-12T22:38:43+00:00"
         },
         {
             "name": "laravel/framework",

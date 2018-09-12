@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Console\Command;
-use Illuminated\Console\Loggable;
 use Monolog\Handler\NullHandler;
+use Illuminated\Console\Loggable;
 
 class GenericCommand extends Command
 {

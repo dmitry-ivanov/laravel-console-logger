@@ -3,8 +3,8 @@
 namespace Illuminated\Console\Exceptions;
 
 use Exception;
-use Illuminate\Foundation\Exceptions\Handler;
 use Psr\Log\LoggerInterface;
+use Illuminate\Foundation\Exceptions\Handler;
 
 class ExceptionHandler extends Handler
 {

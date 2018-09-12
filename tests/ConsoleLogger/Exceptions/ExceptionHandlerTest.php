@@ -2,12 +2,12 @@
 
 namespace Illuminated\Console\ConsoleLogger\Tests\Exceptions;
 
+use Mockery;
 use Exception;
-use Illuminated\Console\ConsoleLogger\Tests\TestCase;
+use Psr\Log\LoggerInterface;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Exceptions\RuntimeException;
-use Mockery;
-use Psr\Log\LoggerInterface;
+use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 
 class ExceptionHandlerTest extends TestCase
 {

@@ -2,16 +2,16 @@
 
 namespace Illuminated\Console\ConsoleLogger\Tests\Loggable\Notifications\EmailChannel;
 
+use Monolog\Logger;
 use EmailNotificationsCommand;
+use Monolog\Handler\MandrillHandler;
+use Monolog\Handler\SwiftMailerHandler;
+use Monolog\Handler\NativeMailerHandler;
+use Monolog\Handler\DeduplicationHandler;
 use EmailNotificationsDeduplicationCommand;
 use EmailNotificationsInvalidRecipientsCommand;
 use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter;
-use Monolog\Handler\DeduplicationHandler;
-use Monolog\Handler\MandrillHandler;
-use Monolog\Handler\NativeMailerHandler;
-use Monolog\Handler\SwiftMailerHandler;
-use Monolog\Logger;
 
 class EmailChannelTest extends TestCase
 {

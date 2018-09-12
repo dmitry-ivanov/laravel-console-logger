@@ -2,8 +2,8 @@
 
 namespace Illuminated\Console\Loggable\FileChannel;
 
-use Monolog\Formatter\LineFormatter;
 use Traversable;
+use Monolog\Formatter\LineFormatter;
 
 class MonologFormatter extends LineFormatter
 {

@@ -2,11 +2,11 @@
 
 namespace Illuminated\Console\ConsoleLogger\Tests;
 
-use GenericCommand;
-use Illuminated\Console\Exceptions\ExceptionHandler;
 use Mockery;
-use Monolog\Handler\AbstractProcessingHandler;
+use GenericCommand;
 use Psr\Log\LoggerInterface;
+use Monolog\Handler\AbstractProcessingHandler;
+use Illuminated\Console\Exceptions\ExceptionHandler;
 
 class LoggableTraitTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 namespace Illuminated\Console\ConsoleLogger\Tests\Loggable\Notifications\DatabaseChannel;
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 use Monolog\Logger;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 
 class DatabaseChannelTest extends TestCase
 {

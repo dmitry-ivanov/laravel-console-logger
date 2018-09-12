@@ -1,8 +1,8 @@
 <?php
 
-use Illuminated\Console\Exceptions\RuntimeException;
-use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Http\Message\RequestInterface;
+use Illuminated\Console\Exceptions\RuntimeException;
 
 if (!function_exists('iclogger_guzzle_middleware')) {
     function iclogger_guzzle_middleware(LoggerInterface $log, $type = 'raw', callable $shouldLogRequest = null, callable $shouldLogResponse = null)

@@ -31,7 +31,7 @@ class MonologFormatter extends LineFormatter
         return parent::convertToString($data);
     }
 
-    protected function normalize($data)
+    protected function normalize($data, $depth = 0)
     {
         if (is_array($data) || ($data instanceof Traversable)) {
             $normalized = [];
@@ -41,6 +41,6 @@ class MonologFormatter extends LineFormatter
             return $normalized;
         }
 
-        return parent::normalize($data);
+        return parent::normalize($data, $depth);
     }
 }

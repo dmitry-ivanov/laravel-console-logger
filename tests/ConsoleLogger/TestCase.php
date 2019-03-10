@@ -19,7 +19,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected $date;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -56,7 +56,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         app(KernelContract::class);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->cleanLogsDirectory();
 

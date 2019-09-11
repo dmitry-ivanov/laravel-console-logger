@@ -1,11 +1,11 @@
 <?php
 
-namespace Illuminated\Console\ConsoleLogger\Tests\Loggable\FileChannel;
+namespace Illuminated\Console\Tests\Loggable\FileChannel;
 
 use Carbon\Carbon;
-use GenericCommand;
 use Illuminate\Support\Facades\File;
-use Illuminated\Console\ConsoleLogger\Tests\TestCase;
+use Illuminated\Console\Tests\TestCase;
+use Illuminated\Console\Tests\App\Console\Commands\GenericCommand;
 
 class FileChannelTest extends TestCase
 {

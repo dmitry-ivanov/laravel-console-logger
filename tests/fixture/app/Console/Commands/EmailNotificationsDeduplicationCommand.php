@@ -1,13 +1,15 @@
 <?php
 
+namespace Illuminated\Console\Tests\App\Console\Commands;
+
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
 
-class EmailNotificationsCommand extends Command
+class EmailNotificationsDeduplicationCommand extends Command
 {
     use Loggable;
 
-    protected $signature = 'email-notifications-command';
+    protected $signature = 'email-notifications-deduplication-command';
 
     protected function getEmailNotificationsRecipients()
     {
@@ -17,14 +19,14 @@ class EmailNotificationsCommand extends Command
         ];
     }
 
+    protected function useEmailNotificationsDeduplication()
+    {
+        return true;
+    }
+
     public function handle()
     {
         $this->logInfo('Done!');
-    }
-
-    public function createEmailChannelHandler()
-    {
-        return $this->getEmailChannelHandler();
     }
 
     public function emailChannelHandler()

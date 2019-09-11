@@ -1,13 +1,13 @@
 <?php
 
-namespace Illuminated\Console\ConsoleLogger\Tests\Exceptions;
+namespace Illuminated\Console\Tests\Exceptions;
 
 use Mockery;
 use Exception;
 use Psr\Log\LoggerInterface;
+use Illuminated\Console\Tests\TestCase;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Exceptions\RuntimeException;
-use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 
 class ExceptionHandlerTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Illuminated\Console\ConsoleLogger\Tests\Loggable\Notifications\EmailChannel;
+namespace Illuminated\Console\Tests\Loggable\Notifications\EmailChannel;
 
 use DateTime;
 use Monolog\Logger;
-use Illuminated\Console\ConsoleLogger\Tests\TestCase;
+use Illuminated\Console\Tests\TestCase;
 use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter;
 
 class MonologHtmlFormatterTest extends TestCase

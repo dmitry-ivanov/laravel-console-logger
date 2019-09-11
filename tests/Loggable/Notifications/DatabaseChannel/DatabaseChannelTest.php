@@ -1,11 +1,11 @@
 <?php
 
-namespace Illuminated\Console\ConsoleLogger\Tests\Loggable\Notifications\DatabaseChannel;
+namespace Illuminated\Console\Tests\Loggable\Notifications\DatabaseChannel;
 
 use Monolog\Logger;
 use Illuminate\Support\Facades\Schema;
+use Illuminated\Console\Tests\TestCase;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminated\Console\ConsoleLogger\Tests\TestCase;
 
 class DatabaseChannelTest extends TestCase
 {

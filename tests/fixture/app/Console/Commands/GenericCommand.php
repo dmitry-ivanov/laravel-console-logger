@@ -1,5 +1,7 @@
 <?php
 
+namespace Illuminated\Console\Tests\App\Console\Commands;
+
 use Illuminate\Console\Command;
 use Monolog\Handler\NullHandler;
 use Illuminated\Console\Loggable;

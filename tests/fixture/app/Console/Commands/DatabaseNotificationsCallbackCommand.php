@@ -1,7 +1,10 @@
 <?php
 
+namespace Illuminated\Console\Tests\App\Console\Commands;
+
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
+use Illuminated\Console\Tests\App\CustomNotification;
 
 class DatabaseNotificationsCallbackCommand extends Command
 {

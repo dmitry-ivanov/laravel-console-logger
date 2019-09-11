@@ -1,17 +1,17 @@
 <?php
 
-namespace Illuminated\Console\ConsoleLogger\Tests\Loggable\Notifications\EmailChannel;
+namespace Illuminated\Console\Tests\Loggable\Notifications\EmailChannel;
 
 use Monolog\Logger;
-use EmailNotificationsCommand;
 use Monolog\Handler\MandrillHandler;
+use Illuminated\Console\Tests\TestCase;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\DeduplicationHandler;
-use EmailNotificationsDeduplicationCommand;
-use EmailNotificationsInvalidRecipientsCommand;
-use Illuminated\Console\ConsoleLogger\Tests\TestCase;
+use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsCommand;
 use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter;
+use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsDeduplicationCommand;
+use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsInvalidRecipientsCommand;
 
 class EmailChannelTest extends TestCase
 {

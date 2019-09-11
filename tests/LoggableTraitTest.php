@@ -1,12 +1,12 @@
 <?php
 
-namespace Illuminated\Console\ConsoleLogger\Tests;
+namespace Illuminated\Console\Tests;
 
 use Mockery;
-use GenericCommand;
 use Psr\Log\LoggerInterface;
 use Monolog\Handler\AbstractProcessingHandler;
 use Illuminated\Console\Exceptions\ExceptionHandler;
+use Illuminated\Console\Tests\App\Console\Commands\GenericCommand;
 
 class LoggableTraitTest extends TestCase
 {

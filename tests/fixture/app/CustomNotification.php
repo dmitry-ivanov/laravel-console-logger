@@ -1,5 +1,7 @@
 <?php
 
+namespace Illuminated\Console\Tests\App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class CustomNotification extends Model

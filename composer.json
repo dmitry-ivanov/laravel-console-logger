@@ -1,8 +1,12 @@
 {
     "name": "illuminated/console-logger",
     "description": "Logging and notifications for Laravel console commands.",
-    "keywords": ["laravel", "console", "command", "logger", "notification", "email", "slack", "database"],
+    "keywords": ["laravel", "console", "command", "logger", "notifications"],
     "license": "MIT",
+    "support": {
+        "issues": "https://github.com/dmitry-ivanov/laravel-console-logger/issues",
+        "source": "https://github.com/dmitry-ivanov/laravel-console-logger"
+    },
     "authors": [{
         "name": "Dmitry Ivanov",
         "email": "dmitry.g.ivanov@gmail.com"
@@ -25,7 +29,9 @@
         "illuminated/testing-tools": "5.8.*"
     },
     "autoload": {
-        "files": ["integrations/autoload.php"],
+        "files": [
+            "integrations/autoload.php"
+        ],
         "psr-4": {
             "Illuminated\\Console\\": "src/"
         }
@@ -35,5 +41,10 @@
             "Illuminated\\Console\\Tests\\": "tests/",
             "Illuminated\\Console\\Tests\\App\\": "tests/fixture/app/"
         }
-    }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

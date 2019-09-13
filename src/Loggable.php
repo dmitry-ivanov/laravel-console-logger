@@ -3,6 +3,7 @@
 namespace Illuminated\Console;
 
 use Monolog\Logger;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputInterface;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -126,7 +127,7 @@ trait Loggable
 
     private function isLoggableChannelTrait($name)
     {
-        return starts_with($name, __NAMESPACE__ . '\Loggable') && ends_with($name, 'Channel');
+        return Str::startsWith($name, __NAMESPACE__ . '\Loggable') && Str::endsWith($name, 'Channel');
     }
 
     protected function icLogger()

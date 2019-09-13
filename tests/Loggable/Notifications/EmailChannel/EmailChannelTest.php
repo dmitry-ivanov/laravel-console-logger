@@ -3,7 +3,6 @@
 namespace Illuminated\Console\Tests\Loggable\Notifications\EmailChannel;
 
 use Monolog\Logger;
-use Monolog\Handler\MandrillHandler;
 use Illuminated\Console\Tests\TestCase;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Handler\NativeMailerHandler;
@@ -60,15 +59,6 @@ class EmailChannelTest extends TestCase
     }
 
     /** @test */
-    public function it_uses_configured_monolog_mandrill_mailer_handler_on_mandrill_driver()
-    {
-        config(['mail.driver' => 'mandrill', 'services.mandrill.secret' => 'secret']);
-        $handler = $this->runArtisan(new EmailNotificationsCommand)->emailChannelHandler();
-
-        $this->assertMailerHandlersEqual($this->composeMandrillMailerHandler(), $handler);
-    }
-
-    /** @test */
     public function it_uses_configured_monolog_native_mailer_handler_on_other_drivers()
     {
         config(['mail.driver' => 'any-other']);
@@ -90,15 +80,6 @@ class EmailChannelTest extends TestCase
     private function composeSwiftMailerHandler()
     {
         $handler = new SwiftMailerHandler(app('swift.mailer'), $this->composeMailerHandlerMessage(), Logger::NOTICE);
-        $handler->setFormatter(new MonologHtmlFormatter);
-        return $handler;
-    }
-
-    private function composeMandrillMailerHandler()
-    {
-        $handler = new MandrillHandler(
-            config('services.mandrill.secret'), $this->composeMailerHandlerMessage(), Logger::NOTICE
-        );
         $handler->setFormatter(new MonologHtmlFormatter);
         return $handler;
     }

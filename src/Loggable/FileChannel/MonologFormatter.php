@@ -9,10 +9,10 @@ class MonologFormatter extends LineFormatter
 {
     public function __construct()
     {
-        parent::__construct("[%datetime%]: [%level_name%]: %message%\n%context%\n", null, true, true);
+        parent::__construct("[%datetime%]: [%level_name%]: %message%\n%context%\n", 'Y-m-d H:i:s', true, true);
     }
 
-    public function format(array $record)
+    public function format(array $record): string
     {
         if ($record['message'] == '%separator%') {
             return str_repeat("\n", 11);
@@ -22,7 +22,7 @@ class MonologFormatter extends LineFormatter
         return rtrim($output) . "\n";
     }
 
-    protected function convertToString($data)
+    protected function convertToString($data): string
     {
         if (is_array($data)) {
             return get_dump($data);

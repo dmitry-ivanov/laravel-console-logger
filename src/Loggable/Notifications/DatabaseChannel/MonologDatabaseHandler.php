@@ -41,10 +41,11 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
         });
     }
 
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         if (!empty($this->callback)) {
-            return call_user_func($this->callback, $record);
+            call_user_func($this->callback, $record);
+            return;
         }
 
         $now = Carbon::now();

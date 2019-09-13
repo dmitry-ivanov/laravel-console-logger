@@ -6,7 +6,12 @@ use Monolog\Formatter\HtmlFormatter;
 
 class MonologHtmlFormatter extends HtmlFormatter
 {
-    public function format(array $record)
+    public function __construct()
+    {
+        parent::__construct('Y-m-d H:i:s');
+    }
+
+    public function format(array $record): string
     {
         $output = '<!DOCTYPE html>';
         $output .= '<html>';
@@ -118,7 +123,7 @@ class MonologHtmlFormatter extends HtmlFormatter
                 </tr>";
     }
 
-    protected function convertToString($data)
+    protected function convertToString($data): string
     {
         if (is_array($data)) {
             return get_dump($data);

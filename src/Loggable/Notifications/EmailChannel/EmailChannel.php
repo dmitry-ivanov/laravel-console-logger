@@ -3,7 +3,6 @@
 namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
 use Monolog\Logger;
-use Monolog\Handler\MandrillHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\DeduplicationHandler;
@@ -34,7 +33,6 @@ trait EmailChannel
             case 'mail':
             case 'smtp':
             case 'sendmail':
-            case 'mandrill':
                 $mailer = app('swift.mailer');
                 $message = $mailer->createMessage();
                 $message->setSubject($subject);
@@ -42,12 +40,7 @@ trait EmailChannel
                 $message->setTo(to_swiftmailer_emails($recipients));
                 $message->setContentType('text/html');
                 $message->setCharset('utf-8');
-
-                if ($driver == 'mandrill') {
-                    $mailerHandler = new MandrillHandler(config('services.mandrill.secret'), $message, $level);
-                } else {
-                    $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
-                }
+                $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
                 break;
 
             default:

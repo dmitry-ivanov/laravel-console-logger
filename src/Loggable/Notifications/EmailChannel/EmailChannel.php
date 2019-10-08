@@ -2,11 +2,11 @@
 
 namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
-use Monolog\Handler\DeduplicationHandler;
-use Monolog\Handler\MandrillHandler;
-use Monolog\Handler\NativeMailerHandler;
-use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
+use Monolog\Handler\MandrillHandler;
+use Monolog\Handler\SwiftMailerHandler;
+use Monolog\Handler\NativeMailerHandler;
+use Monolog\Handler\DeduplicationHandler;
 
 trait EmailChannel
 {

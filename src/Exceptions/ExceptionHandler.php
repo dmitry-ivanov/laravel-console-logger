@@ -3,15 +3,42 @@
 namespace Illuminated\Console\Exceptions;
 
 use Exception;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use Psr\Log\LoggerInterface;
-use Illuminate\Foundation\Exceptions\Handler;
 
-class ExceptionHandler extends Handler
+class ExceptionHandler implements ExceptionHandlerContract
 {
     private $logger;
     private $timeStarted;
     private $timeFinished;
     protected $reservedMemory;
+
+    /**
+     * Holds an instance of the application exception handler.
+     *
+     * @var \Illuminate\Contracts\Debug\ExceptionHandler
+     */
+    protected $appExceptionHandler;
+
+    /**
+     * Holds an instance of the container.
+     *
+     * @var \Illuminate\Contracts\Container\Container
+     */
+    protected $container;
+
+    /**
+     * Creates a new instance of the ExceptionHandler.
+     *
+     * @param \Illuminate\Contracts\Container\Container $container
+     * @param \Illuminate\Contracts\Debug\ExceptionHandler $appExceptionHandler
+     */
+    public function __construct(Container $container, ExceptionHandlerContract $appExceptionHandler)
+    {
+        $this->container = $container;
+        $this->appExceptionHandler = $appExceptionHandler;
+    }
 
     public function setLogger(LoggerInterface $logger)
     {
@@ -41,6 +68,7 @@ class ExceptionHandler extends Handler
         }
 
         $this->logger->error($e->getMessage(), $context);
+        $this->appExceptionHandler->report($e);
     }
 
     private function registerShutdownFunction()
@@ -68,5 +96,32 @@ class ExceptionHandler extends Handler
         foreach ($handlers as $handler) {
             $handler->close();
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function render($request, Exception $e)
+    {
+        return $this->appExceptionHandler->render($request, $e);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function renderForConsole($output, Exception $e)
+    {
+        $this->appExceptionHandler->renderForConsole($output, $e);
+    }
+
+    /**
+     * Determine if the exception should be reported.
+     *
+     * @param  \Exception  $e
+     * @return bool
+     */
+    public function shouldReport(Exception $e)
+    {
+        return $this->appExceptionHandler->shouldReport($e);
     }
 }

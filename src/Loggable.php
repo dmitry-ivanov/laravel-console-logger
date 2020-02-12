@@ -84,7 +84,14 @@ trait Loggable
 
     private function initializeErrorHandling()
     {
-        app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
+        // Using "Decorator" pattern
+        $appExceptionHandler = app()->make(ExceptionHandlerContract::class);
+        app()->singleton(
+            ExceptionHandlerContract::class,
+            function ($app) use ($appExceptionHandler) {
+                return new ExceptionHandler($app, $appExceptionHandler);
+            }
+        );
         app(ExceptionHandlerContract::class)->initialize($this->icLogger);
     }
 

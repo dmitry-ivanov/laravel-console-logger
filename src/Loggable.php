@@ -88,8 +88,8 @@ trait Loggable
         $appExceptionHandler = app()->make(ExceptionHandlerContract::class);
         app()->singleton(
             ExceptionHandlerContract::class,
-            function ($app) use ($appExceptionHandler) {
-                return new ExceptionHandler($app, $appExceptionHandler);
+            function () use ($appExceptionHandler) {
+                return new ExceptionHandler($appExceptionHandler);
             }
         );
         app(ExceptionHandlerContract::class)->initialize($this->icLogger);

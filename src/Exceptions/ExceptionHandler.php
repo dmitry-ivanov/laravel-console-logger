@@ -22,21 +22,12 @@ class ExceptionHandler implements ExceptionHandlerContract
     protected $appExceptionHandler;
 
     /**
-     * Holds an instance of the container.
-     *
-     * @var \Illuminate\Contracts\Container\Container
-     */
-    protected $container;
-
-    /**
      * Creates a new instance of the ExceptionHandler.
      *
-     * @param \Illuminate\Contracts\Container\Container $container
      * @param \Illuminate\Contracts\Debug\ExceptionHandler $appExceptionHandler
      */
-    public function __construct(Container $container, ExceptionHandlerContract $appExceptionHandler)
+    public function __construct(ExceptionHandlerContract $appExceptionHandler)
     {
-        $this->container = $container;
         $this->appExceptionHandler = $appExceptionHandler;
     }
 

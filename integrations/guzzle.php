@@ -1,10 +1,10 @@
 <?php
 
+use function GuzzleHttp\Promise\rejection_for;
 use Illuminated\Console\Exceptions\RuntimeException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use function GuzzleHttp\Promise\rejection_for;
 
 if (!function_exists('iclogger_guzzle_middleware')) {
     /**
@@ -32,7 +32,7 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                 if (isset($shouldLogRequest) && !$shouldLogRequest($request)) {
                     $message = "[{$method}] Calling `{$uri}`, body is not shown, according to the custom logic.";
                     $context = [];
-                } else if (empty($body)) {
+                } elseif (empty($body)) {
                     $message = "[{$method}] Calling `{$uri}`.";
                     $context = [];
                 } else {

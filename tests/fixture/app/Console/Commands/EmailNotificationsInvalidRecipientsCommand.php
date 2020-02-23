@@ -9,8 +9,18 @@ class EmailNotificationsInvalidRecipientsCommand extends Command
 {
     use Loggable;
 
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'email-notifications-invalid-recipients-command';
 
+    /**
+     * Get the email notifications recipients.
+     *
+     * @return array
+     */
     protected function getEmailNotificationsRecipients()
     {
         return [
@@ -21,11 +31,21 @@ class EmailNotificationsInvalidRecipientsCommand extends Command
         ];
     }
 
+    /**
+     * Handle the command.
+     *
+     * @return void
+     */
     public function handle()
     {
         $this->logInfo('Done!');
     }
 
+    /**
+     * Get the email channel handler.
+     *
+     * @return \Monolog\Handler\NativeMailerHandler|\Monolog\Handler\SwiftMailerHandler|\Monolog\Handler\DeduplicationHandler|false
+     */
     public function emailChannelHandler()
     {
         return last($this->icLogger()->getHandlers());

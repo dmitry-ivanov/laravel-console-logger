@@ -2,18 +2,30 @@
 
 namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
-use Monolog\Logger;
-use Monolog\Handler\SwiftMailerHandler;
-use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\DeduplicationHandler;
+use Monolog\Handler\NativeMailerHandler;
+use Monolog\Handler\SwiftMailerHandler;
+use Monolog\Logger;
+use Swift_Mailer;
+use Swift_Message;
 
 trait EmailChannel
 {
+    /**
+     * Defines whether to use email notifications or not.
+     *
+     * @return bool
+     */
     protected function useEmailNotifications()
     {
         return true;
     }
 
+    /**
+     * Get the email channel handler.
+     *
+     * @return \Monolog\Handler\NativeMailerHandler|\Monolog\Handler\SwiftMailerHandler|\Monolog\Handler\DeduplicationHandler|false
+     */
     protected function getEmailChannelHandler()
     {
         $recipients = $this->filterEmailNotificationsRecipients();
@@ -33,13 +45,17 @@ trait EmailChannel
             case 'mail':
             case 'smtp':
             case 'sendmail':
+                /** @var Swift_Mailer $mailer */
                 $mailer = app('swift.mailer');
+
+                /** @var Swift_Message $message */
                 $message = $mailer->createMessage();
                 $message->setSubject($subject);
                 $message->setFrom(to_swiftmailer_emails($from));
                 $message->setTo(to_swiftmailer_emails($recipients));
                 $message->setContentType('text/html');
                 $message->setCharset('utf-8');
+
                 $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
                 break;
 
@@ -60,11 +76,21 @@ trait EmailChannel
         return $mailerHandler;
     }
 
+    /**
+     * Get the email notifications level.
+     *
+     * @return int
+     */
     protected function getEmailNotificationsLevel()
     {
         return Logger::NOTICE;
     }
 
+    /**
+     * Get the email notifications recipients.
+     *
+     * @return array
+     */
     protected function getEmailNotificationsRecipients()
     {
         return [
@@ -72,39 +98,61 @@ trait EmailChannel
         ];
     }
 
+    /**
+     * Get the email notifications subject.
+     *
+     * @return string
+     */
     protected function getEmailNotificationsSubject()
     {
         $env = str_upper(app()->environment());
         $name = $this->getName();
+
         return "[{$env}] %level_name% in `{$name}` command";
     }
 
+    /**
+     * Get the email notifications "from".
+     *
+     * @return array
+     */
     protected function getEmailNotificationsFrom()
     {
         return ['address' => 'no-reply@example.com', 'name' => 'ICLogger Notification'];
     }
 
+    /**
+     * Defines whether to use email notifications deduplication or not.
+     *
+     * @return bool
+     */
     protected function useEmailNotificationsDeduplication()
     {
         return false;
     }
 
+    /**
+     * Get email notifications deduplication time in seconds.
+     *
+     * @return int
+     */
     protected function getEmailNotificationsDeduplicationTime()
     {
         return 60;
     }
 
+    /**
+     * Filter email notifications recipients.
+     *
+     * @return array
+     */
     private function filterEmailNotificationsRecipients()
     {
-        $result = [];
-
-        $recipients = $this->getEmailNotificationsRecipients();
-        foreach ($recipients as $recipient) {
-            if (!empty($recipient['address']) && is_email($recipient['address'])) {
-                $result[] = $recipient;
-            }
-        }
-
-        return $result;
+        return collect($this->getEmailNotificationsRecipients())
+            ->filter(function (array $recipient) {
+                return isset($recipient['address'])
+                    && is_email($recipient['address']);
+            })
+            ->toArray();
     }
 }

@@ -3,18 +3,38 @@
 namespace Illuminated\Console\Loggable\Notifications\DatabaseChannel;
 
 use Carbon\Carbon;
-use Monolog\Logger;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Logger;
 
 class MonologDatabaseHandler extends AbstractProcessingHandler
 {
+    /**
+     * The table name.
+     *
+     * @var string
+     */
     private $table;
+
+    /**
+     * The callback.
+     *
+     * @var callable
+     */
     private $callback;
 
-    public function __construct($table = 'iclogger_notifications', callable $callback = null, $level = Logger::DEBUG, $bubble = true)
+    /**
+     * Create a new instance of the handler.
+     *
+     * @param string $table
+     * @param callable|null $callback
+     * @param int $level
+     * @param bool $bubble
+     * @return void
+     */
+    public function __construct(string $table = 'iclogger_notifications', callable $callback = null, int $level = Logger::DEBUG, bool $bubble = true)
     {
         $this->table = $table;
         $this->callback = $callback;
@@ -24,6 +44,11 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
         parent::__construct($level, $bubble);
     }
 
+    /**
+     * Guarantee that the database table for notifications exists.
+     *
+     * @return void
+     */
     protected function guaranteeTableExists()
     {
         if (Schema::hasTable($this->table)) {
@@ -41,6 +66,12 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
         });
     }
 
+    /**
+     * Write the record down to the database.
+     *
+     * @param array $record
+     * @return void
+     */
     protected function write(array $record): void
     {
         if (!empty($this->callback)) {
@@ -48,15 +79,16 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
             return;
         }
 
+        // We're using Carbon here, because not all database drivers have `now()` function (i.e., `sqlite`)
         $now = Carbon::now();
-        $fields = '(`level`, `level_name`, `message`, `context`, `created_at`, `updated_at`)';
-        DB::insert("insert into `{$this->table}` {$fields} values (?, ?, ?, ?, ?, ?)", [
-            $record['level'],
-            $record['level_name'],
-            $record['message'],
-            get_dump($record['context']),
-            $now,
-            $now,
+
+        DB::table($this->table)->insert([
+            'level' => $record['level'],
+            'level_name' => $record['level_name'],
+            'message' => $record['message'],
+            'context' => get_dump($record['context']),
+            'created_at' => $now,
+            'updated_at' => $now,
         ]);
     }
 }

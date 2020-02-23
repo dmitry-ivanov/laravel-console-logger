@@ -2,12 +2,12 @@
 
 namespace Illuminated\Console\Tests\Exceptions;
 
-use Mockery;
 use Exception;
-use Psr\Log\LoggerInterface;
-use Illuminated\Console\Tests\TestCase;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Exceptions\RuntimeException;
+use Illuminated\Console\Tests\TestCase;
+use Mockery;
+use Psr\Log\LoggerInterface;
 
 class ExceptionHandlerTest extends TestCase
 {
@@ -20,11 +20,14 @@ class ExceptionHandlerTest extends TestCase
         $handler->setLogger($logger);
         $handler->report(new Exception('Test exception', 111));
 
-        $logger->shouldHaveReceived()->error('Test exception', Mockery::subset([
-            'code' => 111,
-            'message' => 'Test exception',
-            'file' => __FILE__,
-        ]));
+        $logger->shouldHaveReceived('error', [
+            'Test exception',
+            Mockery::subset([
+                'code' => 111,
+                'message' => 'Test exception',
+                'file' => __FILE__,
+            ]),
+        ]);
     }
 
     /** @test */
@@ -54,16 +57,19 @@ class ExceptionHandlerTest extends TestCase
             'daz' => null,
         ], 111));
 
-        $logger->shouldHaveReceived()->error('Test exception with context', Mockery::subset([
-            'code' => 111,
-            'message' => 'Test exception with context',
-            'file' => __FILE__,
-            'context' => [
-                'foo' => 'bar',
-                'baz' => 123,
-                'faz' => true,
-                'daz' => null,
-            ],
-        ]));
+        $logger->shouldHaveReceived('error', [
+            'Test exception with context',
+            Mockery::subset([
+                'code' => 111,
+                'message' => 'Test exception with context',
+                'file' => __FILE__,
+                'context' => [
+                    'foo' => 'bar',
+                    'baz' => 123,
+                    'faz' => true,
+                    'daz' => null,
+                ],
+            ]),
+        ]);
     }
 }

@@ -3,9 +3,9 @@
 namespace Illuminated\Console\Tests\Loggable\Notifications\EmailChannel;
 
 use DateTime;
-use Monolog\Logger;
-use Illuminated\Console\Tests\TestCase;
 use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter;
+use Illuminated\Console\Tests\TestCase;
+use Monolog\Logger;
 
 class MonologHtmlFormatterTest extends TestCase
 {
@@ -103,7 +103,15 @@ class MonologHtmlFormatterTest extends TestCase
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    protected function generateRecord($message, $level, $context = [])
+    /**
+     * Generate the record.
+     *
+     * @param string $message
+     * @param int $level
+     * @param array|string $context
+     * @return array
+     */
+    protected function generateRecord(string $message, int $level, $context = [])
     {
         return [
             'message' => $message,
@@ -116,6 +124,12 @@ class MonologHtmlFormatterTest extends TestCase
         ];
     }
 
+    /**
+     * Assert that formatter generates expected output.
+     *
+     * @param array $record
+     * @return void
+     */
     protected function assertFormatterGeneratesExpectedOutput(array $record)
     {
         $expected = $this->composeExpectedOutput($record);
@@ -128,17 +142,29 @@ class MonologHtmlFormatterTest extends TestCase
         );
     }
 
-    private function normalizeOutput($output)
+    /**
+     * Normalize the given output.
+     *
+     * @param string $output
+     * @return string
+     */
+    private function normalizeOutput(string $output)
     {
         return preg_replace('!\s+!smi', '', $output);
     }
 
+    /**
+     * Compose expected output by the given record.
+     *
+     * @param array $record
+     * @return string
+     */
     private function composeExpectedOutput(array $record)
     {
         $color = (new MonologHtmlFormatter)->getLevelColor($record['level']);
 
         $subtitle =
-            "<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>
+            "<style>.title { padding-bottom: 0 !important; } .subtitle { padding-top: 0 !important; }</style>
             <h3 class='subtitle {$record['level_name']}'>This notification was sent from `TESTING` environment!</h3>";
         if ($this->app->environment('production')) {
             $subtitle = '';
@@ -158,7 +184,7 @@ class MonologHtmlFormatterTest extends TestCase
         }
 
         return "<!DOCTYPE html>
-            <html>
+            <html lang=\"en\">
                 <head>
                     <meta charset=\"utf-8\">
                     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -169,7 +195,7 @@ class MonologHtmlFormatterTest extends TestCase
                         }
                         .title, .subtitle {
                             color: #ffffff;
-                            margin: 0px;
+                            margin: 0;
                             padding: 15px;
                         }
                         .title.{$record['level_name']}, .subtitle.{$record['level_name']} {

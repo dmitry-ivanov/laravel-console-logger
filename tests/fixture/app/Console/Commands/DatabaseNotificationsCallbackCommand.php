@@ -10,18 +10,38 @@ class DatabaseNotificationsCallbackCommand extends Command
 {
     use Loggable;
 
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'database-notifications-callback-command';
 
+    /**
+     * Defines whether to use database notifications or not.
+     *
+     * @return bool
+     */
     protected function useDatabaseNotifications()
     {
         return true;
     }
 
+    /**
+     * Get the database notifications table name.
+     *
+     * @return string
+     */
     protected function getDatabaseNotificationsTable()
     {
         return 'custom_notifications';
     }
 
+    /**
+     * Get the database notifications callback.
+     *
+     * @return callable|null
+     */
     protected function getDatabaseNotificationsCallback()
     {
         return function (array $record) {
@@ -37,6 +57,11 @@ class DatabaseNotificationsCallbackCommand extends Command
         };
     }
 
+    /**
+     * Handle the command.
+     *
+     * @return void
+     */
     public function handle()
     {
         $this->logDebug('Debug!', ['foo' => 'bar']);

@@ -3,27 +3,73 @@
 namespace Illuminated\Console\Exceptions;
 
 use Exception;
-use Psr\Log\LoggerInterface;
 use Illuminate\Foundation\Exceptions\Handler;
+use Psr\Log\LoggerInterface;
 
 class ExceptionHandler extends Handler
 {
+    /**
+     * The logger instance.
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
     private $logger;
+
+    /**
+     * Time when execution started.
+     *
+     * @var float
+     */
     private $timeStarted;
+
+    /**
+     * Time when execution finished.
+     *
+     * @var float
+     */
     private $timeFinished;
+
+    /**
+     * Reserved memory for the shutdown execution.
+     *
+     * @see https://github.com/dmitry-ivanov/laravel-console-logger/issues/4
+     *
+     * @var string
+     */
     protected $reservedMemory;
 
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-
+    /**
+     * Initialize the exception handler.
+     *
+     * @param \Psr\Log\LoggerInterface $logger
+     * @return void
+     */
     public function initialize(LoggerInterface $logger)
     {
         $this->setLogger($logger);
         $this->registerShutdownFunction();
     }
 
+    /**
+     * Set the logger.
+     *
+     * @param \Psr\Log\LoggerInterface $logger
+     * @return void
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * Report or log an exception.
+     *
+     * Note that this method doesn't decorate, but overwrite the parent method:
+     * @see https://github.com/dmitry-ivanov/laravel-console-logger/pull/11
+     *
+     * @param \Exception $e
+     * @return void
+     */
     public function report(Exception $e)
     {
         $context = [
@@ -34,15 +80,35 @@ class ExceptionHandler extends Handler
         ];
 
         if ($e instanceof RuntimeException) {
-            $eContext = $e->getContext();
-            if (!empty($eContext)) {
-                $context['context'] = $eContext;
+            $exceptionContext = $e->getContext();
+            if (!empty($exceptionContext)) {
+                $context['context'] = $exceptionContext;
             }
         }
 
         $this->logger->error($e->getMessage(), $context);
+
+        $this->addSentrySupport($e);
     }
 
+    /**
+     * Add Sentry support.
+     *
+     * @param \Exception $e
+     * @return void
+     */
+    private function addSentrySupport(Exception $e)
+    {
+        if (app()->bound('sentry') && $this->shouldReport($e)) {
+            app('sentry')->captureException($e);
+        }
+    }
+
+    /**
+     * Register the shutdown function.
+     *
+     * @return void
+     */
     private function registerShutdownFunction()
     {
         $this->timeStarted = microtime(true);
@@ -51,6 +117,11 @@ class ExceptionHandler extends Handler
         register_shutdown_function([$this, 'onShutdown']);
     }
 
+    /**
+     * Callback for the shutdown function.
+     *
+     * @return void
+     */
     public function onShutdown()
     {
         $this->reservedMemory = null;

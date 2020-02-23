@@ -2,15 +2,15 @@
 
 namespace Illuminated\Console;
 
-use Monolog\Logger;
-use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputInterface;
-use Illuminated\Console\Exceptions\ExceptionHandler;
-use Symfony\Component\Console\Output\OutputInterface;
-use Illuminated\Console\Loggable\FileChannel\FileChannel;
-use Illuminated\Console\Loggable\Notifications\EmailChannel\EmailChannel;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
+use Illuminate\Support\Str;
+use Illuminated\Console\Exceptions\ExceptionHandler;
+use Illuminated\Console\Loggable\FileChannel\FileChannel;
 use Illuminated\Console\Loggable\Notifications\DatabaseChannel\DatabaseChannel;
+use Illuminated\Console\Loggable\Notifications\EmailChannel\EmailChannel;
+use Monolog\Logger;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 trait Loggable
 {
@@ -18,15 +18,32 @@ trait Loggable
     use EmailChannel;
     use DatabaseChannel;
 
+    /**
+     * The logger.
+     *
+     * @var \Monolog\Logger
+     */
     protected $icLogger;
 
+    /**
+     * Overwrite the console command initialization.
+     *
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @return void
+     */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->initializeLogging();
 
-        return parent::initialize($input, $output);
+        parent::initialize($input, $output);
     }
 
+    /**
+     * Initialize the logging.
+     *
+     * @return void
+     */
     protected function initializeLogging()
     {
         $this->initializeICLogger();
@@ -34,60 +51,133 @@ trait Loggable
         $this->logIterationHeaderInformation();
     }
 
-    protected function logDebug($message, array $context = [])
+    /**
+     * Log debug message.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    protected function logDebug(string $message, array $context = [])
     {
-        return $this->icLogger->debug($message, $context);
+        $this->icLogger->debug($message, $context);
     }
 
-    protected function logInfo($message, array $context = [])
+    /**
+     * Log info message.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    protected function logInfo(string $message, array $context = [])
     {
-        return $this->icLogger->info($message, $context);
+        $this->icLogger->info($message, $context);
     }
 
-    protected function logNotice($message, array $context = [])
+    /**
+     * Log notice message.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    protected function logNotice(string $message, array $context = [])
     {
-        return $this->icLogger->notice($message, $context);
+        $this->icLogger->notice($message, $context);
     }
 
-    protected function logWarning($message, array $context = [])
+    /**
+     * Log warning message.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    protected function logWarning(string $message, array $context = [])
     {
-        return $this->icLogger->warning($message, $context);
+        $this->icLogger->warning($message, $context);
     }
 
-    protected function logError($message, array $context = [])
+    /**
+     * Log error message.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    protected function logError(string $message, array $context = [])
     {
-        return $this->icLogger->error($message, $context);
+        $this->icLogger->error($message, $context);
     }
 
-    protected function logCritical($message, array $context = [])
+    /**
+     * Log critical message.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    protected function logCritical(string $message, array $context = [])
     {
-        return $this->icLogger->critical($message, $context);
+        $this->icLogger->critical($message, $context);
     }
 
-    protected function logAlert($message, array $context = [])
+    /**
+     * Log alert message.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    protected function logAlert(string $message, array $context = [])
     {
-        return $this->icLogger->alert($message, $context);
+        $this->icLogger->alert($message, $context);
     }
 
-    protected function logEmergency($message, array $context = [])
+    /**
+     * Log emergency message.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    protected function logEmergency(string $message, array $context = [])
     {
-        return $this->icLogger->emergency($message, $context);
+        $this->icLogger->emergency($message, $context);
     }
 
+    /**
+     * Initialize the logger.
+     *
+     * @return void
+     */
     private function initializeICLogger()
     {
         app()->singleton('log.iclogger', function () {
             return new Logger('ICLogger', $this->getChannelHandlers());
         });
+
         $this->icLogger = app('log.iclogger');
     }
 
+    /**
+     * Initialize error handling.
+     *
+     * @return void
+     */
     private function initializeErrorHandling()
     {
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
+
         app(ExceptionHandlerContract::class)->initialize($this->icLogger);
     }
 
+    /**
+     * Log the command iteration's header information.
+     *
+     * @return void
+     */
     private function logIterationHeaderInformation()
     {
         $class = get_class($this);
@@ -106,6 +196,11 @@ trait Loggable
         }
     }
 
+    /**
+     * Get used channel handlers.
+     *
+     * @return array
+     */
     private function getChannelHandlers()
     {
         $handlers = [];
@@ -125,11 +220,23 @@ trait Loggable
         return $handlers;
     }
 
-    private function isLoggableChannelTrait($name)
+    /**
+     * Check whether the given trait is "loggable channel" trait or not.
+     *
+     * @param string $name
+     * @return bool
+     */
+    private function isLoggableChannelTrait(string $name)
     {
-        return Str::startsWith($name, __NAMESPACE__ . '\Loggable') && Str::endsWith($name, 'Channel');
+        return Str::startsWith($name, __NAMESPACE__ . '\Loggable')
+            && Str::endsWith($name, 'Channel');
     }
 
+    /**
+     * Get the logger.
+     *
+     * @return \Monolog\Logger
+     */
     protected function icLogger()
     {
         return $this->icLogger;

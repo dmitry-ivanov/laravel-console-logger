@@ -6,15 +6,26 @@ use Monolog\Formatter\HtmlFormatter;
 
 class MonologHtmlFormatter extends HtmlFormatter
 {
+    /**
+     * Create a new instance of the formatter.
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct('Y-m-d H:i:s');
     }
 
+    /**
+     * Formats a log record.
+     *
+     * @param array $record
+     * @return string
+     */
     public function format(array $record): string
     {
         $output = '<!DOCTYPE html>';
-        $output .= '<html>';
+        $output .= '<html lang="en">';
 
         $output .= '<head>';
         $output .= '<meta charset="utf-8">';
@@ -31,11 +42,23 @@ class MonologHtmlFormatter extends HtmlFormatter
         return $output;
     }
 
-    public function getLevelColor($level)
+    /**
+     * Get color for the given level.
+     *
+     * @param int $level
+     * @return string
+     */
+    public function getLevelColor(int $level)
     {
         return $this->logLevels[$level];
     }
 
+    /**
+     * Compose style for the given record.
+     *
+     * @param array $record
+     * @return string
+     */
     protected function composeStyle(array $record)
     {
         $level = $record['level'];
@@ -50,7 +73,7 @@ class MonologHtmlFormatter extends HtmlFormatter
                     }
                     .title, .subtitle {
                         color: #ffffff;
-                        margin: 0px;
+                        margin: 0;
                         padding: 15px;
                     }
                     .title.{$levelName}, .subtitle.{$levelName} {
@@ -74,40 +97,59 @@ class MonologHtmlFormatter extends HtmlFormatter
                 </style>";
     }
 
+    /**
+     * Compose title for the given record.
+     *
+     * @param array $record
+     * @return string
+     */
     protected function composeTitle(array $record)
     {
         $levelName = e($record['level_name']);
         $title = "<h2 class='title {$levelName}'>{$levelName}</h2>";
 
-        $environment = app()->environment();
-        if ($environment == 'production') {
+        if (app()->isProduction()) {
             return $title;
         }
 
+        $environment = app()->environment();
         $environment = e(str_upper($environment));
-        $title .= '<style>.title { padding-bottom: 0px !important; } .subtitle { padding-top: 0px !important; }</style>';
+        $title .= '<style>.title { padding-bottom: 0 !important; } .subtitle { padding-top: 0 !important; }</style>';
         $title .= "<h3 class='subtitle {$levelName}'>This notification was sent from `{$environment}` environment!</h3>";
 
         return $title;
     }
 
+    /**
+     * Compose details for the given record.
+     *
+     * @param array $record
+     * @return string
+     */
     protected function composeDetails(array $record)
     {
         $details = '<table cellspacing="1" width="100%">';
 
-        $details .= $this->composeRow('Message', (string) $record['message']);
+        $details .= $this->composeDetailsRow('Message', (string) $record['message']);
         if (!empty($record['context'])) {
             $context = $this->convertToString($record['context']);
-            $details .= $this->composeRow('Context', $context);
+            $details .= $this->composeDetailsRow('Context', $context);
         }
-        $details .= $this->composeRow('Time', $record['datetime']->format($this->dateFormat));
+        $details .= $this->composeDetailsRow('Time', $record['datetime']->format($this->dateFormat));
 
         $details .= '</table>';
 
         return $details;
     }
 
-    protected function composeRow($header, $body = ' ')
+    /**
+     * Compose the details row.
+     *
+     * @param string $header
+     * @param string $body
+     * @return string
+     */
+    protected function composeDetailsRow(string $header, string $body = ' ')
     {
         $header = e($header);
         $body = e($body);
@@ -123,6 +165,12 @@ class MonologHtmlFormatter extends HtmlFormatter
                 </tr>";
     }
 
+    /**
+     * Convert the given data to string.
+     *
+     * @param mixed $data
+     * @return string
+     */
     protected function convertToString($data): string
     {
         if (is_array($data)) {

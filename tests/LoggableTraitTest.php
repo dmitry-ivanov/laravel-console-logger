@@ -2,11 +2,11 @@
 
 namespace Illuminated\Console\Tests;
 
-use Mockery;
-use Psr\Log\LoggerInterface;
-use Monolog\Handler\AbstractProcessingHandler;
 use Illuminated\Console\Exceptions\ExceptionHandler;
 use Illuminated\Console\Tests\App\Console\Commands\GenericCommand;
+use Mockery;
+use Monolog\Handler\AbstractProcessingHandler;
+use Psr\Log\LoggerInterface;
 
 class LoggableTraitTest extends TestCase
 {
@@ -44,7 +44,7 @@ class LoggableTraitTest extends TestCase
     public function it_writes_to_log_file_information_footer_each_iteration_and_close_all_handlers_on_shutdown()
     {
         $logger = spy(LoggerInterface::class);
-        $logger->expects()->getHandlers()->andReturn([
+        $logger->expects('getHandlers')->andReturn([
             $processingHandler1 = spy(AbstractProcessingHandler::class),
             $processingHandler2 = spy(AbstractProcessingHandler::class),
         ]);
@@ -53,11 +53,11 @@ class LoggableTraitTest extends TestCase
         $handler->initialize($logger);
         $handler->onShutdown();
 
-        $logger->shouldHaveReceived()->info(Mockery::pattern('/Execution time\: .*? sec\./'));
-        $logger->shouldHaveReceived()->info(Mockery::pattern('/Memory peak usage\: .*?\./'));
-        $logger->shouldHaveReceived()->info('%separator%');
-        $processingHandler1->shouldHaveReceived()->close();
-        $processingHandler2->shouldHaveReceived()->close();
+        $logger->shouldHaveReceived('info', [Mockery::pattern('/Execution time\: .*? sec\./')]);
+        $logger->shouldHaveReceived('info', [Mockery::pattern('/Memory peak usage\: .*?\./')]);
+        $logger->shouldHaveReceived('info', ['%separator%']);
+        $processingHandler1->shouldHaveReceived('close');
+        $processingHandler2->shouldHaveReceived('close');
     }
 
     /** @test */

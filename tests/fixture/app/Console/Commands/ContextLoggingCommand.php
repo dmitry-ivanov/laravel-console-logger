@@ -9,8 +9,18 @@ class ContextLoggingCommand extends Command
 {
     use Loggable;
 
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'context-logging-command';
 
+    /**
+     * Handle the command.
+     *
+     * @return void
+     */
     public function handle()
     {
         $this->logInfo('Testing context!');

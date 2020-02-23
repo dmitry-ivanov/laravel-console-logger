@@ -41,6 +41,15 @@ class ExceptionHandler extends Handler
         }
 
         $this->logger->error($e->getMessage(), $context);
+
+        $this->addSentrySupport($e);
+    }
+
+    private function addSentrySupport(Exception $e)
+    {
+        if (app()->bound('sentry') && $this->shouldReport($e)) {
+            app('sentry')->captureException($e);
+        }
     }
 
     private function registerShutdownFunction()

@@ -28,6 +28,19 @@ class ExceptionHandlerTest extends TestCase
     }
 
     /** @test */
+    public function it_supports_sentry()
+    {
+        app()->instance('sentry', $sentry = spy());
+        $exception = new Exception('Test exception', 111);
+
+        $handler = app(ExceptionHandler::class);
+        $handler->setLogger(spy(LoggerInterface::class));
+        $handler->report($exception);
+
+        $sentry->shouldHaveReceived('captureException', [$exception]);
+    }
+
+    /** @test */
     public function it_supports_custom_runtime_exception_which_has_ability_to_set_optional_context()
     {
         $logger = spy(LoggerInterface::class);

@@ -12,8 +12,8 @@ services:
   - mysql
 
 install:
-  - travis_retry composer install --no-interaction --prefer-dist
-  - travis_retry composer require --no-interaction --prefer-dist --dev php-coveralls/php-coveralls
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --no-interaction --prefer-dist
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require --no-interaction --prefer-dist --dev php-coveralls/php-coveralls
 
 script: vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml
 

@@ -32,7 +32,9 @@ class FileChannelTest extends TestCase
         $this->createLogFiles($path, 45);
         $this->assertFilesCount($path, 45);
 
-        $this->runArtisan(new GenericCommand)->emulateFileHandlerClose();
+        /** @var GenericCommand $command */
+        $command = $this->runArtisan(new GenericCommand);
+        $command->emulateFileHandlerClose();
 
         $this->assertFilesCount($path, 30);
     }

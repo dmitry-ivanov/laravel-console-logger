@@ -46,7 +46,7 @@ trait EmailChannel
             case 'smtp':
             case 'sendmail':
                 /** @var Swift_Mailer $mailer */
-                $mailer = app('swift.mailer');
+                $mailer = app('mailer')->getSwiftMailer();
 
                 /** @var Swift_Message $message */
                 $message = $mailer->createMessage();

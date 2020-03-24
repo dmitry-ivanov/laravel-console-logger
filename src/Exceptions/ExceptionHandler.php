@@ -2,9 +2,9 @@
 
 namespace Illuminated\Console\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 class ExceptionHandler extends Handler
 {
@@ -67,10 +67,10 @@ class ExceptionHandler extends Handler
      * Note that this method doesn't decorate, but overwrite the parent method:
      * @see https://github.com/dmitry-ivanov/laravel-console-logger/pull/11
      *
-     * @param \Exception $e
+     * @param \Throwable $e
      * @return void
      */
-    public function report(Exception $e)
+    public function report(Throwable $e)
     {
         $context = [
             'code' => $e->getCode(),
@@ -94,10 +94,10 @@ class ExceptionHandler extends Handler
     /**
      * Add Sentry support.
      *
-     * @param \Exception $e
+     * @param \Throwable $e
      * @return void
      */
-    private function addSentrySupport(Exception $e)
+    private function addSentrySupport(Throwable $e)
     {
         if (app()->bound('sentry') && $this->shouldReport($e)) {
             app('sentry')->captureException($e);

@@ -18,8 +18,9 @@ class EmailChannelTest extends TestCase
     /** @test */
     public function it_validates_and_filters_notification_recipients()
     {
-        $handler = $this->runArtisan(new EmailNotificationsInvalidRecipientsCommand)->emailChannelHandler();
-        $this->assertNotInstanceOf(SwiftMailerHandler::class, $handler);
+        /** @var EmailNotificationsInvalidRecipientsCommand $command */
+        $command = $this->runArtisan(new EmailNotificationsInvalidRecipientsCommand);
+        $this->assertNotInstanceOf(SwiftMailerHandler::class, $command->emailChannelHandler());
     }
 
     /** @test */
@@ -27,9 +28,10 @@ class EmailChannelTest extends TestCase
     {
         config(['mail.driver' => 'null']);
 
-        $handler = $this->runArtisan(new EmailNotificationsCommand)->createEmailChannelHandler();
+        /** @var EmailNotificationsCommand $command */
+        $command = $this->runArtisan(new EmailNotificationsCommand);
 
-        $this->assertFalse($handler);
+        $this->assertFalse($command->createEmailChannelHandler());
     }
 
     /** @test */
@@ -37,19 +39,25 @@ class EmailChannelTest extends TestCase
     {
         config(['mail.driver' => 'mail']);
 
-        $handler = $this->runArtisan(new EmailNotificationsCommand)->emailChannelHandler();
+        /** @var EmailNotificationsCommand $command */
+        $command = $this->runArtisan(new EmailNotificationsCommand);
 
-        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $command->emailChannelHandler());
     }
 
     /** @test */
     public function it_uses_configured_monolog_swift_mailer_handler_on_smtp_driver()
     {
-        config(['mail.driver' => 'smtp']);
+        config([
+            'mail.driver' => 'smtp',
+            'mail.host' => 'example.com',
+            'mail.port' => 123,
+        ]);
 
-        $handler = $this->runArtisan(new EmailNotificationsCommand)->emailChannelHandler();
+        /** @var EmailNotificationsCommand $command */
+        $command = $this->runArtisan(new EmailNotificationsCommand);
 
-        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $command->emailChannelHandler());
     }
 
     /** @test */
@@ -57,9 +65,10 @@ class EmailChannelTest extends TestCase
     {
         config(['mail.driver' => 'sendmail']);
 
-        $handler = $this->runArtisan(new EmailNotificationsCommand)->emailChannelHandler();
+        /** @var EmailNotificationsCommand $command */
+        $command = $this->runArtisan(new EmailNotificationsCommand);
 
-        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $command->emailChannelHandler());
     }
 
     /** @test */
@@ -67,9 +76,10 @@ class EmailChannelTest extends TestCase
     {
         config(['mail.driver' => 'any-other']);
 
-        $handler = $this->runArtisan(new EmailNotificationsCommand)->emailChannelHandler();
+        /** @var EmailNotificationsCommand $command */
+        $command = $this->runArtisan(new EmailNotificationsCommand);
 
-        $this->assertMailerHandlersEqual($this->composeNativeMailerHandler(), $handler);
+        $this->assertMailerHandlersEqual($this->composeNativeMailerHandler(), $command->emailChannelHandler());
     }
 
     /** @test */
@@ -77,8 +87,9 @@ class EmailChannelTest extends TestCase
     {
         config(['mail.driver' => 'any-other']);
 
-        /** @var \Monolog\Handler\DeduplicationHandler $handler */
-        $handler = $this->runArtisan(new EmailNotificationsDeduplicationCommand)->emailChannelHandler();
+        /** @var EmailNotificationsDeduplicationCommand $command */
+        $command = $this->runArtisan(new EmailNotificationsDeduplicationCommand);
+        $handler = $command->emailChannelHandler();
         $handler->flush();
 
         $this->assertMailerHandlersEqual($this->composeDeduplicationHandler(), $handler);
@@ -91,7 +102,7 @@ class EmailChannelTest extends TestCase
      */
     private function composeSwiftMailerHandler()
     {
-        $handler = new SwiftMailerHandler(app('swift.mailer'), $this->composeMailerHandlerMessage(), Logger::NOTICE);
+        $handler = new SwiftMailerHandler(app('mailer')->getSwiftMailer(), $this->composeMailerHandlerMessage(), Logger::NOTICE);
 
         $handler->setFormatter(new MonologHtmlFormatter);
 
@@ -144,7 +155,7 @@ class EmailChannelTest extends TestCase
     private function composeMailerHandlerMessage()
     {
         /** @var Swift_Message $message */
-        $message = app('swift.mailer')->createMessage();
+        $message = app('mailer')->getSwiftMailer()->createMessage();
         $message->setSubject('[TESTING] %level_name% in `email-notifications-command` command');
         $message->setFrom(to_swiftmailer_emails([
             'address' => 'no-reply@example.com',

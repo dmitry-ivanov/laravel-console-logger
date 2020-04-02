@@ -31,16 +31,14 @@ class MonologFormatter extends LineFormatter
         return parent::convertToString($data);
     }
 
-    protected function normalize($data)
+    protected function normalize($data, $depth = 0)
     {
-        if (is_array($data) || ($data instanceof Traversable)) {
-            $normalized = [];
-            foreach ($data as $key => $value) {
-                $normalized[$key] = $this->normalize($value);
-            }
-            return $normalized;
+        if (is_iterable($data)) {
+            return collect($data)->map(function ($item) {
+                return $this->normalize($item);
+            })->toArray();
         }
 
-        return parent::normalize($data);
+        return parent::normalize($data, $depth);
     }
 }

@@ -3,7 +3,6 @@
 namespace Illuminated\Console\Loggable\FileChannel;
 
 use Monolog\Formatter\LineFormatter;
-use Traversable;
 
 class MonologFormatter extends LineFormatter
 {

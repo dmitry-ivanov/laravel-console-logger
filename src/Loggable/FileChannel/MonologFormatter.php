@@ -3,6 +3,7 @@
 namespace Illuminated\Console\Loggable\FileChannel;
 
 use Monolog\Formatter\LineFormatter;
+use Traversable;
 
 class MonologFormatter extends LineFormatter
 {
@@ -32,7 +33,7 @@ class MonologFormatter extends LineFormatter
 
     protected function normalize($data, $depth = 0)
     {
-        if (is_iterable($data)) {
+        if (is_array($data) || $data instanceof Traversable) {
             return collect($data)->map(function ($item) {
                 return $this->normalize($item);
             })->toArray();

@@ -11,7 +11,7 @@
 [![Total Downloads](https://poser.pugx.org/illuminated/console-logger/downloads)](https://packagist.org/packages/illuminated/console-logger)
 [![License](https://poser.pugx.org/illuminated/console-logger/license)](https://packagist.org/packages/illuminated/console-logger)
 
-Logging and notifications for Laravel console commands.
+Logging and notifications for Laravel Console Commands.
 
 | Laravel | Console Logger                                                            |
 | ------- | :-----------------------------------------------------------------------: |
@@ -29,14 +29,14 @@ Logging and notifications for Laravel console commands.
 ## Table of contents
 
 - [Usage](#usage)
-- [Methods](#methods)
+- [Available methods](#available-methods)
 - [Channels](#channels)
   - [File channel](#file-channel)
   - [Notification channels](#notification-channels)
     - [Email channel](#email-channel)
     - [Database channel](#database-channel)
 - [Error handling](#error-handling)
-  - [Custom exceptions](#custom-exceptions)
+  - [Exceptions with context](#exceptions-with-context)
 - [Guzzle 6+ integration](#guzzle-6-integration)
 - [Powered by Monolog](#powered-by-monolog)
 - [Troubleshooting](#troubleshooting)
@@ -48,7 +48,7 @@ Logging and notifications for Laravel console commands.
 
 1. Install the package via Composer:
 
-    ```shell
+    ```shell script
     composer require illuminated/console-logger
     ```
 
@@ -70,50 +70,47 @@ Logging and notifications for Laravel console commands.
     }
     ```
 
-3. Now your command is loggable!
+3. Run the command and check your logs:
 
     ```
-    [2016-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\ExampleCommand` initialized.
-    [2016-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
-    [2016-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
-    [2016-05-11 17:19:21]: [INFO]: Database date: `2016-05-11 17:19:21`.
-    [2016-05-11 17:19:21]: [INFO]: Hello World!
-    [2016-05-11 17:19:21]: [INFO]: Execution time: 0.009 sec.
-    [2016-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
+    [2020-05-11 17:19:21]: [INFO]: Command `App\Console\Commands\ExampleCommand` initialized.
+    [2020-05-11 17:19:21]: [INFO]: Host: `MyHost.local` (`10.0.1.1`).
+    [2020-05-11 17:19:21]: [INFO]: Database host: `MyHost.local`, port: `3306`, ip: ``.
+    [2020-05-11 17:19:21]: [INFO]: Database date: `2020-05-11 17:19:21`.
+    [2020-05-11 17:19:21]: [INFO]: Hello World!
+    [2020-05-11 17:19:21]: [INFO]: Execution time: 0.009 sec.
+    [2020-05-11 17:19:21]: [INFO]: Memory peak usage: 8 MB.
     ```
 
-## Methods
+## Available methods
 
-As soon as you're using `Loggable` trait, these [PSR-3](http://www.php-fig.org/psr/psr-3/) methods are available for you:
+The `Loggable` trait provides these [PSR-3](http://www.php-fig.org/psr/psr-3/) methods:
 
-- `logDebug`
-- `logInfo`
-- `logNotice`
-- `logWarning`
-- `logError`
-- `logCritical`
-- `logAlert`
-- `logEmergency`
+- `logDebug()`
+- `logInfo()`
+- `logNotice()`
+- `logWarning()`
+- `logError()`
+- `logCritical()`
+- `logAlert()`
+- `logEmergency()`
 
-Each of them expects the message and optional context for additional data.
+Use them in your console commands to log required information.
 
 ## Channels
 
-Channels are very simple. It's just the different ways to handle log messages.
+Log messages could be handled in multiple different ways.
+It might be writing data into the log file, storing it in the database, sending an email, etc.
 
 ### File channel
 
-File channel is nothing more than writing log messages into the file. It is the main channel, and it is always enabled.
+File channel simply writes log messages into the log files.
 
-Log file can be found at `storage/logs/[command-name]/[date].log`. Namespaced commands exploded into subfolders.
+Each of the commands would have a separate folder within the `storage/logs` dir.
 
-| Command                   | Logs                                  |
-| ------------------------- | ------------------------------------- |
-| `php artisan send-report` | `storage/logs/send-report/[date].log` |
-| `php artisan send:report` | `storage/logs/send/report/[date].log` |
+For example, `foo-bar` command logs would be stored in the `storage/logs/foo-bar` folder.
 
-As you can see, each command has a separate folder for its logs. Also, you get configured log files rotation out of the box.
-By default, only latest thirty log files are stored. However, you can override this behavior as you wish:
+You can customize the storage folder, and the max number of stored log files by overriding proper methods:
 
 ```php
 class ExampleCommand extends Command
@@ -136,19 +133,19 @@ class ExampleCommand extends Command
 
 ## Notification channels
 
-Want to be notified if some error occurred? Meet notifications!
+If you want to be notified about errors in your console commands - use notification channels.
 
-Notification channels are optional and disabled by default. Each of them can be enabled and configured as needed.
-By default, you'll get notifications of each level which is higher than NOTICE (see [PSR-3 log levels](https://www.php-fig.org/psr/psr-3/#5-psrlogloglevel)).
-It means that you'll get notifications about each NOTICE, WARNING, ERROR, CRITICAL, ALERT and EMERGENCY, occurred while execution.
+Notification channels are optional and disabled by default. Each of them could be enabled and configured as needed.
+By default, you'll get notifications with a level higher than NOTICE (see [PSR-3 log levels](https://www.php-fig.org/psr/psr-3/#5-psrlogloglevel)).
+It means that you'll get NOTICE, WARNING, ERROR, CRITICAL, ALERT, and EMERGENCY notifications, by default.
 
-Of course, you can change this and other channel-specific aspects as you wish.
+Of course, you can customize that, as well as other channel-specific details.
 
 ### Email channel
 
-Email channel provides notifications via email.
+The email channel provides notifications via email.
 
-The only thing you have to do is specify recipients. Set recipients and email notifications are ready to go!
+Set the recipients, and email notifications are ready to go!
 
 ```php
 class ExampleCommand extends Command
@@ -167,14 +164,14 @@ class ExampleCommand extends Command
 }
 ```
 
-There is a bunch of methods specific to email channel. If you want to change email notifications level, or change the
-subject, or change the from address, or something else - override proper method as you wish. And you're done!
+There's a bunch of methods related to the email channel.
+By overriding those methods, you can change the subject, `from` address, notification level, etc.
 
-Another cool feature of email notifications is deduplication. Sometimes the same error can be produced many times.
-For example, you're using some external web service which is down. Or imagine that database server goes down.
-You'll get a lot of similar emails in those cases. Email notifications deduplication is the solution for these scenarios.
+Deduplication is another useful feature worth mentioning. Sometimes the same error might occur many times in a row.
+For example, you're using an external web service that is down. Or imagine that the database server goes down.
+You'll get a lot of similar emails in those cases. Deduplication is the right solution for that.
 
-Disabled by default, it can be enabled and also adjusted the time in seconds, for which deduplication works.
+You can enable it and adjust the time in seconds, for which deduplication works:
 
 ```php
 class ExampleCommand extends Command
@@ -197,9 +194,9 @@ class ExampleCommand extends Command
 
 ### Database channel
 
-Database channel provides saving of notifications into the database.
+The database channel provides a way to save notifications in the database.
 
-Disabled by default, it can be easily enabled by the proper method.
+The easiest way to start using it:
 
 ```php
 class ExampleCommand extends Command
@@ -215,9 +212,8 @@ class ExampleCommand extends Command
 }
 ```
 
-By default, you will get `iclogger_notifications` table, which would be created automatically, if it doesn't exist yet.
-Of course, you can change the table name or even the logic of notification saving by overriding proper methods. It can be
-useful if you want to add some custom fields to the notifications table. Here is the basic example of what it may look like:
+Notifications would be stored in the `iclogger_notifications` table, which would be automatically created if it doesn't exist yet.
+Of course, you can customize the table name, and even the saving logic, by overriding proper methods:
 
 ```php
 class ExampleCommand extends Command
@@ -242,7 +238,7 @@ class ExampleCommand extends Command
                 'level_name' => $record['level_name'],
                 'message' => $record['message'],
                 'context' => get_dump($record['context']),
-                'some_custom_field' => 'Lorem!',
+                'custom_field' => 'Foo Bar Baz!',
             ]);
         };
     }
@@ -253,14 +249,17 @@ class ExampleCommand extends Command
 
 ## Error handling
 
-One of the coolest features is error handling. Each exception, each error and even PHP notices and warnings are handled.
-It would be automatically logged as an error, and you will get proper notifications according to your command's setup.
-You'll know immediately if something went wrong while execution. Very useful, especially for scheduled commands.
+Another cool feature that is enabled by default - is error handling.
 
-### Custom exceptions
+The package automatically logs everything for you:
+severe problems - exceptions and fatal errors, and even small things, such as PHP notices and warnings.
+Add notifications to that, and you'll immediately know when something goes wrong in your console commands!
 
-You can throw an exception of any type from your code, and it would be properly handled by the exception handler.
-However, if you want to pass an additional context, use `Illuminated\Console\Exceptions\RuntimeException` class:
+### Exceptions with context
+
+Sometimes it's useful to pass an additional context of the thrown exception.
+
+Use the `Illuminated\Console\Exceptions\RuntimeException` for that:
 
 ```php
 use Illuminated\Console\Exceptions\RuntimeException;
@@ -271,7 +270,7 @@ class ExampleCommand extends Command
 
     public function handle()
     {
-        throw new RuntimeException('Oooups! Houston, we have a problem!', [
+        throw new RuntimeException('Whoops! We have a problem!', [
             'some' => 123,
             'extra' => true,
             'context' => null,
@@ -283,10 +282,10 @@ class ExampleCommand extends Command
 ```
 
 ```
-[2016-05-11 17:19:21]: [ERROR]: Oooups! Houston, we have a problem!
+[2020-05-11 17:19:21]: [ERROR]: Whoops! We have a problem!
 array:5 [
     "code" => 0
-    "message" => "Oooups! Houston, we have a problem!"
+    "message" => "Whoops! We have a problem!"
     "file" => "/Applications/MAMP/htdocs/icl-test/app/Console/Commands/ExampleCommand.php"
     "line" => 22
     "context" => array:3 [
@@ -299,61 +298,63 @@ array:5 [
 
 ## Guzzle 6+ integration
 
-If you're using [Guzzle](https://github.com/guzzle/guzzle), well, maybe you'll want to have logs of your HTTP interactions.
+If you're using [Guzzle](https://github.com/guzzle/guzzle), you might want to have a full log of your HTTP interactions.
 
-There is a helper function `iclogger_guzzle_middleware`, which makes it very easy:
+The `iclogger_guzzle_middleware()` function provides a pre-configured [Guzzle Middleware](https://docs.guzzlephp.org/en/stable/handlers-and-middleware.html) for that:
 
 ```php
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 
-$handler = HandlerStack::create();
-$middleware = iclogger_guzzle_middleware($log);
-$handler->push($middleware);
+// Create a log middleware
+$logMiddleware = iclogger_guzzle_middleware($logger);
 
+// Add it to the HandlerStack
+$handler = HandlerStack::create();
+$handler->push($logMiddleware);
+
+// Use the created handler in your Guzzle Client
 $client = new Client([
     'handler' => $handler,
-    'base_uri' => 'http://example.com',
+    'base_uri' => 'https://example.com',
 ]);
+
+// Now, all your HTTP requests and responses would be logged automatically!
+// $client->get('/foo');
 ```
 
-Now, your guzzle interactions are fully loggable. Each request, response and even errors would be logged for you.
-You can also set type, as a second argument. Set it to `json` to get auto JSON decoding for request params and response body.
+If you're using JSON, you might want to get auto decoding for your request params and response bodies:
 
-And even more advanced options are the third and the fourth optional arguments, which are callbacks, by which you can customize your logging logic if needed.
-Both of them should return a bool. `shouldLogRequest` determines if request bodies should be logged or not, and `shouldLogResponse` determines the same for the response bodies.
-You can set any of your custom logic here. For example, maybe you want to skip logging for just specific URLs, or maybe you want to check the content length of the response, etc.
+```php
+$logMiddleware = iclogger_guzzle_middleware($logger, 'json');
+```
+
+You can disable logging of specific request params and/or response bodies, based on your custom logic:
 
 ```php
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-$middleware = iclogger_guzzle_middleware($log, 'json',
-    function (RequestInterface $request) {
-        if (ends_with($request->getUri(), '/foo')) {
-            return false; // skips logging for /foo request bodies
-        }
+// Disable logging of request params for the `/foo` endpoint
+$shouldLogRequestParams = function (RequestInterface $request) {
+    return ! str_ends_with($request->getUri(), '/foo');
+};
 
-        return true;
-    },
-    function (RequestInterface $request, ResponseInterface $response) {
-        $contentLength = $response->getHeaderLine('Content-Length');
-        if ($contentLength > (100 * 1024)) {
-            return false; // skips logging for responses greater than 100 KB
-        }
+// Disable logging of response bodies greater than 100 KB
+$shouldLogResponseBody = function (RequestInterface $request, ResponseInterface $response) {
+    return $response->getHeaderLine('Content-Length') < 102400;
+};
 
-        return true;
-    }
-);
+$logMiddleware = iclogger_guzzle_middleware($logger, 'json', $shouldLogRequestParams, $shouldLogResponseBody);
 ```
 
 ## Powered by Monolog
 
-This package is using the [Monolog logging library](https://github.com/Seldaek/monolog) with all of its power and benefits.
+This package uses the powerful [Monolog Logger](https://github.com/Seldaek/monolog).
 
-If needed, you may access the underlying Monolog instance in a two ways:
+You can access the underlying instance of Monolog by:
 
-- Using `icLogger` command's method:
+- Using the command's `icLogger()` method:
 
     ```php
     class ExampleCommand extends Command
@@ -362,24 +363,24 @@ If needed, you may access the underlying Monolog instance in a two ways:
 
         public function handle()
         {
-            $log = $this->icLogger();
+            $logger = $this->icLogger();
         }
 
         // ...
     }
     ```
 
-- Through Laravel service container:
+- Or through the Laravel's Service Container:
 
     ```php
-    $log = $app('log.iclogger');
+    $logger = app('log.iclogger');
     ```
 
 ## Troubleshooting
 
 ### Trait included, but nothing happens?
 
-Note, that `Loggable` trait is overriding `initialize` method:
+`Loggable` trait overrides the `initialize()` method:
 
 ```php
 trait Loggable
@@ -387,13 +388,15 @@ trait Loggable
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->initializeLogging();
+
+        parent::initialize($input, $output);
     }
 
     // ...
 }
 ```
 
-If your command is overriding `initialize` method too, then you should call `initializeLogging` method by yourself:
+If your command overrides the `initialize()` method too, you have to call the `initializeLogging()` method by yourself:
 
 ```php
 class ExampleCommand extends Command
@@ -402,8 +405,10 @@ class ExampleCommand extends Command
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
+        // You have to call it first
         $this->initializeLogging();
 
+        // Then goes your custom code
         $this->foo = $this->argument('foo');
         $this->bar = $this->argument('bar');
         $this->baz = $this->argument('baz');
@@ -415,9 +420,9 @@ class ExampleCommand extends Command
 
 ### Several traits conflict?
 
-If you're using another `illuminated/console-%` package, then you can find yourself getting into the "traits conflict".
+If you're using another `illuminated/console-%` package, you'll get the "traits conflict" error.
 
-For example, if you're trying to build loggable command, which is [protected against overlapping](https://github.com/dmitry-ivanov/laravel-console-mutex):
+For example, if you're building a loggable command, which [doesn't allow overlapping](https://github.com/dmitry-ivanov/laravel-console-mutex):
 
 ```php
 class ExampleCommand extends Command
@@ -429,10 +434,10 @@ class ExampleCommand extends Command
 }
 ```
 
-You'll get the fatal error - the traits conflict, because of both of these traits are overriding `initialize` method:
+You'll get the traits conflict, because both of those traits are overriding the `initialize()` method:
 > If two traits insert a method with the same name, a fatal error is produced, if the conflict is not explicitly resolved.
 
-Override `initialize` method by yourself, and initialize traits in required order:
+To fix that - override the `initialize()` method and resolve the conflict:
 
 ```php
 class ExampleCommand extends Command
@@ -442,6 +447,7 @@ class ExampleCommand extends Command
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
+        // Initialize conflicting traits
         $this->initializeMutex();
         $this->initializeLogging();
     }
@@ -452,6 +458,6 @@ class ExampleCommand extends Command
 
 ## License
 
-The MIT License. Please see [License File](LICENSE.md) for more information.
+Laravel Console Logger is open-sourced software licensed under the [MIT license](LICENSE.md).
 
 [<img src="https://user-images.githubusercontent.com/1286821/43086829-ff7c006e-8ea6-11e8-8b03-ecf97ca95b2e.png" alt="Support on Patreon" width="125" />](https://patreon.com/dmitryivanov)

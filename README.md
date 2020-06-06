@@ -105,7 +105,7 @@ It might be writing data into the log file, storing it in the database, sending 
 
 ### File channel
 
-File channel simply writes log messages into the log files.
+File channel simply writes log messages into the log file.
 
 Each of the commands would have a separate folder within the `storage/logs` dir.
 

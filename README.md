@@ -375,7 +375,7 @@ You can access the underlying instance of Monolog by:
     }
     ```
 
-- Or through the Laravel's Service Container:
+- Or via the Laravel's Service Container:
 
     ```php
     $logger = app('log.iclogger');

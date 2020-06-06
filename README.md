@@ -257,6 +257,7 @@ Another cool feature that is enabled by default - is error handling.
 
 The package automatically logs everything for you:
 severe problems - exceptions and fatal errors, and even small things, such as PHP notices and warnings.
+
 Add notifications to that, and you'll immediately know when something goes wrong in your console commands!
 
 ### Exceptions with context

@@ -8,28 +8,28 @@ use Psr\Log\LoggerInterface;
 
 if (!function_exists('iclogger_guzzle_middleware')) {
     /**
-     * Create a Guzzle middleware to provide logging of Guzzle requests/responses.
+     * Create a Guzzle middleware to provide logging of Guzzle HTTP requests and responses.
      *
      * @see https://github.com/dmitry-ivanov/laravel-console-logger#guzzle-6-integration
      * @see http://docs.guzzlephp.org/en/stable/handlers-and-middleware.html
      *
      * @param \Psr\Log\LoggerInterface $logger
      * @param string $type
-     * @param callable|null $shouldLogRequest
-     * @param callable|null $shouldLogResponse
+     * @param callable|null $shouldLogRequestParams
+     * @param callable|null $shouldLogResponseBody
      * @return \Closure
      */
-    function iclogger_guzzle_middleware(LoggerInterface $logger, string $type = 'raw', callable $shouldLogRequest = null, callable $shouldLogResponse = null)
+    function iclogger_guzzle_middleware(LoggerInterface $logger, string $type = 'raw', callable $shouldLogRequestParams = null, callable $shouldLogResponseBody = null)
     {
-        return function (callable $handler) use ($logger, $type, $shouldLogRequest, $shouldLogResponse) {
-            return function (RequestInterface $request, array $options) use ($handler, $logger, $type, $shouldLogRequest, $shouldLogResponse) {
+        return function (callable $handler) use ($logger, $type, $shouldLogRequestParams, $shouldLogResponseBody) {
+            return function (RequestInterface $request, array $options) use ($handler, $logger, $type, $shouldLogRequestParams, $shouldLogResponseBody) {
                 // Gather information about the request
                 $method = (string) $request->getMethod();
                 $uri = (string) $request->getUri();
                 $body = (string) $request->getBody();
 
-                // Log the request with a proper message and context
-                if (isset($shouldLogRequest) && !$shouldLogRequest($request)) {
+                // Log request with a proper message and context
+                if (isset($shouldLogRequestParams) && !$shouldLogRequestParams($request)) {
                     $message = "[{$method}] Calling `{$uri}`, body is not shown, according to the custom logic.";
                     $context = [];
                 } elseif (empty($body)) {
@@ -53,13 +53,13 @@ if (!function_exists('iclogger_guzzle_middleware')) {
 
                 // Using another callback to log the response
                 return $handler($request, $options)->then(
-                    function (ResponseInterface $response) use ($request, $logger, $type, $shouldLogResponse) {
+                    function (ResponseInterface $response) use ($request, $logger, $type, $shouldLogResponseBody) {
                         // Gather information about the response
                         $body = (string) $response->getBody();
                         $code = $response->getStatusCode();
 
-                        // Log the response with a proper message and context
-                        if (isset($shouldLogResponse) && !$shouldLogResponse($request, $response)) {
+                        // Log response with a proper message and context
+                        if (isset($shouldLogResponseBody) && !$shouldLogResponseBody($request, $response)) {
                             $message = "[{$code}] Response is not shown, according to the custom logic.";
                             $context = [];
                         } else {

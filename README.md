@@ -216,6 +216,7 @@ class ExampleCommand extends Command
 ```
 
 Notifications would be stored in the `iclogger_notifications` table, which would be automatically created if it doesn't exist yet.
+
 Of course, you can customize the table name, and even the saving logic, by overriding proper methods:
 
 ```php

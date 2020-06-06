@@ -167,6 +167,7 @@ class ExampleCommand extends Command
 ```
 
 There's a bunch of methods related to the email channel.
+
 By overriding those methods, you can change the subject, `from` address, notification level, etc.
 
 Deduplication is another useful feature worth mentioning. Sometimes the same error might occur many times in a row.

@@ -334,7 +334,7 @@ If you're using JSON, you might want to get auto decoding for your request param
 $logMiddleware = iclogger_guzzle_middleware($logger, 'json');
 ```
 
-You can disable logging of specific request params and/or response bodies, based on your custom logic:
+Also, you can disable logging of specific request params and/or response bodies, based on your custom logic:
 
 ```php
 use Psr\Http\Message\RequestInterface;

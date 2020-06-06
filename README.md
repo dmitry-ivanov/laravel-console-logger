@@ -137,6 +137,7 @@ class ExampleCommand extends Command
 If you want to be notified about errors in your console commands - use notification channels.
 
 Notification channels are optional and disabled by default. Each of them could be enabled and configured as needed.
+
 By default, you'll get notifications with a level higher than NOTICE (see [PSR-3 log levels](https://www.php-fig.org/psr/psr-3/#5-psrlogloglevel)).
 It means that you'll get NOTICE, WARNING, ERROR, CRITICAL, ALERT, and EMERGENCY notifications, by default.
 

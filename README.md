@@ -100,6 +100,7 @@ Use them in your console commands to log required information.
 ## Channels
 
 Log messages could be handled in multiple different ways.
+
 It might be writing data into the log file, storing it in the database, sending an email, etc.
 
 ### File channel

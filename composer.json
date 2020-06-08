@@ -1,6 +1,6 @@
 {
     "name": "illuminated/console-logger",
-    "description": "Logging and notifications for Laravel Console Commands.",
+    "description": "Logging and Notifications for Laravel Console Commands.",
     "keywords": ["laravel", "console", "command", "logger", "notifications"],
     "license": "MIT",
     "support": {

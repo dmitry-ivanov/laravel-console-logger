@@ -11,7 +11,7 @@
 [![Total Downloads](https://poser.pugx.org/illuminated/console-logger/downloads)](https://packagist.org/packages/illuminated/console-logger)
 [![License](https://poser.pugx.org/illuminated/console-logger/license)](https://packagist.org/packages/illuminated/console-logger)
 
-Logging and notifications for Laravel Console Commands.
+Logging and Notifications for Laravel Console Commands.
 
 | Laravel | Console Logger                                                            |
 | ------- | :-----------------------------------------------------------------------: |

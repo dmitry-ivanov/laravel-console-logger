@@ -1,7 +1,7 @@
 {
     "name": "illuminated/console-logger",
     "description": "Logging and Notifications for Laravel Console Commands.",
-    "keywords": ["laravel", "console", "command", "logger", "notifications"],
+    "keywords": ["laravel", "console", "command", "logger", "notifications", "email-notifications", "error-handling", "guzzle-middleware"],
     "license": "MIT",
     "support": {
         "issues": "https://github.com/dmitry-ivanov/laravel-console-logger/issues",

@@ -26,6 +26,8 @@ Logging and Notifications for Laravel Console Commands.
 | 5.2.*   | [5.2.*](https://github.com/dmitry-ivanov/laravel-console-logger/tree/5.2) |
 | 5.1.*   | [5.1.*](https://github.com/dmitry-ivanov/laravel-console-logger/tree/5.1) |
 
+![Laravel Console Logger - Demo](doc/img/demo.gif)
+
 ## Table of contents
 
 - [Usage](#usage)

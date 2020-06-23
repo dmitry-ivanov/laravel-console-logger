@@ -115,7 +115,7 @@ class MonologHtmlFormatter extends HtmlFormatter
         $environment = app()->environment();
         $environment = e(str_upper($environment));
         $title .= '<style>.title { padding-bottom: 0 !important; } .subtitle { padding-top: 0 !important; }</style>';
-        $title .= "<h3 class='subtitle {$levelName}'>This notification was sent from `{$environment}` environment!</h3>";
+        $title .= "<h3 class='subtitle {$levelName}'>This notification has been sent from the `{$environment}` environment!</h3>";
 
         return $title;
     }

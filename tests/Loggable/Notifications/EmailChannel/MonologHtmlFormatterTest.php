@@ -165,7 +165,7 @@ class MonologHtmlFormatterTest extends TestCase
 
         $subtitle =
             "<style>.title { padding-bottom: 0 !important; } .subtitle { padding-top: 0 !important; }</style>
-            <h3 class='subtitle {$record['level_name']}'>This notification was sent from `TESTING` environment!</h3>";
+            <h3 class='subtitle {$record['level_name']}'>This notification has been sent from the `TESTING` environment!</h3>";
         if ($this->app->environment('production')) {
             $subtitle = '';
         }

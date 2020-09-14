@@ -2,6 +2,7 @@
 
 namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
+use Illuminate\Support\Str;
 use Monolog\Formatter\HtmlFormatter;
 
 class MonologHtmlFormatter extends HtmlFormatter
@@ -113,7 +114,7 @@ class MonologHtmlFormatter extends HtmlFormatter
         }
 
         $environment = app()->environment();
-        $environment = e(str_upper($environment));
+        $environment = e(Str::upper($environment));
         $title .= '<style>.title { padding-bottom: 0 !important; } .subtitle { padding-top: 0 !important; }</style>';
         $title .= "<h3 class='subtitle {$levelName}'>This notification has been sent from the `{$environment}` environment!</h3>";
 

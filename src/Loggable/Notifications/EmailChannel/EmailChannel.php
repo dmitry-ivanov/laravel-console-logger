@@ -2,6 +2,7 @@
 
 namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
+use Illuminate\Support\Str;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
@@ -105,7 +106,7 @@ trait EmailChannel
      */
     protected function getEmailNotificationsSubject()
     {
-        $env = str_upper(app()->environment());
+        $env = Str::upper(app()->environment());
         $name = $this->getName();
 
         return "[{$env}] %level_name% in `{$name}` command";

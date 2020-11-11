@@ -4,12 +4,17 @@ php:
   - 7.1
   - 7.2
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+services:
+  - mysql
+
 install:
-  - composer update
-  - composer require php-coveralls/php-coveralls --dev
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --no-interaction --prefer-dist
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer require --no-interaction --prefer-dist --dev php-coveralls/php-coveralls
 
-script:
-  - vendor/bin/phpunit --coverage-clover ./tests/logs/clover.xml
+script: vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml
 
-after_script:
-  - php vendor/bin/php-coveralls -v
+after_success: php vendor/bin/php-coveralls --verbose

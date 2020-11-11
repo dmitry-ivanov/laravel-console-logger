@@ -2,12 +2,12 @@
 
 namespace Illuminated\Console\ConsoleLogger\Tests;
 
+use Illuminate\Contracts\Console\Kernel as KernelContract;
+use Illuminate\Support\Facades\File;
+use Illuminated\Testing\TestingTools;
 use Kernel;
 use Mockery;
-use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\Finder;
-use Illuminated\Testing\TestingTools;
-use Illuminate\Contracts\Console\Kernel as KernelContract;
 
 Mockery::globalHelpers();
 

@@ -23,16 +23,6 @@ class EmailChannelTest extends TestCase
     }
 
     /** @test */
-    public function it_is_disabled_on_null_driver()
-    {
-        config(['mail.driver' => 'null']);
-
-        $handler = $this->runArtisan(new EmailNotificationsCommand)->createEmailChannelHandler();
-
-        $this->assertFalse($handler);
-    }
-
-    /** @test */
     public function it_uses_configured_monolog_swift_mailer_handler_on_mail_driver()
     {
         config(['mail.driver' => 'mail']);
@@ -63,19 +53,9 @@ class EmailChannelTest extends TestCase
     }
 
     /** @test */
-    public function it_uses_configured_monolog_native_mailer_handler_on_other_drivers()
-    {
-        config(['mail.driver' => 'any-other']);
-
-        $handler = $this->runArtisan(new EmailNotificationsCommand)->emailChannelHandler();
-
-        $this->assertMailerHandlersEqual($this->composeNativeMailerHandler(), $handler);
-    }
-
-    /** @test */
     public function it_uses_configured_monolog_deduplication_handler_if_deduplication_enabled()
     {
-        config(['mail.driver' => 'any-other']);
+        config(['mail.driver' => 'sendmail']);
 
         /** @var \Monolog\Handler\DeduplicationHandler $handler */
         $handler = $this->runArtisan(new EmailNotificationsDeduplicationCommand)->emailChannelHandler();
@@ -87,38 +67,13 @@ class EmailChannelTest extends TestCase
     /**
      * Compose "swift mailer" handler.
      *
+     * @param string $name
      * @return \Monolog\Handler\SwiftMailerHandler
      */
-    private function composeSwiftMailerHandler()
+    private function composeSwiftMailerHandler($name = 'email-notifications-command')
     {
-        $handler = new SwiftMailerHandler(app('swift.mailer'), $this->composeMailerHandlerMessage(), Logger::NOTICE);
+        $handler = new SwiftMailerHandler(app('swift.mailer'), $this->composeMailerHandlerMessage($name), Logger::NOTICE);
 
-        $handler->setFormatter(new MonologHtmlFormatter);
-
-        return $handler;
-    }
-
-    /**
-     * Compose "native mailer" handler.
-     *
-     * @param string $name
-     * @return \Monolog\Handler\NativeMailerHandler
-     */
-    private function composeNativeMailerHandler(string $name = 'email-notifications-command')
-    {
-        $handler = new NativeMailerHandler(
-            to_rfc2822_email([
-                ['address' => 'john.doe@example.com', 'name' => 'John Doe'],
-                ['address' => 'jane.smith@example.com', 'name' => 'Jane Smith'],
-            ]),
-            "[TESTING] %level_name% in `{$name}` command",
-            to_rfc2822_email([
-                'address' => 'no-reply@example.com',
-                'name' => 'ICLogger Notification',
-            ]),
-            Logger::NOTICE
-        );
-        $handler->setContentType('text/html');
         $handler->setFormatter(new MonologHtmlFormatter);
 
         return $handler;
@@ -132,20 +87,21 @@ class EmailChannelTest extends TestCase
     private function composeDeduplicationHandler()
     {
         return new DeduplicationHandler(
-            $this->composeNativeMailerHandler('email-notifications-deduplication-command'), null, Logger::NOTICE, 60
+            $this->composeSwiftMailerHandler('email-notifications-deduplication-command'), null, Logger::NOTICE, 60
         );
     }
 
     /**
      * Compose mailer handler message.
      *
+     * @param string $name
      * @return \Swift_Message
      */
-    private function composeMailerHandlerMessage()
+    private function composeMailerHandlerMessage($name = 'email-notifications-command')
     {
         /** @var Swift_Message $message */
         $message = app('swift.mailer')->createMessage();
-        $message->setSubject('[TESTING] %level_name% in `email-notifications-command` command');
+        $message->setSubject("[TESTING] %level_name% in `{$name}` command");
         $message->setFrom(to_swiftmailer_emails([
             'address' => 'no-reply@example.com',
             'name' => 'ICLogger Notification',

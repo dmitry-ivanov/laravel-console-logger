@@ -3,7 +3,6 @@
 namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
 use Monolog\Handler\DeduplicationHandler;
-use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 use Swift_Mailer;
@@ -37,35 +36,18 @@ trait EmailChannel
         $from = $this->getEmailNotificationsFrom();
         $level = $this->getEmailNotificationsLevel();
 
-        $driver = config('mail.driver');
-        switch ($driver) {
-            case 'null':
-                return false;
+        /** @var Swift_Mailer $mailer */
+        $mailer = app('mailer')->getSwiftMailer();
 
-            case 'mail':
-            case 'smtp':
-            case 'sendmail':
-                /** @var Swift_Mailer $mailer */
-                $mailer = app('mailer')->getSwiftMailer();
+        /** @var Swift_Message $message */
+        $message = $mailer->createMessage();
+        $message->setSubject($subject);
+        $message->setFrom(to_swiftmailer_emails($from));
+        $message->setTo(to_swiftmailer_emails($recipients));
+        $message->setContentType('text/html');
+        $message->setCharset('utf-8');
 
-                /** @var Swift_Message $message */
-                $message = $mailer->createMessage();
-                $message->setSubject($subject);
-                $message->setFrom(to_swiftmailer_emails($from));
-                $message->setTo(to_swiftmailer_emails($recipients));
-                $message->setContentType('text/html');
-                $message->setCharset('utf-8');
-
-                $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
-                break;
-
-            default:
-                $to = to_rfc2822_email($recipients);
-                $from = to_rfc2822_email($from);
-                $mailerHandler = new NativeMailerHandler($to, $subject, $from, $level);
-                $mailerHandler->setContentType('text/html');
-                break;
-        }
+        $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
         $mailerHandler->setFormatter(new MonologHtmlFormatter);
 
         if ($this->useEmailNotificationsDeduplication()) {

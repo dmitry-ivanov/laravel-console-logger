@@ -8,7 +8,6 @@ use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsDeduplicati
 use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsInvalidRecipientsCommand;
 use Illuminated\Console\Tests\TestCase;
 use Monolog\Handler\DeduplicationHandler;
-use Monolog\Handler\NativeMailerHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 use Swift_Message;

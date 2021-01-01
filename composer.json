@@ -17,14 +17,14 @@
         "illuminate/support": "^6.0",
         "illuminate/console": "^6.0",
         "illuminated/helper-functions": "^6.0",
-        "monolog/monolog": "^1.12|^2.0",
+        "monolog/monolog": "^1.19|^2.0",
         "psr/http-message": "^1.0",
         "psr/log": "^1.0",
         "symfony/finder": "^4.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.3",
-        "mockery/mockery": "^1.2",
+        "mockery/mockery": "^1.3.2",
         "guzzlehttp/guzzle": "^6.3",
         "orchestra/testbench": "^4.0",
         "illuminated/testing-tools": "^6.0"

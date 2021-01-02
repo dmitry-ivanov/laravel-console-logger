@@ -19,9 +19,7 @@ class LoggableTraitOnMysqlTest extends TestCase
     {
         config([
             'database.default' => 'mysql',
-            'database.connections.mysql.host' => '127.0.0.1',
             'database.connections.mysql.database' => '',
-            'database.connections.mysql.username' => 'travis',
         ]);
     }
 

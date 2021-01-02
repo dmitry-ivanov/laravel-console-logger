@@ -1,0 +1,58 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: forge
+          MYSQL_DATABASE: forge
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [7.3, 7.4, 8.0]
+        stability: [prefer-lowest, prefer-stable]
+
+    name: PHP ${{ matrix.php }} / ${{ matrix.stability }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: xdebug
+
+      - name: Setup problem matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Install dependencies
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --prefer-dist --${{ matrix.stability }} --no-interaction --no-progress --ansi
+
+      - name: Run tests
+        run: vendor/bin/phpunit --verbose --colors=always --coverage-clover ./build/logs/clover.xml
+        env:
+          DB_USERNAME: root
+          DB_PASSWORD: forge
+          DB_DATABASE: forge
+
+      - name: Code coverage
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./build/logs/clover.xml

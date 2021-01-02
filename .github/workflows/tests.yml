@@ -9,9 +9,8 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
+          MYSQL_ROOT_PASSWORD: forge
           MYSQL_DATABASE: forge
-          MYSQL_USER: forge
-          MYSQL_PASSWORD: password
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -49,9 +48,9 @@ jobs:
       - name: Run tests
         run: vendor/bin/phpunit --verbose --colors=always --coverage-clover ./build/logs/clover.xml
         env:
+          DB_USERNAME: root
+          DB_PASSWORD: forge
           DB_DATABASE: forge
-          DB_USERNAME: forge
-          DB_PASSWORD: password
 
       - name: Code coverage
         uses: codecov/codecov-action@v1

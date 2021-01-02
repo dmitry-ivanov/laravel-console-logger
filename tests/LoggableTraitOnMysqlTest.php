@@ -17,7 +17,10 @@ class LoggableTraitOnMysqlTest extends TestCase
      */
     protected function setUpDatabase()
     {
-        config(['database.default' => 'mysql']);
+        config([
+            'database.default' => 'mysql',
+            'database.connections.mysql.database' => '',
+        ]);
     }
 
     /** @test */

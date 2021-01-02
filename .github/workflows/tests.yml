@@ -49,6 +49,7 @@ jobs:
       - name: Run tests
         run: vendor/bin/phpunit --verbose --colors=always --coverage-clover ./build/logs/clover.xml
         env:
+          DB_USERNAME: root
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
       - name: Code coverage

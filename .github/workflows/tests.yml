@@ -12,9 +12,8 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: forge
           MYSQL_USER: forge
-#          MYSQL_PASSWORD: ''
-#        ports:
-#          - 33306:3306
+        ports:
+          - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     strategy:
       fail-fast: false
@@ -22,7 +21,7 @@ jobs:
         php: [7.2, 7.3, 7.4, 8.0]
         stability: [prefer-lowest, prefer-stable]
 
-    name: PHP ${{ matrix.php }} / ${{ matrix.stability }}
+    name: PHP ${{ matrix.php }} / ${{ matrix.stability }} //// (${{ job.services.mysql.ports[3306] }})
 
     steps:
       - name: Checkout code
@@ -49,6 +48,8 @@ jobs:
 
       - name: Run tests
         run: vendor/bin/phpunit --verbose --colors=always --coverage-clover ./build/logs/clover.xml
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
       - name: Code coverage
         uses: codecov/codecov-action@v1

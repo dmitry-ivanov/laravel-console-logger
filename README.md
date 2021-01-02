@@ -4,9 +4,9 @@
 
 [<img src="https://user-images.githubusercontent.com/1286821/43083932-4915853a-8ea0-11e8-8983-db9e0f04e772.png" alt="Become a Patron" width="160" />](https://patreon.com/dmitryivanov)
 
-[![StyleCI](https://styleci.io/repos/61117768/shield?branch=8.x&style=flat)](https://styleci.io/repos/61117768)
-[![Build Status](https://travis-ci.com/dmitry-ivanov/laravel-console-logger.svg?branch=8.x)](https://travis-ci.com/dmitry-ivanov/laravel-console-logger)
-[![Coverage Status](https://coveralls.io/repos/github/dmitry-ivanov/laravel-console-logger/badge.svg?branch=8.x)](https://coveralls.io/github/dmitry-ivanov/laravel-console-logger?branch=8.x)
+[![StyleCI](https://github.styleci.io/repos/61117768/shield?branch=8.x&style=flat)](https://github.styleci.io/repos/61117768?branch=8.x)
+[![Build Status](https://img.shields.io/github/workflow/status/dmitry-ivanov/laravel-console-logger/tests/8.x)](https://github.com/dmitry-ivanov/laravel-console-logger/actions?query=workflow%3Atests+branch%3A8.x)
+[![Coverage Status](https://img.shields.io/codecov/c/github/dmitry-ivanov/laravel-console-logger/8.x)](https://app.codecov.io/gh/dmitry-ivanov/laravel-console-logger/branch/8.x)
 
 [![Latest Stable Version](https://poser.pugx.org/illuminated/console-logger/v/stable)](https://packagist.org/packages/illuminated/console-logger)
 [![Latest Unstable Version](https://poser.pugx.org/illuminated/console-logger/v/unstable)](https://packagist.org/packages/illuminated/console-logger)

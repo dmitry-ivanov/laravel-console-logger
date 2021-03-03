@@ -8,10 +8,10 @@
 [![Build Status](https://img.shields.io/github/workflow/status/dmitry-ivanov/laravel-console-logger/tests/master)](https://github.com/dmitry-ivanov/laravel-console-logger/actions?query=workflow%3Atests+branch%3Amaster)
 [![Coverage Status](https://img.shields.io/codecov/c/github/dmitry-ivanov/laravel-console-logger/master)](https://app.codecov.io/gh/dmitry-ivanov/laravel-console-logger/branch/master)
 
-[![Latest Stable Version](https://poser.pugx.org/illuminated/console-logger/v/stable)](https://packagist.org/packages/illuminated/console-logger)
-[![Latest Unstable Version](https://poser.pugx.org/illuminated/console-logger/v/unstable)](https://packagist.org/packages/illuminated/console-logger)
-[![Total Downloads](https://poser.pugx.org/illuminated/console-logger/downloads)](https://packagist.org/packages/illuminated/console-logger)
-[![License](https://poser.pugx.org/illuminated/console-logger/license)](https://packagist.org/packages/illuminated/console-logger)
+![Packagist Version](https://img.shields.io/packagist/v/illuminated/console-logger)
+![Packagist Stars](https://img.shields.io/packagist/stars/illuminated/console-logger)
+![Packagist Downloads](https://img.shields.io/packagist/dt/illuminated/console-logger)
+![Packagist License](https://img.shields.io/packagist/l/illuminated/console-logger)
 
 Logging and Notifications for Laravel Console Commands.
 

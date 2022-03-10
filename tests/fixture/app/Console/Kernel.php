@@ -13,7 +13,7 @@ use Illuminated\Console\Tests\App\Console\Commands\GenericCommand;
 use Illuminated\Console\Tests\App\Console\Commands\NamespacedCommand;
 use Illuminated\Console\Tests\App\Console\Commands\SeparatorLoggingCommand;
 
-class Kernel extends \Orchestra\Testbench\Console\Kernel
+class Kernel extends \Orchestra\Testbench\Foundation\Console\Kernel
 {
     /**
      * The Artisan commands provided by your application.

@@ -8,9 +8,10 @@ use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsDeduplicati
 use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsInvalidRecipientsCommand;
 use Illuminated\Console\Tests\TestCase;
 use Monolog\Handler\DeduplicationHandler;
-use Monolog\Handler\SwiftMailerHandler;
+use Monolog\Handler\Handler;
+use Monolog\Handler\SymfonyMailerHandler;
 use Monolog\Logger;
-use Swift_Message;
+use Symfony\Component\Mime\Email;
 
 class EmailChannelTest extends TestCase
 {
@@ -19,22 +20,22 @@ class EmailChannelTest extends TestCase
     {
         /** @var EmailNotificationsInvalidRecipientsCommand $command */
         $command = $this->runArtisan(new EmailNotificationsInvalidRecipientsCommand);
-        $this->assertNotInstanceOf(SwiftMailerHandler::class, $command->emailChannelHandler());
+        $this->assertNotInstanceOf(SymfonyMailerHandler::class, $command->emailChannelHandler());
     }
 
     /** @test */
-    public function it_uses_configured_monolog_swift_mailer_handler_on_mail_driver()
+    public function it_uses_configured_monolog_symfony_mailer_handler_on_mail_driver()
     {
         config(['mail.driver' => 'mail']);
 
         /** @var EmailNotificationsCommand $command */
         $command = $this->runArtisan(new EmailNotificationsCommand);
 
-        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $command->emailChannelHandler());
+        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $command->emailChannelHandler());
     }
 
     /** @test */
-    public function it_uses_configured_monolog_swift_mailer_handler_on_smtp_driver()
+    public function it_uses_configured_monolog_symfony_mailer_handler_on_smtp_driver()
     {
         config([
             'mail.driver' => 'smtp',
@@ -45,18 +46,18 @@ class EmailChannelTest extends TestCase
         /** @var EmailNotificationsCommand $command */
         $command = $this->runArtisan(new EmailNotificationsCommand);
 
-        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $command->emailChannelHandler());
+        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $command->emailChannelHandler());
     }
 
     /** @test */
-    public function it_uses_configured_monolog_swift_mailer_handler_on_sendmail_driver()
+    public function it_uses_configured_monolog_symfony_mailer_handler_on_sendmail_driver()
     {
         config(['mail.driver' => 'sendmail']);
 
         /** @var EmailNotificationsCommand $command */
         $command = $this->runArtisan(new EmailNotificationsCommand);
 
-        $this->assertMailerHandlersEqual($this->composeSwiftMailerHandler(), $command->emailChannelHandler());
+        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $command->emailChannelHandler());
     }
 
     /** @test */
@@ -73,14 +74,11 @@ class EmailChannelTest extends TestCase
     }
 
     /**
-     * Compose "swift mailer" handler.
-     *
-     * @param string $command
-     * @return \Monolog\Handler\SwiftMailerHandler
+     * Compose "symfony mailer" handler.
      */
-    private function composeSwiftMailerHandler($command = 'email-notifications-command')
+    private function composeSymfonyMailerHandler(string $command = 'email-notifications-command'): SymfonyMailerHandler
     {
-        $handler = new SwiftMailerHandler(app('mailer')->getSwiftMailer(), $this->composeMailerHandlerMessage($command), Logger::NOTICE);
+        $handler = new SymfonyMailerHandler(app('mailer')->getSymfonyTransport(), $this->composeMailerHandlerMessage($command), Logger::NOTICE);
 
         $handler->setFormatter(new MonologHtmlFormatter);
 
@@ -89,49 +87,29 @@ class EmailChannelTest extends TestCase
 
     /**
      * Compose "deduplication" handler.
-     *
-     * @return \Monolog\Handler\DeduplicationHandler
      */
-    private function composeDeduplicationHandler()
+    private function composeDeduplicationHandler(): DeduplicationHandler
     {
         return new DeduplicationHandler(
-            $this->composeSwiftMailerHandler('email-notifications-deduplication-command'), null, Logger::NOTICE, 60
+            $this->composeSymfonyMailerHandler('email-notifications-deduplication-command'), null, Logger::NOTICE, 60
         );
     }
 
     /**
      * Compose mailer handler message.
-     *
-     * @param string $command
-     * @return \Swift_Message
      */
-    private function composeMailerHandlerMessage($command)
+    private function composeMailerHandlerMessage(string $command): Email
     {
-        /** @var Swift_Message $message */
-        $message = app('mailer')->getSwiftMailer()->createMessage();
-        $message->setSubject("[TESTING] %level_name% in `{$command}` command");
-        $message->setFrom(to_swiftmailer_emails([
-            'address' => 'no-reply@example.com',
-            'name' => 'ICLogger Notification',
-        ]));
-        $message->setTo(to_swiftmailer_emails([
-            ['address' => 'john.doe@example.com', 'name' => 'John Doe'],
-            ['address' => 'jane.smith@example.com', 'name' => 'Jane Smith'],
-        ]));
-        $message->setContentType('text/html');
-        $message->setCharset('utf-8');
-
-        return $message;
+        return (new Email())
+            ->subject("[TESTING] %level_name% in `{$command}` command")
+            ->from('ICLogger Notification <no-reply@example.com>')
+            ->to('John Doe <john.doe@example.com>', 'Jane Smith <jane.smith@example.com>');
     }
 
     /**
      * Assert mailer handlers are equal.
-     *
-     * @param mixed $handler1
-     * @param mixed $handler2
-     * @return void
      */
-    protected function assertMailerHandlersEqual($handler1, $handler2)
+    protected function assertMailerHandlersEqual(Handler $handler1, Handler $handler2): void
     {
         $handler1 = $this->normalizeMailerHandlerDump(get_dump($handler1));
         $handler2 = $this->normalizeMailerHandlerDump(get_dump($handler2));
@@ -141,13 +119,11 @@ class EmailChannelTest extends TestCase
     /**
      * Normalize the mailer handler dump.
      *
-     * @param string $dump
-     * @return string
+     * @noinspection PhpUnnecessaryLocalVariableInspection
      */
-    private function normalizeMailerHandlerDump(string $dump)
+    private function normalizeMailerHandlerDump(string $dump): string
     {
         $dump = preg_replace('/{#\d*/', '{', $dump);
-        $dump = preg_replace('/".*?@swift.generated"/', '"normalized"', $dump);
         $dump = preg_replace('/\+"date": ".*?\.\d*"/', '+date: "normalized"', $dump);
         $dump = preg_replace('/date: .*?\.\d*/', 'date: "normalized"', $dump);
         $dump = preg_replace('/-dateTime: DateTimeImmutable @\d*/', '-dateTime: DateTimeImmutable @normalized', $dump);

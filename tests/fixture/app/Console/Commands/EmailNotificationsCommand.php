@@ -42,7 +42,7 @@ class EmailNotificationsCommand extends Command
     /**
      * Create the email channel handler.
      *
-     * @return \Monolog\Handler\NativeMailerHandler|\Monolog\Handler\SwiftMailerHandler|\Monolog\Handler\DeduplicationHandler|false
+     * @return \Monolog\Handler\SymfonyMailerHandler|\Monolog\Handler\DeduplicationHandler|false
      */
     public function createEmailChannelHandler()
     {
@@ -52,7 +52,7 @@ class EmailNotificationsCommand extends Command
     /**
      * Get the email channel handler.
      *
-     * @return \Monolog\Handler\NativeMailerHandler|\Monolog\Handler\SwiftMailerHandler|\Monolog\Handler\DeduplicationHandler|false
+     * @return \Monolog\Handler\SymfonyMailerHandler|\Monolog\Handler\DeduplicationHandler|false
      */
     public function emailChannelHandler()
     {

@@ -4,10 +4,9 @@ namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
 use Illuminate\Support\Str;
 use Monolog\Handler\DeduplicationHandler;
-use Monolog\Handler\SwiftMailerHandler;
+use Monolog\Handler\SymfonyMailerHandler;
 use Monolog\Logger;
-use Swift_Mailer;
-use Swift_Message;
+use Symfony\Component\Mime\Email;
 
 trait EmailChannel
 {
@@ -24,7 +23,7 @@ trait EmailChannel
     /**
      * Get the email channel handler.
      *
-     * @return \Monolog\Handler\NativeMailerHandler|\Monolog\Handler\SwiftMailerHandler|\Monolog\Handler\DeduplicationHandler|false
+     * @return \Monolog\Handler\SymfonyMailerHandler|\Monolog\Handler\DeduplicationHandler|false
      */
     protected function getEmailChannelHandler()
     {
@@ -37,18 +36,13 @@ trait EmailChannel
         $from = $this->getEmailNotificationsFrom();
         $level = $this->getEmailNotificationsLevel();
 
-        /** @var Swift_Mailer $mailer */
-        $mailer = app('mailer')->getSwiftMailer();
+        $message = (new Email)
+            ->subject($subject)
+            ->from(...to_symfony_emails($from))
+            ->to(...to_symfony_emails($recipients));
 
-        /** @var Swift_Message $message */
-        $message = $mailer->createMessage();
-        $message->setSubject($subject);
-        $message->setFrom(to_swiftmailer_emails($from));
-        $message->setTo(to_swiftmailer_emails($recipients));
-        $message->setContentType('text/html');
-        $message->setCharset('utf-8');
-
-        $mailerHandler = new SwiftMailerHandler($mailer, $message, $level);
+        $mailer = app('mailer')->getSymfonyTransport();
+        $mailerHandler = new SymfonyMailerHandler($mailer, $message, $level);
         $mailerHandler->setFormatter(new MonologHtmlFormatter);
 
         if ($this->useEmailNotificationsDeduplication()) {

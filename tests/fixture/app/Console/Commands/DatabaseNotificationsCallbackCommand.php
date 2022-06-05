@@ -12,39 +12,32 @@ class DatabaseNotificationsCallbackCommand extends Command
 
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
     protected $signature = 'database-notifications-callback-command';
 
     /**
      * Defines whether to use database notifications or not.
-     *
-     * @return bool
      */
-    protected function useDatabaseNotifications()
+    protected function useDatabaseNotifications(): bool
     {
         return true;
     }
 
     /**
      * Get the database notifications table name.
-     *
-     * @return string
      */
-    protected function getDatabaseNotificationsTable()
+    protected function getDatabaseNotificationsTable(): string
     {
         return 'custom_notifications';
     }
 
     /**
      * Get the database notifications callback.
-     *
-     * @return callable|null
      */
-    protected function getDatabaseNotificationsCallback()
+    protected function getDatabaseNotificationsCallback(): ?callable
     {
         return function (array $record) {
+            /** @noinspection PhpUndefinedMethodInspection */
             CustomNotification::create([
                 'level' => $record['level'],
                 'level_name' => $record['level_name'],
@@ -59,10 +52,8 @@ class DatabaseNotificationsCallbackCommand extends Command
 
     /**
      * Handle the command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->logDebug('Debug!', ['foo' => 'bar']);
         $this->logInfo('Info!', ['foo' => 'bar']);

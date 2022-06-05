@@ -17,8 +17,6 @@ class Kernel extends \Orchestra\Testbench\Foundation\Console\Kernel
 {
     /**
      * The Artisan commands provided by your application.
-     *
-     * @var array
      */
     protected $commands = [
         GenericCommand::class,

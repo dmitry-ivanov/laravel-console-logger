@@ -17,22 +17,16 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * Indicates if the console output should be mocked.
-     *
-     * @var bool
      */
     public $mockConsoleOutput = false;
 
     /**
      * The date used in tests.
-     *
-     * @var string
      */
-    protected $date;
+    protected string $date;
 
     /**
      * Setup the test environment.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -46,40 +40,32 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * Set up the date used in tests.
-     *
-     * @return void
      */
-    private function setUpDate()
+    private function setUpDate(): void
     {
         $this->date = date('Y-m-d');
     }
 
     /**
      * Set up database.
-     *
-     * @return void
      */
-    protected function setUpDatabase()
+    protected function setUpDatabase(): void
     {
         config(['database.default' => 'testing']);
     }
 
     /**
      * Set up "sendmail".
-     *
-     * @return void
      */
-    protected function setUpSendmail()
+    protected function setUpSendmail(): void
     {
         config(['mail.sendmail' => '/usr/sbin/sendmail -bs']);
     }
 
     /**
      * Set up the storage.
-     *
-     * @return void
      */
-    private function setUpStorage()
+    private function setUpStorage(): void
     {
         $this->app->useStoragePath(__DIR__ . '/fixture/storage');
     }
@@ -88,9 +74,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      * Resolve application Console Kernel implementation.
      *
      * @param \Illuminate\Foundation\Application $app
-     * @return void
      */
-    protected function resolveApplicationConsoleKernel($app)
+    protected function resolveApplicationConsoleKernel($app): void
     {
         $app->singleton(KernelContract::class, Kernel::class);
 
@@ -99,8 +84,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * Clean up the testing environment before the next test.
-     *
-     * @return void
      */
     protected function tearDown(): void
     {
@@ -111,10 +94,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * Clean up the logs directory.
-     *
-     * @return void
      */
-    private function cleanLogsDirectory()
+    private function cleanLogsDirectory(): void
     {
         $objects = (new Finder)->in(storage_path('logs'))->depth(0);
         foreach ($objects as $object) {

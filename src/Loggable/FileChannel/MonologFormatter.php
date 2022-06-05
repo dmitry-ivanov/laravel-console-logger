@@ -8,8 +8,6 @@ class MonologFormatter extends LineFormatter
 {
     /**
      * Create a new instance of the formatter.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -18,9 +16,6 @@ class MonologFormatter extends LineFormatter
 
     /**
      * Formats a log record.
-     *
-     * @param array $record
-     * @return mixed
      */
     public function format(array $record): string
     {
@@ -34,11 +29,8 @@ class MonologFormatter extends LineFormatter
 
     /**
      * Convert the given data to string.
-     *
-     * @param mixed $data
-     * @return string
      */
-    protected function convertToString($data): string
+    protected function convertToString(mixed $data): string
     {
         if (is_array($data)) {
             return get_dump($data);
@@ -49,12 +41,8 @@ class MonologFormatter extends LineFormatter
 
     /**
      * Normalize the given data.
-     *
-     * @param mixed $data
-     * @param int $depth
-     * @return mixed
      */
-    protected function normalize($data, $depth = 0)
+    protected function normalize(mixed $data, int $depth = 0): mixed
     {
         if (is_iterable($data)) {
             return collect($data)->map(function ($item) {

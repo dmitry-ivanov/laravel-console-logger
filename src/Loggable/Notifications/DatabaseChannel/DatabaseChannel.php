@@ -8,10 +8,8 @@ trait DatabaseChannel
 {
     /**
      * Defines whether to use database notifications or not.
-     *
-     * @return bool
      */
-    protected function useDatabaseNotifications()
+    protected function useDatabaseNotifications(): bool
     {
         return false;
     }
@@ -19,9 +17,9 @@ trait DatabaseChannel
     /**
      * Get the database channel handler.
      *
-     * @return \Illuminated\Console\Loggable\Notifications\DatabaseChannel\MonologDatabaseHandler|false
+     * @noinspection PhpUnused
      */
-    protected function getDatabaseChannelHandler()
+    protected function getDatabaseChannelHandler(): MonologDatabaseHandler|false
     {
         if (!$this->useDatabaseNotifications()) {
             return false;
@@ -36,30 +34,24 @@ trait DatabaseChannel
 
     /**
      * Get the database notifications level.
-     *
-     * @return int
      */
-    protected function getDatabaseNotificationsLevel()
+    protected function getDatabaseNotificationsLevel(): int
     {
         return Logger::NOTICE;
     }
 
     /**
      * Get the database notifications table name.
-     *
-     * @return string
      */
-    protected function getDatabaseNotificationsTable()
+    protected function getDatabaseNotificationsTable(): string
     {
         return 'iclogger_notifications';
     }
 
     /**
      * Get the database notifications callback.
-     *
-     * @return callable|null
      */
-    protected function getDatabaseNotificationsCallback()
+    protected function getDatabaseNotificationsCallback(): ?callable
     {
         return null;
     }

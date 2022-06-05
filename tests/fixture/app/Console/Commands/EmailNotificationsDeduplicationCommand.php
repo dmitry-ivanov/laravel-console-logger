@@ -4,6 +4,8 @@ namespace Illuminated\Console\Tests\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
+use Monolog\Handler\DeduplicationHandler;
+use Monolog\Handler\SymfonyMailerHandler;
 
 class EmailNotificationsDeduplicationCommand extends Command
 {
@@ -11,17 +13,13 @@ class EmailNotificationsDeduplicationCommand extends Command
 
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
     protected $signature = 'email-notifications-deduplication-command';
 
     /**
      * Get the email notifications recipients.
-     *
-     * @return array
      */
-    protected function getEmailNotificationsRecipients()
+    protected function getEmailNotificationsRecipients(): array
     {
         return [
             ['address' => 'john.doe@example.com', 'name' => 'John Doe'],
@@ -31,30 +29,24 @@ class EmailNotificationsDeduplicationCommand extends Command
 
     /**
      * Defines whether to use email notifications deduplication or not.
-     *
-     * @return bool
      */
-    protected function useEmailNotificationsDeduplication()
+    protected function useEmailNotificationsDeduplication(): bool
     {
         return true;
     }
 
     /**
      * Handle the command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->logInfo('Done!');
     }
 
     /**
      * Get the email channel handler.
-     *
-     * @return \Monolog\Handler\SymfonyMailerHandler|\Monolog\Handler\DeduplicationHandler|false
      */
-    public function emailChannelHandler()
+    public function emailChannelHandler(): SymfonyMailerHandler|DeduplicationHandler|false
     {
         return last($this->icLogger()->getHandlers());
     }

@@ -9,8 +9,6 @@ class MonologHtmlFormatter extends HtmlFormatter
 {
     /**
      * Create a new instance of the formatter.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -19,15 +17,13 @@ class MonologHtmlFormatter extends HtmlFormatter
 
     /**
      * Formats a log record.
-     *
-     * @param array $record
-     * @return string
      */
     public function format(array $record): string
     {
         $output = '<!DOCTYPE html>';
         $output .= '<html lang="en">';
 
+        /** @noinspection HtmlRequiredTitleElement */
         $output .= '<head>';
         $output .= '<meta charset="utf-8">';
         $output .= $this->composeStyle($record);
@@ -45,22 +41,16 @@ class MonologHtmlFormatter extends HtmlFormatter
 
     /**
      * Get color for the given level.
-     *
-     * @param int $level
-     * @return string
      */
-    public function getLevelColor(int $level)
+    public function getLevelColor(int $level): string
     {
         return $this->logLevels[$level];
     }
 
     /**
      * Compose style for the given record.
-     *
-     * @param array $record
-     * @return string
      */
-    protected function composeStyle(array $record)
+    protected function composeStyle(array $record): string
     {
         $level = $record['level'];
         $levelName = $record['level_name'];
@@ -100,11 +90,8 @@ class MonologHtmlFormatter extends HtmlFormatter
 
     /**
      * Compose title for the given record.
-     *
-     * @param array $record
-     * @return string
      */
-    protected function composeTitle(array $record)
+    protected function composeTitle(array $record): string
     {
         $levelName = e($record['level_name']);
         $title = "<h2 class='title {$levelName}'>{$levelName}</h2>";
@@ -123,11 +110,8 @@ class MonologHtmlFormatter extends HtmlFormatter
 
     /**
      * Compose details for the given record.
-     *
-     * @param array $record
-     * @return string
      */
-    protected function composeDetails(array $record)
+    protected function composeDetails(array $record): string
     {
         $details = '<table cellspacing="1" width="100%">';
 
@@ -145,12 +129,8 @@ class MonologHtmlFormatter extends HtmlFormatter
 
     /**
      * Compose the details row.
-     *
-     * @param string $header
-     * @param string $body
-     * @return string
      */
-    protected function composeDetailsRow(string $header, string $body = ' ')
+    protected function composeDetailsRow(string $header, string $body = ' '): string
     {
         $header = e($header);
         $body = e($body);
@@ -168,11 +148,8 @@ class MonologHtmlFormatter extends HtmlFormatter
 
     /**
      * Convert the given data to string.
-     *
-     * @param mixed $data
-     * @return string
      */
-    protected function convertToString($data): string
+    protected function convertToString(mixed $data): string
     {
         if (is_array($data)) {
             return get_dump($data);

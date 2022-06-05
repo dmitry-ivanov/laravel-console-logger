@@ -3,48 +3,32 @@
 namespace Illuminated\Console\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler;
-use Psr\Log\LoggerInterface;
+use Monolog\Logger;
 use Throwable;
 
 class ExceptionHandler extends Handler
 {
     /**
      * The logger instance.
-     *
-     * @var \Psr\Log\LoggerInterface
      */
-    private $logger;
+    private Logger $logger;
 
     /**
      * Time when execution started.
-     *
-     * @var float
      */
-    private $timeStarted;
-
-    /**
-     * Time when execution finished.
-     *
-     * @var float
-     */
-    private $timeFinished;
+    private float $timeStarted;
 
     /**
      * Reserved memory for the shutdown execution.
      *
      * @see https://github.com/dmitry-ivanov/laravel-console-logger/issues/4
-     *
-     * @var string
      */
-    protected $reservedMemory;
+    protected ?string $reservedMemory;
 
     /**
      * Initialize the exception handler.
-     *
-     * @param \Psr\Log\LoggerInterface $logger
-     * @return void
      */
-    public function initialize(LoggerInterface $logger)
+    public function initialize(Logger $logger): void
     {
         $this->setLogger($logger);
         $this->registerShutdownFunction();
@@ -52,11 +36,8 @@ class ExceptionHandler extends Handler
 
     /**
      * Set the logger.
-     *
-     * @param \Psr\Log\LoggerInterface $logger
-     * @return void
      */
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(Logger $logger): void
     {
         $this->logger = $logger;
     }
@@ -66,11 +47,8 @@ class ExceptionHandler extends Handler
      *
      * Note that this method doesn't decorate, but overwrite the parent method:
      * @see https://github.com/dmitry-ivanov/laravel-console-logger/pull/11
-     *
-     * @param \Throwable $e
-     * @return void
      */
-    public function report(Throwable $e)
+    public function report(Throwable $e): void
     {
         $context = [
             'code' => $e->getCode(),
@@ -93,11 +71,8 @@ class ExceptionHandler extends Handler
 
     /**
      * Add Sentry support.
-     *
-     * @param \Throwable $e
-     * @return void
      */
-    private function addSentrySupport(Throwable $e)
+    private function addSentrySupport(Throwable $e): void
     {
         if (app()->bound('sentry') && $this->shouldReport($e)) {
             app('sentry')->captureException($e);
@@ -106,10 +81,8 @@ class ExceptionHandler extends Handler
 
     /**
      * Register the shutdown function.
-     *
-     * @return void
      */
-    private function registerShutdownFunction()
+    private function registerShutdownFunction(): void
     {
         $this->timeStarted = microtime(true);
         $this->reservedMemory = str_repeat(' ', 20 * 1024);
@@ -119,15 +92,13 @@ class ExceptionHandler extends Handler
 
     /**
      * Callback for the shutdown function.
-     *
-     * @return void
      */
-    public function onShutdown()
+    public function onShutdown(): void
     {
         $this->reservedMemory = null;
 
-        $this->timeFinished = microtime(true);
-        $executionTime = round($this->timeFinished - $this->timeStarted, 3);
+        $timeFinished = microtime(true);
+        $executionTime = round($timeFinished - $this->timeStarted, 3);
         $this->logger->info("Execution time: {$executionTime} sec.");
 
         $memoryPeak = format_bytes(memory_get_peak_usage(true));
@@ -135,7 +106,7 @@ class ExceptionHandler extends Handler
 
         $this->logger->info('%separator%');
 
-        $handlers = (array) $this->logger->getHandlers();
+        $handlers = $this->logger->getHandlers();
         foreach ($handlers as $handler) {
             $handler->close();
         }

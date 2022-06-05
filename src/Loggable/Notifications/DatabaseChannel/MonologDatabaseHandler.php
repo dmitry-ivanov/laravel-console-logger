@@ -13,26 +13,16 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
 {
     /**
      * The table name.
-     *
-     * @var string
      */
-    private $table;
+    private string $table;
 
     /**
      * The callback.
-     *
-     * @var callable
      */
     private $callback;
 
     /**
      * Create a new instance of the handler.
-     *
-     * @param string $table
-     * @param callable|null $callback
-     * @param int $level
-     * @param bool $bubble
-     * @return void
      */
     public function __construct(string $table = 'iclogger_notifications', callable $callback = null, int $level = Logger::DEBUG, bool $bubble = true)
     {
@@ -46,10 +36,8 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
 
     /**
      * Guarantee that the database table for notifications exists.
-     *
-     * @return void
      */
-    protected function guaranteeTableExists()
+    protected function guaranteeTableExists(): void
     {
         if (Schema::hasTable($this->table)) {
             return;
@@ -68,9 +56,6 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
 
     /**
      * Write the record down to the database.
-     *
-     * @param array $record
-     * @return void
      */
     protected function write(array $record): void
     {

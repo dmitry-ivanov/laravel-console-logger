@@ -52,12 +52,8 @@ class FileChannelTest extends TestCase
 
     /**
      * Create log files in the given path.
-     *
-     * @param string $path
-     * @param int $count
-     * @return void
      */
-    private function createLogFiles(string $path, int $count)
+    private function createLogFiles(string $path, int $count): void
     {
         if (!File::isDirectory($path)) {
             File::makeDirectory($path);

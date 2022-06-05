@@ -105,13 +105,8 @@ class MonologHtmlFormatterTest extends TestCase
 
     /**
      * Generate the record.
-     *
-     * @param string $message
-     * @param int $level
-     * @param array|string $context
-     * @return array
      */
-    protected function generateRecord(string $message, int $level, $context = [])
+    protected function generateRecord(string $message, int $level, array|string $context = []): array
     {
         return [
             'message' => $message,
@@ -126,11 +121,8 @@ class MonologHtmlFormatterTest extends TestCase
 
     /**
      * Assert that formatter generates expected output.
-     *
-     * @param array $record
-     * @return void
      */
-    protected function assertFormatterGeneratesExpectedOutput(array $record)
+    protected function assertFormatterGeneratesExpectedOutput(array $record): void
     {
         $expected = $this->composeExpectedOutput($record);
         $actual = (new MonologHtmlFormatter)->format($record);
@@ -144,22 +136,16 @@ class MonologHtmlFormatterTest extends TestCase
 
     /**
      * Normalize the given output.
-     *
-     * @param string $output
-     * @return string
      */
-    private function normalizeOutput(string $output)
+    private function normalizeOutput(string $output): string
     {
-        return preg_replace('!\s+!smi', '', $output);
+        return preg_replace('/\s+/m', '', $output);
     }
 
     /**
      * Compose expected output by the given record.
-     *
-     * @param array $record
-     * @return string
      */
-    private function composeExpectedOutput(array $record)
+    private function composeExpectedOutput(array $record): string
     {
         $color = (new MonologHtmlFormatter)->getLevelColor($record['level']);
 
@@ -183,6 +169,7 @@ class MonologHtmlFormatterTest extends TestCase
             </tr>";
         }
 
+        /** @noinspection HtmlRequiredTitleElement */
         return "<!DOCTYPE html>
             <html lang=\"en\">
                 <head>

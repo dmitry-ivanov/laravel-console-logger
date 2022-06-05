@@ -9,9 +9,9 @@ trait FileChannel
     /**
      * Get the file channel handler.
      *
-     * @return \Monolog\Handler\RotatingFileHandler
+     * @noinspection PhpUnused
      */
-    protected function getFileChannelHandler()
+    protected function getFileChannelHandler(): RotatingFileHandler
     {
         $handler = new RotatingFileHandler($this->getLogPath(), $this->getLogMaxFiles());
 
@@ -23,10 +23,8 @@ trait FileChannel
 
     /**
      * Get the log file path.
-     *
-     * @return string
      */
-    protected function getLogPath()
+    protected function getLogPath(): string
     {
         $name = str_replace(':', '/', $this->getName());
 
@@ -35,10 +33,8 @@ trait FileChannel
 
     /**
      * Get the max number of stored log files.
-     *
-     * @return int
      */
-    protected function getLogMaxFiles()
+    protected function getLogMaxFiles(): int
     {
         return 30;
     }

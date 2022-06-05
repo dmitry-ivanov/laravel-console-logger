@@ -11,17 +11,13 @@ class NamespacedCommand extends Command
 
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
     protected $signature = 'namespaced:command';
 
     /**
      * Handle the command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->logInfo('Done!');
     }

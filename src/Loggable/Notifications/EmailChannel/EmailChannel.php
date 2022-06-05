@@ -12,20 +12,16 @@ trait EmailChannel
 {
     /**
      * Defines whether to use email notifications or not.
-     *
-     * @return bool
      */
-    protected function useEmailNotifications()
+    protected function useEmailNotifications(): bool
     {
         return true;
     }
 
     /**
      * Get the email channel handler.
-     *
-     * @return \Monolog\Handler\SymfonyMailerHandler|\Monolog\Handler\DeduplicationHandler|false
      */
-    protected function getEmailChannelHandler()
+    protected function getEmailChannelHandler(): SymfonyMailerHandler|DeduplicationHandler|false
     {
         $recipients = $this->filterEmailNotificationsRecipients();
         if (!$this->useEmailNotifications() || empty($recipients)) {
@@ -55,20 +51,16 @@ trait EmailChannel
 
     /**
      * Get the email notifications level.
-     *
-     * @return int
      */
-    protected function getEmailNotificationsLevel()
+    protected function getEmailNotificationsLevel(): int
     {
         return Logger::NOTICE;
     }
 
     /**
      * Get the email notifications recipients.
-     *
-     * @return array
      */
-    protected function getEmailNotificationsRecipients()
+    protected function getEmailNotificationsRecipients(): array
     {
         return [
             ['address' => null, 'name' => null],
@@ -77,10 +69,8 @@ trait EmailChannel
 
     /**
      * Get the email notifications subject.
-     *
-     * @return string
      */
-    protected function getEmailNotificationsSubject()
+    protected function getEmailNotificationsSubject(): string
     {
         $env = Str::upper(app()->environment());
         $name = $this->getName();
@@ -90,40 +80,32 @@ trait EmailChannel
 
     /**
      * Get the email notifications "from".
-     *
-     * @return array
      */
-    protected function getEmailNotificationsFrom()
+    protected function getEmailNotificationsFrom(): array
     {
         return ['address' => 'no-reply@example.com', 'name' => 'ICLogger Notification'];
     }
 
     /**
      * Defines whether to use email notifications deduplication or not.
-     *
-     * @return bool
      */
-    protected function useEmailNotificationsDeduplication()
+    protected function useEmailNotificationsDeduplication(): bool
     {
         return false;
     }
 
     /**
      * Get email notifications deduplication time in seconds.
-     *
-     * @return int
      */
-    protected function getEmailNotificationsDeduplicationTime()
+    protected function getEmailNotificationsDeduplicationTime(): int
     {
         return 60;
     }
 
     /**
      * Filter email notifications recipients.
-     *
-     * @return array
      */
-    private function filterEmailNotificationsRecipients()
+    private function filterEmailNotificationsRecipients(): array
     {
         return collect($this->getEmailNotificationsRecipients())
             ->filter(function (array $recipient) {

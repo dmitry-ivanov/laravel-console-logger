@@ -11,27 +11,21 @@ class DatabaseNotificationsDisabledCommand extends Command
 
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
     protected $signature = 'database-notifications-disabled-command';
 
     /**
      * Defines whether to use database notifications or not.
-     *
-     * @return bool
      */
-    protected function useDatabaseNotifications()
+    protected function useDatabaseNotifications(): bool
     {
         return false;
     }
 
     /**
      * Handle the command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->logDebug('Debug!', ['foo' => 'bar']);
         $this->logInfo('Info!', ['foo' => 'bar']);

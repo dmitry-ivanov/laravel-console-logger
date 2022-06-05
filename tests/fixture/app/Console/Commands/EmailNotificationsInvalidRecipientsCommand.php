@@ -4,6 +4,7 @@ namespace Illuminated\Console\Tests\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
+use Monolog\Handler\AbstractHandler;
 
 class EmailNotificationsInvalidRecipientsCommand extends Command
 {
@@ -11,17 +12,13 @@ class EmailNotificationsInvalidRecipientsCommand extends Command
 
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
     protected $signature = 'email-notifications-invalid-recipients-command';
 
     /**
      * Get the email notifications recipients.
-     *
-     * @return array
      */
-    protected function getEmailNotificationsRecipients()
+    protected function getEmailNotificationsRecipients(): array
     {
         return [
             ['address' => 'not_an_email', 'name' => 'John Doe'],
@@ -33,20 +30,16 @@ class EmailNotificationsInvalidRecipientsCommand extends Command
 
     /**
      * Handle the command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->logInfo('Done!');
     }
 
     /**
      * Get the email channel handler.
-     *
-     * @return \Monolog\Handler\SymfonyMailerHandler|\Monolog\Handler\DeduplicationHandler|false
      */
-    public function emailChannelHandler()
+    public function emailChannelHandler(): AbstractHandler|false
     {
         return last($this->icLogger()->getHandlers());
     }

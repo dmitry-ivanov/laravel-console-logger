@@ -7,6 +7,7 @@ use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsCommand;
 use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsDeduplicationCommand;
 use Illuminated\Console\Tests\App\Console\Commands\EmailNotificationsInvalidRecipientsCommand;
 use Illuminated\Console\Tests\TestCase;
+use Monolog\Handler\AbstractHandler;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\Handler;
 use Monolog\Handler\SymfonyMailerHandler;
@@ -18,9 +19,8 @@ class EmailChannelTest extends TestCase
     /** @test */
     public function it_validates_and_filters_notification_recipients()
     {
-        /** @var EmailNotificationsInvalidRecipientsCommand $command */
-        $command = $this->runArtisan(new EmailNotificationsInvalidRecipientsCommand);
-        $this->assertNotInstanceOf(SymfonyMailerHandler::class, $command->emailChannelHandler());
+        $this->artisan(EmailNotificationsInvalidRecipientsCommand::class);
+        $this->assertNotInstanceOf(SymfonyMailerHandler::class, $this->emailChannelHandler());
     }
 
     /** @test */
@@ -28,10 +28,9 @@ class EmailChannelTest extends TestCase
     {
         config(['mail.driver' => 'mail']);
 
-        /** @var EmailNotificationsCommand $command */
-        $command = $this->runArtisan(new EmailNotificationsCommand);
+        $this->artisan(EmailNotificationsCommand::class);
 
-        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $command->emailChannelHandler());
+        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $this->emailChannelHandler());
     }
 
     /** @test */
@@ -43,10 +42,9 @@ class EmailChannelTest extends TestCase
             'mail.port' => 123,
         ]);
 
-        /** @var EmailNotificationsCommand $command */
-        $command = $this->runArtisan(new EmailNotificationsCommand);
+        $this->artisan(EmailNotificationsCommand::class);
 
-        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $command->emailChannelHandler());
+        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $this->emailChannelHandler());
     }
 
     /** @test */
@@ -54,10 +52,9 @@ class EmailChannelTest extends TestCase
     {
         config(['mail.driver' => 'sendmail']);
 
-        /** @var EmailNotificationsCommand $command */
-        $command = $this->runArtisan(new EmailNotificationsCommand);
+        $this->artisan(EmailNotificationsCommand::class);
 
-        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $command->emailChannelHandler());
+        $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $this->emailChannelHandler());
     }
 
     /** @test */
@@ -65,12 +62,21 @@ class EmailChannelTest extends TestCase
     {
         config(['mail.driver' => 'sendmail']);
 
-        /** @var EmailNotificationsDeduplicationCommand $command */
-        $command = $this->runArtisan(new EmailNotificationsDeduplicationCommand);
-        $handler = $command->emailChannelHandler();
+        $this->artisan(EmailNotificationsDeduplicationCommand::class);
+
+        /** @var DeduplicationHandler $handler */
+        $handler = $this->emailChannelHandler();
         $handler->flush();
 
         $this->assertMailerHandlersEqual($this->composeDeduplicationHandler(), $handler);
+    }
+
+    /**
+     * Get the email channel handler.
+     */
+    private function emailChannelHandler(): AbstractHandler|false
+    {
+        return last(app('log.iclogger')->getHandlers());
     }
 
     /**

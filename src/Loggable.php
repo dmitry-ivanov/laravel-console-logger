@@ -185,6 +185,8 @@ trait Loggable
 
     /**
      * Get the logger.
+     *
+     * @noinspection PhpUnused
      */
     protected function icLogger(): Logger
     {

@@ -4,7 +4,6 @@ namespace Illuminated\Console\Tests\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
-use Monolog\Handler\AbstractHandler;
 
 class EmailNotificationsInvalidRecipientsCommand extends Command
 {
@@ -34,13 +33,5 @@ class EmailNotificationsInvalidRecipientsCommand extends Command
     public function handle(): void
     {
         $this->logInfo('Done!');
-    }
-
-    /**
-     * Get the email channel handler.
-     */
-    public function emailChannelHandler(): AbstractHandler|false
-    {
-        return last($this->icLogger()->getHandlers());
     }
 }

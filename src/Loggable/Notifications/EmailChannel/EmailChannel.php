@@ -20,6 +20,8 @@ trait EmailChannel
 
     /**
      * Get the email channel handler.
+     *
+     * @noinspection PhpUnused
      */
     protected function getEmailChannelHandler(): SymfonyMailerHandler|DeduplicationHandler|false
     {

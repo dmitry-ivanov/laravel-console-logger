@@ -4,7 +4,6 @@ namespace Illuminated\Console\Tests\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
-use Monolog\Handler\NullHandler;
 
 class GenericCommand extends Command
 {
@@ -28,14 +27,5 @@ class GenericCommand extends Command
         $this->logCritical('Critical!');
         $this->logAlert('Alert!');
         $this->logEmergency('Emergency!');
-    }
-
-    /**
-     * Emulate the closing of the file handler.
-     */
-    public function emulateFileHandlerClose(): void
-    {
-        $this->icLogger()->popHandler()->close();
-        $this->icLogger()->pushHandler(new NullHandler);
     }
 }

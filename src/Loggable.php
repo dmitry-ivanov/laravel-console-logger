@@ -128,7 +128,7 @@ trait Loggable
         app()->singleton(ExceptionHandlerContract::class, ExceptionHandler::class);
 
         /** @noinspection PhpPossiblePolymorphicInvocationInspection */
-        app(ExceptionHandlerContract::class)->initialize($this->icLogger);
+        app(ExceptionHandlerContract::class)->initialize($this->icLogger());
     }
 
     /**

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminated\Console\Tests\App\Console\Commands\GenericCommand;
 use Illuminated\Console\Tests\TestCase;
+use Monolog\Handler\NullHandler;
 
 class FileChannelTest extends TestCase
 {
@@ -32,9 +33,8 @@ class FileChannelTest extends TestCase
         $this->createLogFiles($path, 45);
         $this->assertFilesCount($path, 45);
 
-        /** @var GenericCommand $command */
-        $command = $this->runArtisan(new GenericCommand);
-        $command->emulateFileHandlerClose();
+        $this->artisan(GenericCommand::class);
+        $this->emulateFileHandlerClose();
 
         $this->assertFilesCount($path, 30);
     }
@@ -64,5 +64,15 @@ class FileChannelTest extends TestCase
             File::put("{$path}/{$date->toDateString()}.log", 'foo');
             $date->addDay();
         }
+    }
+
+    /**
+     * Emulate the closing of the file handler.
+     */
+    private function emulateFileHandlerClose(): void
+    {
+        $logger = app('log.iclogger');
+        $logger->popHandler()->close();
+        $logger->pushHandler(new NullHandler);
     }
 }

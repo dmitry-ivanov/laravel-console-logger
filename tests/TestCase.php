@@ -16,11 +16,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     use TestingTools;
 
     /**
-     * Indicates if the console output should be mocked.
-     */
-    public $mockConsoleOutput = false;
-
-    /**
      * The date used in tests.
      */
     protected string $date;

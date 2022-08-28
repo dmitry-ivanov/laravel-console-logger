@@ -4,8 +4,6 @@ namespace Illuminated\Console\Tests\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminated\Console\Loggable;
-use Monolog\Handler\DeduplicationHandler;
-use Monolog\Handler\SymfonyMailerHandler;
 
 class EmailNotificationsDeduplicationCommand extends Command
 {
@@ -41,13 +39,5 @@ class EmailNotificationsDeduplicationCommand extends Command
     public function handle(): void
     {
         $this->logInfo('Done!');
-    }
-
-    /**
-     * Get the email channel handler.
-     */
-    public function emailChannelHandler(): SymfonyMailerHandler|DeduplicationHandler|false
-    {
-        return last($this->icLogger()->getHandlers());
     }
 }

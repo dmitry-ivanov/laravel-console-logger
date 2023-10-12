@@ -17,6 +17,8 @@ class LoggableTraitOnMysqlTest extends TestCase
     {
         config([
             'database.default' => 'mysql',
+            'database.connections.mysql.username' => 'root',
+            'database.connections.mysql.password' => 'root',
             'database.connections.mysql.database' => '',
         ]);
     }

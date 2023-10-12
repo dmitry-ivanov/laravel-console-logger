@@ -9,7 +9,7 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: forge
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: forge
         ports:
           - 3306:3306
@@ -50,7 +50,7 @@ jobs:
         run: vendor/bin/phpunit --verbose --colors=always --coverage-clover ./build/logs/clover.xml
         env:
           DB_USERNAME: root
-          DB_PASSWORD: forge
+          DB_PASSWORD: root
           DB_DATABASE: forge
 
       - name: Code coverage

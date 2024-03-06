@@ -11,7 +11,7 @@ use Monolog\Handler\AbstractHandler;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\Handler;
 use Monolog\Handler\SymfonyMailerHandler;
-use Monolog\Logger;
+use Monolog\Level;
 use Symfony\Component\Mime\Email;
 
 class EmailChannelTest extends TestCase
@@ -84,7 +84,7 @@ class EmailChannelTest extends TestCase
      */
     private function composeSymfonyMailerHandler(string $command = 'email-notifications-command'): SymfonyMailerHandler
     {
-        $handler = new SymfonyMailerHandler(app('mailer')->getSymfonyTransport(), $this->composeMailerHandlerMessage($command), Logger::NOTICE);
+        $handler = new SymfonyMailerHandler(app('mailer')->getSymfonyTransport(), $this->composeMailerHandlerMessage($command), Level::Notice);
 
         $handler->setFormatter(new MonologHtmlFormatter);
 
@@ -97,7 +97,7 @@ class EmailChannelTest extends TestCase
     private function composeDeduplicationHandler(): DeduplicationHandler
     {
         return new DeduplicationHandler(
-            $this->composeSymfonyMailerHandler('email-notifications-deduplication-command'), null, Logger::NOTICE, 60
+            $this->composeSymfonyMailerHandler('email-notifications-deduplication-command'), null, Level::Notice, 60
         );
     }
 

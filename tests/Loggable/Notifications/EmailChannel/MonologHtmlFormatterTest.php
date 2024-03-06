@@ -2,17 +2,18 @@
 
 namespace Illuminated\Console\Tests\Loggable\Notifications\EmailChannel;
 
-use DateTime;
+use DateTimeImmutable;
 use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter;
 use Illuminated\Console\Tests\TestCase;
-use Monolog\Logger;
+use Monolog\Level;
+use Monolog\LogRecord;
 
 class MonologHtmlFormatterTest extends TestCase
 {
     /** @test */
     public function it_properly_formats_debug_records()
     {
-        $record = $this->generateRecord('Debug!', Logger::DEBUG);
+        $record = $this->generateRecord('Debug!', Level::Debug);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -20,7 +21,7 @@ class MonologHtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_info_records()
     {
-        $record = $this->generateRecord('Info!', Logger::INFO);
+        $record = $this->generateRecord('Info!', Level::Info);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -28,7 +29,7 @@ class MonologHtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_notice_records()
     {
-        $record = $this->generateRecord('Notice!', Logger::NOTICE);
+        $record = $this->generateRecord('Notice!', Level::Notice);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -36,7 +37,7 @@ class MonologHtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_warning_records()
     {
-        $record = $this->generateRecord('Warning!', Logger::WARNING);
+        $record = $this->generateRecord('Warning!', Level::Warning);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -44,7 +45,7 @@ class MonologHtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_error_records()
     {
-        $record = $this->generateRecord('Error!', Logger::ERROR);
+        $record = $this->generateRecord('Error!', Level::Error);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -52,7 +53,7 @@ class MonologHtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_critical_records()
     {
-        $record = $this->generateRecord('Critical!', Logger::CRITICAL);
+        $record = $this->generateRecord('Critical!', Level::Critical);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -60,7 +61,7 @@ class MonologHtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_alert_records()
     {
-        $record = $this->generateRecord('Alert!', Logger::ALERT);
+        $record = $this->generateRecord('Alert!', Level::Alert);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -68,7 +69,7 @@ class MonologHtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_emergency_records()
     {
-        $record = $this->generateRecord('Emergency!', Logger::EMERGENCY);
+        $record = $this->generateRecord('Emergency!', Level::Emergency);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -76,7 +77,7 @@ class MonologHtmlFormatterTest extends TestCase
     /** @test */
     public function it_properly_formats_records_with_array_context()
     {
-        $record = $this->generateRecord('Record with array context!', Logger::WARNING, [
+        $record = $this->generateRecord('Record with array context!', Level::Warning, [
             'foo' => 'bar',
             'baz' => 123,
             'faz' => true,
@@ -87,18 +88,10 @@ class MonologHtmlFormatterTest extends TestCase
     }
 
     /** @test */
-    public function it_properly_formats_records_with_non_array_context()
-    {
-        $record = $this->generateRecord('Record with non array context!', Logger::WARNING, 'Non array context');
-
-        $this->assertFormatterGeneratesExpectedOutput($record);
-    }
-
-    /** @test */
     public function it_has_no_environment_subtitle_for_production()
     {
         $this->emulateProduction();
-        $record = $this->generateRecord('Notice!', Logger::NOTICE);
+        $record = $this->generateRecord('Notice!', Level::Notice);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
@@ -106,23 +99,15 @@ class MonologHtmlFormatterTest extends TestCase
     /**
      * Generate the record.
      */
-    protected function generateRecord(string $message, int $level, array|string $context = []): array
+    protected function generateRecord(string $message, Level $level, array $context = []): LogRecord
     {
-        return [
-            'message' => $message,
-            'context' => $context,
-            'level' => $level,
-            'level_name' => Logger::getLevelName($level),
-            'channel' => 'ICLogger',
-            'datetime' => new DateTime('2016-11-11 11:12:13'),
-            'extra' => [],
-        ];
+        return new LogRecord(new DateTimeImmutable('2016-11-11 11:12:13'), 'ICLogger', $level, $message, $context, []);
     }
 
     /**
      * Assert that formatter generates expected output.
      */
-    protected function assertFormatterGeneratesExpectedOutput(array $record): void
+    protected function assertFormatterGeneratesExpectedOutput(LogRecord $record): void
     {
         $expected = $this->composeExpectedOutput($record);
         $actual = (new MonologHtmlFormatter)->format($record);
@@ -145,20 +130,21 @@ class MonologHtmlFormatterTest extends TestCase
     /**
      * Compose expected output by the given record.
      */
-    private function composeExpectedOutput(array $record): string
+    private function composeExpectedOutput(LogRecord $record): string
     {
-        $color = (new MonologHtmlFormatter)->getLevelColor($record['level']);
+        $levelName = $record->level->getName();
+        $color = (new MonologHtmlFormatter)->getLevelColor($record->level);
 
         $subtitle =
             "<style>.title { padding-bottom: 0 !important; } .subtitle { padding-top: 0 !important; }</style>
-            <h3 class='subtitle {$record['level_name']}'>This notification has been sent from the `TESTING` environment!</h3>";
+            <h3 class='subtitle {$levelName}'>This notification has been sent from the `TESTING` environment!</h3>";
         if ($this->app->environment('production')) {
             $subtitle = '';
         }
 
         $context = '';
-        if (!empty($record['context'])) {
-            $dump = is_array($record['context']) ? get_dump($record['context']) : $record['context'];
+        if (!empty($record->context)) {
+            $dump = get_dump($record->context);
             $dump = e($dump);
             $dump = str_replace(' ', '&nbsp;', $dump);
             $dump = nl2br($dump);
@@ -185,7 +171,7 @@ class MonologHtmlFormatterTest extends TestCase
                             margin: 0;
                             padding: 15px;
                         }
-                        .title.{$record['level_name']}, .subtitle.{$record['level_name']} {
+                        .title.{$levelName}, .subtitle.{$levelName} {
                             background: {$color};
                         }
                         .details-row {
@@ -206,17 +192,17 @@ class MonologHtmlFormatterTest extends TestCase
                     </style>
                 </head>
                 <body>
-                    <h2 class='title {$record['level_name']}'>{$record['level_name']}</h2>
+                    <h2 class='title {$levelName}'>{$levelName}</h2>
                     {$subtitle}
                     <table cellspacing=\"1\" width=\"100%\">
                         <tr class='details-row'>
                             <th class='details-row-header'>Message:</th>
-                            <td class='details-row-body'>{$record['message']}</td>
+                            <td class='details-row-body'>{$record->message}</td>
                         </tr>
                         {$context}
                         <tr class='details-row'>
                             <th class='details-row-header'>Time:</th>
-                            <td class='details-row-body'>{$record['datetime']->format('Y-m-d H:i:s')}</td>
+                            <td class='details-row-body'>{$record->datetime->format('Y-m-d H:i:s')}</td>
                         </tr>
                     </table>
                 </body>

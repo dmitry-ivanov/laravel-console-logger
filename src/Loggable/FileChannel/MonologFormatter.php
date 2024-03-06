@@ -3,6 +3,7 @@
 namespace Illuminated\Console\Loggable\FileChannel;
 
 use Monolog\Formatter\LineFormatter;
+use Monolog\LogRecord;
 
 class MonologFormatter extends LineFormatter
 {
@@ -17,9 +18,9 @@ class MonologFormatter extends LineFormatter
     /**
      * Formats a log record.
      */
-    public function format(array $record): string
+    public function format(LogRecord $record): string
     {
-        if ($record['message'] == '%separator%') {
+        if ($record->message == '%separator%') {
             return str_repeat("\n", 11);
         }
 

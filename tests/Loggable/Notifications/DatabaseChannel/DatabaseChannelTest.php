@@ -5,7 +5,7 @@ namespace Illuminated\Console\Tests\Loggable\Notifications\DatabaseChannel;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminated\Console\Tests\TestCase;
-use Monolog\Logger;
+use Monolog\Level;
 
 class DatabaseChannelTest extends TestCase
 {
@@ -23,38 +23,38 @@ class DatabaseChannelTest extends TestCase
         $this->artisan('database-notifications-command');
 
         $this->assertDatabaseMissingMany('iclogger_notifications', [
-            ['level' => Logger::DEBUG],
-            ['level' => Logger::INFO],
+            ['level' => Level::Debug],
+            ['level' => Level::Info],
         ]);
         $this->assertDatabaseHasMany('iclogger_notifications', [
             [
-                'level' => Logger::NOTICE,
-                'level_name' => Logger::getLevelName(Logger::NOTICE),
+                'level' => Level::Notice,
+                'level_name' => Level::Notice->getName(),
                 'message' => 'Notice!',
                 'context' => get_dump(['foo' => 'bar']),
             ], [
-                'level' => Logger::WARNING,
-                'level_name' => Logger::getLevelName(Logger::WARNING),
+                'level' => Level::Warning,
+                'level_name' => Level::Warning->getName(),
                 'message' => 'Warning!',
                 'context' => get_dump(['foo' => 'bar']),
             ], [
-                'level' => Logger::ERROR,
-                'level_name' => Logger::getLevelName(Logger::ERROR),
+                'level' => Level::Error,
+                'level_name' => Level::Error->getName(),
                 'message' => 'Error!',
                 'context' => get_dump(['foo' => 'bar']),
             ], [
-                'level' => Logger::CRITICAL,
-                'level_name' => Logger::getLevelName(Logger::CRITICAL),
+                'level' => Level::Critical,
+                'level_name' => Level::Critical->getName(),
                 'message' => 'Critical!',
                 'context' => get_dump(['foo' => 'bar']),
             ], [
-                'level' => Logger::ALERT,
-                'level_name' => Logger::getLevelName(Logger::ALERT),
+                'level' => Level::Alert,
+                'level_name' => Level::Alert->getName(),
                 'message' => 'Alert!',
                 'context' => get_dump(['foo' => 'bar']),
             ], [
-                'level' => Logger::EMERGENCY,
-                'level_name' => Logger::getLevelName(Logger::EMERGENCY),
+                'level' => Level::Emergency,
+                'level_name' => Level::Emergency->getName(),
                 'message' => 'Emergency!',
                 'context' => get_dump(['foo' => 'bar']),
             ],
@@ -80,53 +80,53 @@ class DatabaseChannelTest extends TestCase
         $this->artisan('database-notifications-callback-command');
 
         $this->assertDatabaseMissingMany('custom_notifications', [
-            ['level' => Logger::DEBUG],
-            ['level' => Logger::INFO],
+            ['level' => Level::Debug],
+            ['level' => Level::Info],
         ]);
         $this->assertDatabaseHasMany('custom_notifications', [
             [
-                'level' => Logger::NOTICE,
-                'level_name' => Logger::getLevelName(Logger::NOTICE),
+                'level' => Level::Notice,
+                'level_name' => Level::Notice->getName(),
                 'message' => 'Notice!',
                 'context' => get_dump(['foo' => 'bar']),
                 'custom-field-1' => 'some-additional-data',
                 'custom-field-2' => 'more-additional-data',
                 'custom-field-foo' => 'bar',
             ], [
-                'level' => Logger::WARNING,
-                'level_name' => Logger::getLevelName(Logger::WARNING),
+                'level' => Level::Warning,
+                'level_name' => Level::Warning->getName(),
                 'message' => 'Warning!',
                 'context' => get_dump(['foo' => 'bar']),
                 'custom-field-1' => 'some-additional-data',
                 'custom-field-2' => 'more-additional-data',
                 'custom-field-foo' => 'bar',
             ], [
-                'level' => Logger::ERROR,
-                'level_name' => Logger::getLevelName(Logger::ERROR),
+                'level' => Level::Error,
+                'level_name' => Level::Error->getName(),
                 'message' => 'Error!',
                 'context' => get_dump(['foo' => 'bar']),
                 'custom-field-1' => 'some-additional-data',
                 'custom-field-2' => 'more-additional-data',
                 'custom-field-foo' => 'bar',
             ], [
-                'level' => Logger::CRITICAL,
-                'level_name' => Logger::getLevelName(Logger::CRITICAL),
+                'level' => Level::Critical,
+                'level_name' => Level::Critical->getName(),
                 'message' => 'Critical!',
                 'context' => get_dump(['foo' => 'bar']),
                 'custom-field-1' => 'some-additional-data',
                 'custom-field-2' => 'more-additional-data',
                 'custom-field-foo' => 'bar',
             ], [
-                'level' => Logger::ALERT,
-                'level_name' => Logger::getLevelName(Logger::ALERT),
+                'level' => Level::Alert,
+                'level_name' => Level::Alert->getName(),
                 'message' => 'Alert!',
                 'context' => get_dump(['foo' => 'bar']),
                 'custom-field-1' => 'some-additional-data',
                 'custom-field-2' => 'more-additional-data',
                 'custom-field-foo' => 'bar',
             ], [
-                'level' => Logger::EMERGENCY,
-                'level_name' => Logger::getLevelName(Logger::EMERGENCY),
+                'level' => Level::Emergency,
+                'level_name' => Level::Emergency->getName(),
                 'message' => 'Emergency!',
                 'context' => get_dump(['foo' => 'bar']),
                 'custom-field-1' => 'some-additional-data',

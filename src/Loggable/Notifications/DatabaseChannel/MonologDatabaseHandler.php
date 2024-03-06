@@ -7,7 +7,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Logger;
+use Monolog\Level;
+use Monolog\LogRecord;
 
 class MonologDatabaseHandler extends AbstractProcessingHandler
 {
@@ -24,7 +25,7 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
     /**
      * Create a new instance of the handler.
      */
-    public function __construct(string $table = 'iclogger_notifications', callable $callback = null, int $level = Logger::DEBUG, bool $bubble = true)
+    public function __construct(string $table = 'iclogger_notifications', callable $callback = null, int|string|Level $level = Level::Debug, bool $bubble = true)
     {
         $this->table = $table;
         $this->callback = $callback;
@@ -57,10 +58,10 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
     /**
      * Write the record down to the database.
      */
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
         if (!empty($this->callback)) {
-            call_user_func($this->callback, $record);
+            call_user_func($this->callback, $record->toArray());
             return;
         }
 
@@ -68,10 +69,10 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
         $now = Carbon::now();
 
         DB::table($this->table)->insert([
-            'level' => $record['level'],
-            'level_name' => $record['level_name'],
-            'message' => $record['message'],
-            'context' => get_dump($record['context']),
+            'level' => $record->level->value,
+            'level_name' => $record->level->getName(),
+            'message' => $record->message,
+            'context' => get_dump($record->context),
             'created_at' => $now,
             'updated_at' => $now,
         ]);

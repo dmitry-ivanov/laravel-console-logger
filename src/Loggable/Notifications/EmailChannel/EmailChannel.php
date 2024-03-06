@@ -5,7 +5,7 @@ namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 use Illuminate\Support\Str;
 use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\SymfonyMailerHandler;
-use Monolog\Logger;
+use Monolog\Level;
 use Symfony\Component\Mime\Email;
 
 trait EmailChannel
@@ -54,9 +54,9 @@ trait EmailChannel
     /**
      * Get the email notifications level.
      */
-    protected function getEmailNotificationsLevel(): int
+    protected function getEmailNotificationsLevel(): Level
     {
-        return Logger::NOTICE;
+        return Level::Notice;
     }
 
     /**

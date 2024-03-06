@@ -2,7 +2,7 @@
 
 namespace Illuminated\Console\Loggable\Notifications\DatabaseChannel;
 
-use Monolog\Logger;
+use Monolog\Level;
 
 trait DatabaseChannel
 {
@@ -35,9 +35,9 @@ trait DatabaseChannel
     /**
      * Get the database notifications level.
      */
-    protected function getDatabaseNotificationsLevel(): int
+    protected function getDatabaseNotificationsLevel(): Level
     {
-        return Logger::NOTICE;
+        return Level::Notice;
     }
 
     /**

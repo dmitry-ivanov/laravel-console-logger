@@ -4,6 +4,8 @@ namespace Illuminated\Console\Loggable\Notifications\EmailChannel;
 
 use Illuminate\Support\Str;
 use Monolog\Formatter\HtmlFormatter;
+use Monolog\Level;
+use Monolog\LogRecord;
 
 class MonologHtmlFormatter extends HtmlFormatter
 {
@@ -18,7 +20,7 @@ class MonologHtmlFormatter extends HtmlFormatter
     /**
      * Formats a log record.
      */
-    public function format(array $record): string
+    public function format(LogRecord $record): string
     {
         $output = '<!DOCTYPE html>';
         $output .= '<html lang="en">';
@@ -42,18 +44,27 @@ class MonologHtmlFormatter extends HtmlFormatter
     /**
      * Get color for the given level.
      */
-    public function getLevelColor(int $level): string
+    public function getLevelColor(Level $level): string
     {
-        return $this->logLevels[$level];
+        return match ($level) {
+            Level::Debug     => '#CCCCCC',
+            Level::Info      => '#28A745',
+            Level::Notice    => '#17A2B8',
+            Level::Warning   => '#FFC107',
+            Level::Error     => '#FD7E14',
+            Level::Critical  => '#DC3545',
+            Level::Alert     => '#821722',
+            Level::Emergency => '#000000',
+        };
     }
 
     /**
      * Compose style for the given record.
      */
-    protected function composeStyle(array $record): string
+    protected function composeStyle(LogRecord $record): string
     {
-        $level = $record['level'];
-        $levelName = $record['level_name'];
+        $level = $record->level;
+        $levelName = $record->level->getName();
         $levelColor = $this->getLevelColor($level);
 
         return "<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -91,9 +102,9 @@ class MonologHtmlFormatter extends HtmlFormatter
     /**
      * Compose title for the given record.
      */
-    protected function composeTitle(array $record): string
+    protected function composeTitle(LogRecord $record): string
     {
-        $levelName = e($record['level_name']);
+        $levelName = e($record->level->getName());
         $title = "<h2 class='title {$levelName}'>{$levelName}</h2>";
 
         if (app()->isProduction()) {
@@ -111,16 +122,16 @@ class MonologHtmlFormatter extends HtmlFormatter
     /**
      * Compose details for the given record.
      */
-    protected function composeDetails(array $record): string
+    protected function composeDetails(LogRecord $record): string
     {
         $details = '<table cellspacing="1" width="100%">';
 
-        $details .= $this->composeDetailsRow('Message', (string) $record['message']);
-        if (!empty($record['context'])) {
-            $context = $this->convertToString($record['context']);
+        $details .= $this->composeDetailsRow('Message', $record->message);
+        if (!empty($record->context)) {
+            $context = $this->convertToString($record->context);
             $details .= $this->composeDetailsRow('Context', $context);
         }
-        $details .= $this->composeDetailsRow('Time', $record['datetime']->format($this->dateFormat));
+        $details .= $this->composeDetailsRow('Time', $record->datetime->format($this->dateFormat));
 
         $details .= '</table>';
 

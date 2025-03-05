@@ -7,27 +7,28 @@ use Illuminate\Support\Facades\File;
 use Illuminated\Console\Tests\App\Console\Commands\GenericCommand;
 use Illuminated\Console\Tests\TestCase;
 use Monolog\Handler\NullHandler;
+use PHPUnit\Framework\Attributes\Test;
 
 class FileChannelTest extends TestCase
 {
-    /** @test */
-    public function it_creates_log_file_according_to_the_command_name_and_current_date()
+    #[Test]
+    public function it_creates_log_file_according_to_the_command_name_and_current_date(): void
     {
         $this->artisan('generic');
 
         $this->seeLogFile("generic/{$this->date}.log");
     }
 
-    /** @test */
-    public function it_creates_log_file_in_subfolder_if_command_is_namespaced()
+    #[Test]
+    public function it_creates_log_file_in_subfolder_if_command_is_namespaced(): void
     {
         $this->artisan('namespaced:command');
 
         $this->seeLogFile("namespaced/command/{$this->date}.log");
     }
 
-    /** @test */
-    public function it_provides_automatic_file_rotation_and_only_30_latest_files_are_stored()
+    #[Test]
+    public function it_provides_automatic_file_rotation_and_only_30_latest_files_are_stored(): void
     {
         $path = storage_path('logs/generic');
         $this->createLogFiles($path, 45);
@@ -39,8 +40,8 @@ class FileChannelTest extends TestCase
         $this->assertFilesCount($path, 30);
     }
 
-    /** @test */
-    public function it_supports_separator_in_psr3_methods_which_is_transformed_to_11_blank_lines()
+    #[Test]
+    public function it_supports_separator_in_psr3_methods_which_is_transformed_to_11_blank_lines(): void
     {
         $this->artisan('separator-logging-command');
 

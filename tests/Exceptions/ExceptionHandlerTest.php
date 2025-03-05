@@ -8,11 +8,12 @@ use Illuminated\Console\Exceptions\RuntimeException;
 use Illuminated\Console\Tests\TestCase;
 use Mockery;
 use Monolog\Logger;
+use PHPUnit\Framework\Attributes\Test;
 
 class ExceptionHandlerTest extends TestCase
 {
-    /** @test */
-    public function it_logs_an_error_for_all_occurred_application_notices_warnings_errors_and_exceptions()
+    #[Test]
+    public function it_logs_an_error_for_all_occurred_application_notices_warnings_errors_and_exceptions(): void
     {
         $logger = spy(Logger::class);
 
@@ -30,8 +31,8 @@ class ExceptionHandlerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_supports_sentry()
+    #[Test]
+    public function it_supports_sentry(): void
     {
         app()->instance('sentry', $sentry = spy());
         $exception = new Exception('Test exception', 111);
@@ -43,8 +44,8 @@ class ExceptionHandlerTest extends TestCase
         $sentry->shouldHaveReceived('captureException', [$exception]);
     }
 
-    /** @test */
-    public function it_supports_custom_runtime_exception_which_has_ability_to_set_optional_context()
+    #[Test]
+    public function it_supports_custom_runtime_exception_which_has_ability_to_set_optional_context(): void
     {
         $logger = spy(Logger::class);
 

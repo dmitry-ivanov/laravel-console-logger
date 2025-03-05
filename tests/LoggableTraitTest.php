@@ -7,11 +7,14 @@ use Illuminated\Console\Tests\App\Console\Commands\GenericCommand;
 use Mockery;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use PHPUnit\Framework\Attributes\Test;
 
 class LoggableTraitTest extends TestCase
 {
-    /** @test */
-    public function it_writes_to_log_file_information_header_each_iteration()
+    #[Test]
+    public function it_writes_to_log_file_information_header_each_iteration(): void
     {
         $class = GenericCommand::class;
         $host = gethostname();
@@ -25,8 +28,8 @@ class LoggableTraitTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_does_not_write_mysql_specific_information_for_non_mysql_connections()
+    #[Test]
+    public function it_does_not_write_mysql_specific_information_for_non_mysql_connections(): void
     {
         $this->artisan('generic');
 
@@ -36,12 +39,8 @@ class LoggableTraitTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function it_writes_to_log_file_information_footer_each_iteration_and_close_all_handlers_on_shutdown()
+    #[Test] #[RunInSeparateProcess] #[PreserveGlobalState(false)]
+    public function it_writes_to_log_file_information_footer_each_iteration_and_close_all_handlers_on_shutdown(): void
     {
         $logger = spy(Logger::class);
         $logger->expects('getHandlers')->andReturn([
@@ -60,8 +59,8 @@ class LoggableTraitTest extends TestCase
         $processingHandler2->shouldHaveReceived('close');
     }
 
-    /** @test */
-    public function it_supports_psr3_methods_for_logging()
+    #[Test]
+    public function it_supports_psr3_methods_for_logging(): void
     {
         $this->artisan('generic');
 
@@ -77,8 +76,8 @@ class LoggableTraitTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function psr3_methods_are_supporting_context_and_it_is_logged_as_readable_dump()
+    #[Test]
+    public function psr3_methods_are_supporting_context_and_it_is_logged_as_readable_dump(): void
     {
         $this->artisan('context-logging-command');
 

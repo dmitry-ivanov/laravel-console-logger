@@ -7,75 +7,76 @@ use Illuminated\Console\Loggable\Notifications\EmailChannel\MonologHtmlFormatter
 use Illuminated\Console\Tests\TestCase;
 use Monolog\Level;
 use Monolog\LogRecord;
+use PHPUnit\Framework\Attributes\Test;
 
 class MonologHtmlFormatterTest extends TestCase
 {
-    /** @test */
-    public function it_properly_formats_debug_records()
+    #[Test]
+    public function it_properly_formats_debug_records(): void
     {
         $record = $this->generateRecord('Debug!', Level::Debug);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_properly_formats_info_records()
+    #[Test]
+    public function it_properly_formats_info_records(): void
     {
         $record = $this->generateRecord('Info!', Level::Info);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_properly_formats_notice_records()
+    #[Test]
+    public function it_properly_formats_notice_records(): void
     {
         $record = $this->generateRecord('Notice!', Level::Notice);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_properly_formats_warning_records()
+    #[Test]
+    public function it_properly_formats_warning_records(): void
     {
         $record = $this->generateRecord('Warning!', Level::Warning);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_properly_formats_error_records()
+    #[Test]
+    public function it_properly_formats_error_records(): void
     {
         $record = $this->generateRecord('Error!', Level::Error);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_properly_formats_critical_records()
+    #[Test]
+    public function it_properly_formats_critical_records(): void
     {
         $record = $this->generateRecord('Critical!', Level::Critical);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_properly_formats_alert_records()
+    #[Test]
+    public function it_properly_formats_alert_records(): void
     {
         $record = $this->generateRecord('Alert!', Level::Alert);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_properly_formats_emergency_records()
+    #[Test]
+    public function it_properly_formats_emergency_records(): void
     {
         $record = $this->generateRecord('Emergency!', Level::Emergency);
 
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_properly_formats_records_with_array_context()
+    #[Test]
+    public function it_properly_formats_records_with_array_context(): void
     {
         $record = $this->generateRecord('Record with array context!', Level::Warning, [
             'foo' => 'bar',
@@ -87,8 +88,8 @@ class MonologHtmlFormatterTest extends TestCase
         $this->assertFormatterGeneratesExpectedOutput($record);
     }
 
-    /** @test */
-    public function it_has_no_environment_subtitle_for_production()
+    #[Test]
+    public function it_has_no_environment_subtitle_for_production(): void
     {
         $this->emulateProduction();
         $record = $this->generateRecord('Notice!', Level::Notice);

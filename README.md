@@ -17,7 +17,7 @@ Logging and Notifications for Laravel Console Commands.
 
 | Laravel | Console Logger                                                            |
 |---------|---------------------------------------------------------------------------|
-| 11.x    | _[Support](https://buymeacoffee.com/dmitry.ivanov)_ ☕                     |
+| 11.x    | [11.x](https://github.com/dmitry-ivanov/laravel-console-logger/tree/11.x) |
 | 10.x    | [10.x](https://github.com/dmitry-ivanov/laravel-console-logger/tree/10.x) |
 | 9.x     | [9.x](https://github.com/dmitry-ivanov/laravel-console-logger/tree/9.x)   |
 | 8.x     | [8.x](https://github.com/dmitry-ivanov/laravel-console-logger/tree/8.x)   |

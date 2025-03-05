@@ -6,19 +6,20 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminated\Console\Tests\TestCase;
 use Monolog\Level;
+use PHPUnit\Framework\Attributes\Test;
 
 class DatabaseChannelTest extends TestCase
 {
-    /** @test */
-    public function it_is_not_storing_notifications_to_database_if_it_is_disabled()
+    #[Test]
+    public function it_is_not_storing_notifications_to_database_if_it_is_disabled(): void
     {
         $this->artisan('database-notifications-disabled-command');
 
         $this->assertDatabaseMissingTable('iclogger_notifications');
     }
 
-    /** @test */
-    public function it_stores_notifications_to_database_if_it_is_enabled_and_also_according_to_notifications_level()
+    #[Test]
+    public function it_stores_notifications_to_database_if_it_is_enabled_and_also_according_to_notifications_level(): void
     {
         $this->artisan('database-notifications-command');
 
@@ -61,8 +62,8 @@ class DatabaseChannelTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_provides_an_ability_to_use_custom_database_table_and_callback_for_database_notifications()
+    #[Test]
+    public function it_provides_an_ability_to_use_custom_database_table_and_callback_for_database_notifications(): void
     {
         Schema::create('custom_notifications', function (Blueprint $table) {
             $table->increments('id');

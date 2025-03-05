@@ -7,6 +7,9 @@ use Illuminated\Console\Tests\App\Console\Commands\GenericCommand;
 use Mockery;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use PHPUnit\Framework\Attributes\Test;
 
 class LoggableTraitOnMysqlTest extends TestCase
 {
@@ -23,8 +26,8 @@ class LoggableTraitOnMysqlTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_writes_to_log_file_information_header_each_iteration()
+    #[Test]
+    public function it_writes_to_log_file_information_header_each_iteration(): void
     {
         $class = GenericCommand::class;
         $host = gethostname();
@@ -38,8 +41,8 @@ class LoggableTraitOnMysqlTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_writes_to_log_file_mysql_specific_information_after_header()
+    #[Test]
+    public function it_writes_to_log_file_mysql_specific_information_after_header(): void
     {
         $dbIp = (string) db_mysql_variable('wsrep_node_address');
         $dbHost = (string) db_mysql_variable('hostname');
@@ -53,12 +56,8 @@ class LoggableTraitOnMysqlTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function it_writes_to_log_file_information_footer_each_iteration_and_close_all_handlers_on_shutdown()
+    #[Test] #[RunInSeparateProcess] #[PreserveGlobalState(false)]
+    public function it_writes_to_log_file_information_footer_each_iteration_and_close_all_handlers_on_shutdown(): void
     {
         $logger = spy(Logger::class);
         $logger->expects('getHandlers')->andReturn([

@@ -12,19 +12,20 @@ use Monolog\Handler\DeduplicationHandler;
 use Monolog\Handler\Handler;
 use Monolog\Handler\SymfonyMailerHandler;
 use Monolog\Level;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Mime\Email;
 
 class EmailChannelTest extends TestCase
 {
-    /** @test */
-    public function it_validates_and_filters_notification_recipients()
+    #[Test]
+    public function it_validates_and_filters_notification_recipients(): void
     {
         $this->artisan(EmailNotificationsInvalidRecipientsCommand::class);
         $this->assertNotInstanceOf(SymfonyMailerHandler::class, $this->emailChannelHandler());
     }
 
-    /** @test */
-    public function it_uses_configured_monolog_symfony_mailer_handler_on_mail_driver()
+    #[Test]
+    public function it_uses_configured_monolog_symfony_mailer_handler_on_mail_driver(): void
     {
         config(['mail.driver' => 'mail']);
 
@@ -33,8 +34,8 @@ class EmailChannelTest extends TestCase
         $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $this->emailChannelHandler());
     }
 
-    /** @test */
-    public function it_uses_configured_monolog_symfony_mailer_handler_on_smtp_driver()
+    #[Test]
+    public function it_uses_configured_monolog_symfony_mailer_handler_on_smtp_driver(): void
     {
         config([
             'mail.driver' => 'smtp',
@@ -47,8 +48,8 @@ class EmailChannelTest extends TestCase
         $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $this->emailChannelHandler());
     }
 
-    /** @test */
-    public function it_uses_configured_monolog_symfony_mailer_handler_on_sendmail_driver()
+    #[Test]
+    public function it_uses_configured_monolog_symfony_mailer_handler_on_sendmail_driver(): void
     {
         config(['mail.driver' => 'sendmail']);
 
@@ -57,8 +58,8 @@ class EmailChannelTest extends TestCase
         $this->assertMailerHandlersEqual($this->composeSymfonyMailerHandler(), $this->emailChannelHandler());
     }
 
-    /** @test */
-    public function it_uses_configured_monolog_deduplication_handler_if_deduplication_enabled()
+    #[Test]
+    public function it_uses_configured_monolog_deduplication_handler_if_deduplication_enabled(): void
     {
         config(['mail.driver' => 'sendmail']);
 

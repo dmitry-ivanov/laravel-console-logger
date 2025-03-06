@@ -13,20 +13,20 @@
     }],
     "require": {
         "php": "^8.2",
-        "illuminate/console": "^11.0",
-        "illuminate/support": "^11.0",
-        "illuminated/helper-functions": "^11.0",
+        "illuminate/console": "^12.0",
+        "illuminate/support": "^12.0",
+        "illuminated/helper-functions": "^12.0",
         "monolog/monolog": "^3.0",
         "psr/http-message": "^1.0",
         "psr/log": "^1.0|^2.0|^3.0",
-        "symfony/finder": "^7.0.3"
+        "symfony/finder": "^7.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^11.3.6",
+        "phpunit/phpunit": "^11.5.3",
         "mockery/mockery": "^1.6.10",
         "guzzlehttp/guzzle": "^7.8.2",
-        "orchestra/testbench": "^9.11.2",
-        "illuminated/testing-tools": "^11.0"
+        "orchestra/testbench": "^10.0",
+        "illuminated/testing-tools": "^12.0"
     },
     "autoload": {
         "files": [

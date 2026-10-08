@@ -89,6 +89,21 @@ class MonologHtmlFormatterTest extends TestCase
     }
 
     #[Test]
+    public function it_converts_non_array_values_to_strings(): void
+    {
+        $formatter = new class extends MonologHtmlFormatter {
+            public function convertToString(mixed $data): string
+            {
+                return parent::convertToString($data);
+            }
+        };
+
+        $this->assertSame('foo', $formatter->convertToString('foo'));
+        $this->assertSame('123', $formatter->convertToString(123));
+        $this->assertSame('', $formatter->convertToString(null));
+    }
+
+    #[Test]
     public function it_has_no_environment_subtitle_for_production(): void
     {
         $this->emulateProduction();
@@ -116,7 +131,7 @@ class MonologHtmlFormatterTest extends TestCase
         $this->assertEquals(
             $this->normalizeOutput($expected),
             $this->normalizeOutput($actual),
-            'Generated html formatter output is not expected.'
+            'Generated HTML formatter output is not expected.'
         );
     }
 

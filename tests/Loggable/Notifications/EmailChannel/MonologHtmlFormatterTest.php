@@ -91,7 +91,8 @@ class MonologHtmlFormatterTest extends TestCase
     #[Test]
     public function it_converts_non_array_values_to_strings(): void
     {
-        $formatter = new class extends MonologHtmlFormatter {
+        $formatter = new class extends MonologHtmlFormatter
+        {
             public function convertToString(mixed $data): string
             {
                 return parent::convertToString($data);

@@ -15,7 +15,7 @@ class RuntimeException extends SymfonyRuntimeException
     /**
      * Create a new instance of the exception.
      */
-    public function __construct(string $message = '', array $context = [], int $code = 0, Exception $previous = null)
+    public function __construct(string $message = '', array $context = [], int $code = 0, ?Exception $previous = null)
     {
         $this->context = $context;
 

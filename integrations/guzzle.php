@@ -13,7 +13,7 @@ if (!function_exists('iclogger_guzzle_middleware')) {
      * @see https://github.com/dmitry-ivanov/laravel-console-logger#guzzle-6-integration
      * @see http://docs.guzzlephp.org/en/stable/handlers-and-middleware.html
      */
-    function iclogger_guzzle_middleware(LoggerInterface $logger, string $type = 'raw', callable $shouldLogRequestParams = null, callable $shouldLogResponseBody = null): Closure
+    function iclogger_guzzle_middleware(LoggerInterface $logger, string $type = 'raw', ?callable $shouldLogRequestParams = null, ?callable $shouldLogResponseBody = null): Closure
     {
         return function (callable $handler) use ($logger, $type, $shouldLogRequestParams, $shouldLogResponseBody) {
             return function (RequestInterface $request, array $options) use ($handler, $logger, $type, $shouldLogRequestParams, $shouldLogResponseBody) {
@@ -74,7 +74,6 @@ if (!function_exists('iclogger_guzzle_middleware')) {
                             }
                             // Save the parsed body of response, so that it could be re-used instead of double decoding
                             if (!empty($context)) {
-                                /** @noinspection PhpUndefinedFieldInspection */
                                 $response->iclParsedBody = $context;
                             }
                         }

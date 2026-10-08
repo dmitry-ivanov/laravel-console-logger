@@ -25,7 +25,7 @@ class MonologDatabaseHandler extends AbstractProcessingHandler
     /**
      * Create a new instance of the handler.
      */
-    public function __construct(string $table = 'iclogger_notifications', callable $callback = null, int|string|Level $level = Level::Debug, bool $bubble = true)
+    public function __construct(string $table = 'iclogger_notifications', ?callable $callback = null, int|string|Level $level = Level::Debug, bool $bubble = true)
     {
         $this->table = $table;
         $this->callback = $callback;
